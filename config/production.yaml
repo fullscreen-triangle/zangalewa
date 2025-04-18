@@ -1,0 +1,44 @@
+# Zangalewa Production Configuration
+# This file overrides settings from default.yaml for production environments
+
+# LLM Integration Settings
+llm:
+  # Use more reliable settings for production
+  openai:
+    retry_attempts: 5
+    timeout: 90
+  anthropic:
+    retry_attempts: 5
+    timeout: 90
+
+# Command Execution Settings
+executor:
+  safe_mode: true  # Maximum security in production
+  timeout: 180  # More conservative timeout
+  max_memory: 1024  # More conservative memory limit
+
+# Error Handling Settings
+errors:
+  auto_fix: true  # Still allow auto-fixing in production
+  search_web: true  # Allow web searches
+  max_fix_attempts: 2  # More conservative in production
+
+# Logging Settings
+logging:
+  level: "INFO"  # Standard logging level for production
+  rotation: "daily"  # Enable log rotation
+  backup_count: 30  # Keep more log backups in production
+
+# UI/UX Settings
+ui:
+  verbosity_level: 1  # Standard verbosity level
+  animation_enabled: false  # Disable animations for better performance
+
+# Git Integration Settings
+git:
+  auto_commit: true  # Automatic commits in production
+  auto_commit_message: "Auto-fix by Zangalewa (PROD): {description}"  # Mark as production
+
+# Web Search Settings
+web_search:
+  timeout: 15  # Faster timeouts for production 

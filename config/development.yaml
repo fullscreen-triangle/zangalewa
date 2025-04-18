@@ -1,0 +1,38 @@
+# Zangalewa Development Configuration
+# This file overrides settings from default.yaml for development environments
+
+# LLM Integration Settings
+llm:
+  # Use a more cost-effective model for development
+  openai:
+    model: "gpt-3.5-turbo"
+  anthropic:
+    model: "claude-instant-1"
+
+# Command Execution Settings
+executor:
+  safe_mode: false  # Allow more operations in development
+  timeout: 600  # Longer timeout for development debugging
+
+# Error Handling Settings
+errors:
+  auto_fix: true
+  search_web: true
+  max_fix_attempts: 5  # More fix attempts in development
+
+# Logging Settings
+logging:
+  level: "DEBUG"  # More verbose logging in development
+  rotation: "none"  # No log rotation in development
+
+# UI/UX Settings
+ui:
+  verbosity_level: 3  # More verbose output in development
+
+# Git Integration Settings
+git:
+  auto_commit: false  # Manual commits in development
+
+# Web Search Settings
+web_search:
+  results_limit: 10  # More search results in development 

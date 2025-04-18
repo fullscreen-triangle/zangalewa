@@ -1,0 +1,102 @@
+# Zangalewa Default Configuration
+
+# LLM Integration Settings
+llm:
+  primary_provider: "openai"  # Options: openai, anthropic
+  openai:
+    model: "gpt-4"
+    temperature: 0.2
+    max_tokens: 4000
+    timeout: 60
+    retry_attempts: 3
+  anthropic:
+    model: "claude-2"
+    temperature: 0.2
+    max_tokens: 4000
+    timeout: 60
+    retry_attempts: 3
+
+# Command Execution Settings
+executor:
+  timeout: 300  # Default timeout for commands in seconds
+  max_memory: 2048  # Maximum memory allocation in MB
+  max_output_size: 10485760  # Maximum output size in bytes (10MB)
+  safe_mode: true  # Execute commands in safe mode (restricted operations)
+  show_resource_usage: true  # Show resource usage after command execution
+
+# Error Handling Settings
+errors:
+  auto_fix: true  # Attempt to automatically fix errors
+  search_web: true  # Search web for error solutions
+  max_fix_attempts: 3  # Maximum number of fix attempts
+  git_integration: true  # Use git to track changes during error resolution
+  error_log_file: "logs/errors.log"
+
+# Knowledge Base Settings
+knowledge:
+  index_location: ".cache/knowledge_index"
+  chunk_size: 1000  # Size of text chunks for embedding
+  chunk_overlap: 200  # Overlap between chunks
+  search_top_k: 5  # Number of top results to return in search
+  update_frequency: "daily"  # How often to update the knowledge base
+
+# UI/UX Settings
+ui:
+  theme: "default"  # Options: default, dark, light, custom
+  color_scheme:
+    primary: "#5F4B8B"
+    secondary: "#E69A8D"
+    accent: "#00B2CA"
+    success: "#42E2B8"
+    error: "#F44336"
+    warning: "#FFEB3B"
+    info: "#2196F3"
+  animation_enabled: true
+  show_progress_bar: true
+  verbosity_level: 2  # 0=minimal, 1=normal, 2=verbose
+
+# Project Management Settings
+project:
+  default_dir: "~/projects"
+  auto_detect_project_type: true
+  supported_frameworks:
+    - python
+    - nodejs
+    - react
+    - bioinformatics
+
+# Codebase Analysis Settings
+analysis:
+  max_files: 1000  # Maximum number of files to analyze
+  exclude_patterns:
+    - "**/.git/**"
+    - "**/node_modules/**"
+    - "**/__pycache__/**"
+    - "**/venv/**"
+  include_patterns:
+    - "**/*.py"
+    - "**/*.js"
+    - "**/*.jsx"
+    - "**/*.ts"
+    - "**/*.tsx"
+
+# Git Integration Settings
+git:
+  enabled: true
+  auto_commit: true
+  auto_commit_message: "Auto-fix by Zangalewa: {description}"
+  branch_prefix: "zangalewa-fix-"
+
+# Logging Settings
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  file: "logs/zangalewa.log"
+  rotation: "daily"  # none, hourly, daily, weekly
+  max_size: 10485760  # Maximum log file size in bytes (10MB)
+  backup_count: 5  # Number of backup files to keep
+
+# Web Search Settings
+web_search:
+  provider: "google"  # Options: google, bing, duckduckgo
+  results_limit: 5
+  timeout: 30 
