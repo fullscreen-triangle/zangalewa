@@ -1,0 +1,32 @@
+# Zangalewa Custom Configuration Example
+
+# API settings
+api:
+  openai_api_key: ${OPENAI_API_KEY}  # Set this in your environment or .env file
+  anthropic_api_key: ${ANTHROPIC_API_KEY}  # Set this in your environment or .env file
+  default_provider: "openai"  # Can be "openai" or "anthropic"
+  model: "gpt-4"  # For OpenAI, use models like "gpt-4" or "gpt-3.5-turbo"
+                  # For Anthropic, use models like "claude-2" or "claude-instant"
+
+# Application settings
+app:
+  log_level: "INFO"  # Options: DEBUG, INFO, WARNING, ERROR
+  cache_enabled: true
+  cache_location: "~/.zangalewa/cache"
+  history_enabled: true  # Enable query history
+  history_size: 100  # Number of queries to keep in history
+
+# Bioinformatics settings
+bioinformatics:
+  default_db: "uniprotkb"
+  default_alignment_tool: "clustalw"
+  enable_visualization: true
+  sequence_type_detection: "auto"  # Options: auto, dna, rna, protein
+
+# UI settings
+ui:
+  theme: "dark"  # Options: dark, light
+  syntax_highlighting: true
+  rich_output: true  # Enable rich text formatting
+  max_output_width: 100
+  show_timing: true  # Show execution time for commands 
