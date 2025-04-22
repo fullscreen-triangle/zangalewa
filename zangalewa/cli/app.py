@@ -26,9 +26,56 @@ from zangalewa.utils.logging import setup_logging
 from zangalewa.cli.commands.error_cmd import command_error_demo
 from zangalewa.cli.commands.auto_fix_cmd import command_auto_fix, command_auto_fix_script
 from zangalewa.cli.package_monitor import PackageMonitor, main as monitor_main
+from zangalewa.cli.model_setup_cmd import models as models_cmd
+from zangalewa.utils.model_setup import check_ollama_installed, check_ollama_running, get_installed_models
 
 # Setup console for rich output
 console = Console()
+
+# Check if required models are available
+def check_required_models() -> bool:
+    """
+    Check if the required models are available.
+    Returns True if all required models are available, False otherwise.
+    """
+    # Skip check if running the models command
+    if len(sys.argv) > 1 and (sys.argv[1] == "models" or sys.argv[1] == "--version" or sys.argv[1] == "-h" or sys.argv[1] == "--help"):
+        return True
+
+    if not check_ollama_installed():
+        console.print("[red]ERROR: Ollama is not installed.[/red]")
+        console.print("Zangalewa requires Ollama for local language models.")
+        console.print("Please install Ollama from [link]https://ollama.ai[/link]")
+        console.print("Then run [bold]zangalewa models setup --all[/bold] to install required models")
+        return False
+    
+    if not check_ollama_running():
+        console.print("[red]ERROR: Ollama service is not running.[/red]")
+        console.print("Please start Ollama with [bold]ollama serve[/bold]")
+        console.print("Then run [bold]zangalewa models setup --all[/bold] to install required models")
+        return False
+    
+    installed_models = get_installed_models()
+    required_models = {
+        "mistral": "general interaction and orchestration",
+        "codellama:7b-python": "Python code generation and analysis",
+        "deepseek-coder:6.7b": "React and general code generation"
+    }
+    
+    missing_models = []
+    for model_name, purpose in required_models.items():
+        if model_name not in installed_models:
+            missing_models.append(f"{model_name} ({purpose})")
+    
+    if missing_models:
+        console.print("[red]ERROR: Required models are missing:[/red]")
+        for model in missing_models:
+            console.print(f"  - [red]{model}[/red]")
+        console.print("\nZangalewa requires these models to function.")
+        console.print("Please run [bold]zangalewa models setup --all[/bold] to install all required models")
+        return False
+    
+    return True
 
 # Command registry
 COMMANDS = {
@@ -47,6 +94,10 @@ COMMANDS = {
     "monitor": {
         "callback": monitor_main,
         "help": "Monitor and run Python packages"
+    },
+    "models": {
+        "callback": models_cmd,
+        "help": "Set up and manage required language models"
     }
 }
 
@@ -155,8 +206,30 @@ class ZangalewaApp(App):
             
             return "Unknown monitor command. Try 'monitor list', 'monitor start [package]', 'monitor stop [package]', or 'monitor run [packages...]'"
         
-        # TODO: Implement AI processing for other commands
-        return f"Received: {user_input}"
+        # Process with LLM
+        system_prompt = """You are Zangalewa, an intelligent command-line assistant.
+        Help the user with their query or command. Be concise and helpful."""
+        
+        messages = [{"role": "user", "content": user_input}]
+        
+        # Determine if this is a Python code or React code task
+        task_type = "chat"
+        if "python" in user_input.lower() or ".py" in user_input.lower():
+            task_type = "python_code"
+        elif "react" in user_input.lower() or "jsx" in user_input.lower() or "tsx" in user_input.lower():
+            task_type = "react_code"
+        
+        try:
+            response = await self.llm_manager.generate_response(
+                messages=messages,
+                system_prompt=system_prompt,
+                temperature=0.7,
+                max_tokens=2000,
+                task_type=task_type
+            )
+            return response
+        except Exception as e:
+            return f"Error processing your request: {str(e)}"
     
     def _display_result(self, result):
         """Display the result in the UI."""
@@ -243,6 +316,21 @@ def parse_args(args: List[str]) -> tuple:
     watch_parser = monitor_subparsers.add_parser("watch", help="Watch package output")
     watch_parser.add_argument("package", help="Package to watch")
     
+    # Models command
+    models_parser = subparsers.add_parser("models", help="Set up and manage required language models")
+    models_subparsers = models_parser.add_subparsers(dest="models_command", help="Models subcommand")
+    
+    # Status subcommand
+    status_parser = models_subparsers.add_parser("status", help="Check status of required models")
+    
+    # Setup subcommand
+    setup_parser = models_subparsers.add_parser("setup", help="Set up required models")
+    setup_parser.add_argument("--all", action="store_true", help="Install all required models (recommended)")
+    setup_parser.add_argument("--mistral", action="store_true", help="Install Mistral 7B model")
+    setup_parser.add_argument("--codellama", action="store_true", help="Install CodeLlama 7B Python model")
+    setup_parser.add_argument("--deepseek", action="store_true", help="Install DeepSeek Coder 6.7B model")
+    setup_parser.add_argument("--wizard", action="store_true", help="Run the interactive setup wizard")
+    
     # Parse the arguments
     parsed_args = parser.parse_args(args)
     
@@ -264,6 +352,11 @@ def parse_args(args: List[str]) -> tuple:
     if parsed_args.command == "monitor":
         # Forward to the monitor module
         return ("monitor", {"args": args[1:]})
+        
+    # Handle models command
+    if parsed_args.command == "models":
+        # Forward to the models module
+        return ("models", {"args": args[1:]})
     
     # Handle specific commands
     command = parsed_args.command
@@ -298,7 +391,13 @@ def main() -> int:
     
     if not command:
         return 0  # Help was printed or version was shown
-        
+    
+    # For models command, we always allow it to run
+    if command != "models":
+        # Check required models before running other commands
+        if not check_required_models():
+            return 1
+    
     if command == "interactive":
         # Run the interactive TUI app
         try:
@@ -312,6 +411,11 @@ def main() -> int:
         monitor_args = parsed_args.get("args", [])
         sys.argv = [sys.argv[0]] + monitor_args
         monitor_main()
+    elif command == "models":
+        # Run the models module directly
+        models_args = parsed_args.get("args", [])
+        sys.argv = [sys.argv[0]] + models_args
+        models_cmd()
     else:
         # Run the specific command
         asyncio.run(run_command(command, parsed_args))
