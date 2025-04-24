@@ -10,8 +10,7 @@ from typing import Dict, List, Any, Optional, Union
 from zangalewa.utils.config import get_config
 from zangalewa.core.llm.prompts import load_system_prompt
 from zangalewa.core.llm.adapters import (
-    ModelAdapter, OpenAIAdapter, AnthropicAdapter,
-    OllamaAdapter, MistralAdapter, CodeLlamaAdapter, DeepSeekCoderAdapter, HuggingFaceAdapter
+    ModelAdapter, OpenAIAdapter, AnthropicAdapter, HuggingFaceAdapter
 )
 
 logger = logging.getLogger(__name__)
@@ -19,13 +18,13 @@ logger = logging.getLogger(__name__)
 class LLMManager:
     """
     Manager for language model interactions, supporting both
-    commercial and open-source/local models.
+    commercial and hosted models.
     """
     
     def __init__(self):
         """Initialize the LLM manager."""
         self.config = get_config()
-        self.provider = self.config.get("LLM_PROVIDER", "auto")
+        self.provider = self.config.get("LLM_PROVIDER", "huggingface")
         self.adapters = {}
         
         # Initialize adapters
@@ -36,11 +35,38 @@ class LLMManager:
     
     def _init_adapters(self):
         """Initialize model adapters based on configuration."""
-        # Initialize local model adapters - these are REQUIRED
-        self.adapters["mistral"] = MistralAdapter()
-        self.adapters["codellama"] = CodeLlamaAdapter()
-        self.adapters["deepseek"] = DeepSeekCoderAdapter()
-        self.adapters["ollama"] = OllamaAdapter(self.config.get("OLLAMA_MODEL", "mistral"))
+        # Initialize HuggingFace adapters for different purposes
+        huggingface_api_key = self.config.get("HUGGINGFACE_API_KEY")
+        
+        if not huggingface_api_key:
+            logger.warning("HuggingFace API key not found. Most functionality will be unavailable.")
+        
+        # General purpose model
+        general_model = self.config.get("HUGGINGFACE_GENERAL_MODEL", "mistralai/Mistral-7B-Instruct-v0.2")
+        self.adapters["general"] = HuggingFaceAdapter(
+            api_key=huggingface_api_key,
+            model_name=general_model,
+            use_local=False
+        )
+        logger.info(f"HuggingFace general adapter initialized with model: {general_model}")
+        
+        # Code generation model
+        code_model = self.config.get("HUGGINGFACE_CODE_MODEL", "codellama/CodeLlama-7b-hf")
+        self.adapters["code"] = HuggingFaceAdapter(
+            api_key=huggingface_api_key,
+            model_name=code_model,
+            use_local=False
+        )
+        logger.info(f"HuggingFace code adapter initialized with model: {code_model}")
+        
+        # Frontend code model
+        frontend_model = self.config.get("HUGGINGFACE_FRONTEND_MODEL", "deepseek-ai/deepseek-coder-6.7b-base")
+        self.adapters["frontend"] = HuggingFaceAdapter(
+            api_key=huggingface_api_key,
+            model_name=frontend_model,
+            use_local=False
+        )
+        logger.info(f"HuggingFace frontend adapter initialized with model: {frontend_model}")
         
         # Initialize commercial adapters if API keys are available (optional)
         openai_api_key = self.config.get("OPENAI_API_KEY")
@@ -55,40 +81,7 @@ class LLMManager:
             self.adapters["anthropic"] = AnthropicAdapter(anthropic_api_key, model)
             logger.info(f"Anthropic adapter initialized with model: {model}")
         
-        # Initialize HuggingFace API adapter if API key is available
-        huggingface_api_key = self.config.get("HUGGINGFACE_API_KEY")
-        if huggingface_api_key:
-            model = self.config.get("HUGGINGFACE_MODEL", "mistralai/Mistral-7B-Instruct-v0.2")
-            self.adapters["huggingface"] = HuggingFaceAdapter(
-                api_key=huggingface_api_key, 
-                model_name=model,
-                use_local=False
-            )
-            logger.info(f"Hugging Face API adapter initialized with model: {model}")
-        
-        # Initialize local HuggingFace adapter if configured
-        try:
-            # Check if local_huggingface config section is present
-            local_hf_config = self.config.get("llm", {}).get("local_huggingface", {})
-            if local_hf_config:
-                model = local_hf_config.get("model", "mistralai/Mistral-7B-Instruct-v0.2")
-                device = local_hf_config.get("device", "auto")
-                load_in_4bit = local_hf_config.get("load_in_4bit", True)
-                load_in_8bit = local_hf_config.get("load_in_8bit", False)
-                
-                self.adapters["local_huggingface"] = HuggingFaceAdapter(
-                    api_key=None,
-                    model_name=model,
-                    use_local=True,
-                    device=device,
-                    load_in_4bit=load_in_4bit,
-                    load_in_8bit=load_in_8bit
-                )
-                logger.info(f"Local Hugging Face adapter initialized with model: {model}")
-        except Exception as e:
-            logger.warning(f"Failed to initialize local Hugging Face adapter: {e}")
-        
-        # Check which local models are available
+        # Check which models are available
         available_models = []
         for name, adapter in self.adapters.items():
             if adapter.is_available():
@@ -102,22 +95,10 @@ class LLMManager:
         Check if required models are available.
         Raises an error if required models are missing.
         """
-        required_models = {
-            "mistral": "general interaction and orchestration",
-            "codellama": "Python code generation and analysis",
-            "deepseek": "React and general code generation"
-        }
-        
-        missing_models = []
-        for model_name, purpose in required_models.items():
-            if model_name not in self.adapters or not self.adapters[model_name].is_available():
-                missing_models.append(f"{model_name} (for {purpose})")
-        
-        if missing_models:
+        if not self.get_available_providers():
             error_message = (
-                f"Required models are not available: {', '.join(missing_models)}. "
-                f"Please install the missing models using 'zangalewa models setup --all'. "
-                f"Zangalewa requires these local models to function."
+                "No language models are available. Please ensure you have set the HUGGINGFACE_API_KEY "
+                "environment variable or in your configuration file."
             )
             logger.error(error_message)
             raise RuntimeError(error_message)
@@ -157,11 +138,11 @@ class LLMManager:
         
         if not provider_to_use:
             if task_type == "python_code":
-                provider_to_use = "codellama"  # Use CodeLlama for Python code
+                provider_to_use = "code"  # Use code model for Python code
             elif task_type == "react_code":
-                provider_to_use = "deepseek"   # Use DeepSeek for React code
+                provider_to_use = "frontend"  # Use frontend model for React code
             elif task_type == "chat" or task_type is None:
-                provider_to_use = "mistral"    # Use Mistral for general chat/orchestration
+                provider_to_use = "general"  # Use general model for chat/orchestration
             else:
                 provider_to_use = self.provider  # Use configured provider
         
@@ -180,7 +161,7 @@ class LLMManager:
             # Try any available adapter
             available_providers = self.get_available_providers()
             if not available_providers:
-                raise RuntimeError("No language models are available. Please install Ollama and run 'zangalewa models setup --all'.")
+                raise RuntimeError("No language models are available. Please set the HUGGINGFACE_API_KEY environment variable.")
             
             provider_to_use = available_providers[0]
             logger.info(f"Using available provider: {provider_to_use}")
@@ -204,34 +185,26 @@ class LLMManager:
         available_providers = self.get_available_providers()
         
         # Task-specific model selection
-        if task_type == "python_code" and "codellama" in available_providers:
-            return "codellama"
-        elif task_type == "react_code" and "deepseek" in available_providers:
-            return "deepseek"
-        elif (task_type == "chat" or task_type is None) and "mistral" in available_providers:
-            return "mistral"
+        if task_type == "python_code" and "code" in available_providers:
+            return "code"
+        elif task_type == "react_code" and "frontend" in available_providers:
+            return "frontend"
+        elif (task_type == "chat" or task_type is None) and "general" in available_providers:
+            return "general"
         
         # If commercial models are available, use them for complex tasks
         if "openai" in available_providers:
             return "openai"
         elif "anthropic" in available_providers:
             return "anthropic"
-        elif "huggingface" in available_providers:
-            return "huggingface"
         
-        # If local HuggingFace model is available, use it
-        if "local_huggingface" in available_providers:
-            return "local_huggingface"
-        
-        # If local models are available, use them based on preference
-        if "codellama" in available_providers:
-            return "codellama"
-        elif "deepseek" in available_providers:
-            return "deepseek"
-        elif "mistral" in available_providers:
-            return "mistral"
-        elif "ollama" in available_providers:
-            return "ollama"
+        # If HuggingFace models are available, use them
+        if "general" in available_providers:
+            return "general"
+        elif "code" in available_providers:
+            return "code"
+        elif "frontend" in available_providers:
+            return "frontend"
         
         # No models available
-        raise RuntimeError("No language models are available. Please install Ollama and run 'zangalewa models setup --all'.") 
+        raise RuntimeError("No language models are available. Please set the HUGGINGFACE_API_KEY environment variable.") 

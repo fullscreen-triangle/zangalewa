@@ -251,34 +251,21 @@ class AnthropicAdapter(ModelAdapter):
 
 
 class HuggingFaceAdapter(ModelAdapter):
-    """Adapter for Hugging Face models."""
+    """Adapter for Hugging Face models via their API."""
     
-    def __init__(self, api_key=None, model_name=None, use_local=False, device=None, 
-                 load_in_4bit=False, load_in_8bit=False):
+    def __init__(self, api_key=None, model_name=None):
         """
         Initialize the Hugging Face adapter.
         
         Args:
-            api_key: Hugging Face API key (for API-based models)
+            api_key: Hugging Face API key
             model_name: Name of the model to use
-            use_local: Whether to use a local model (True) or API (False)
-            device: Device to load model on ("cpu", "cuda:0", "auto", etc.)
-            load_in_4bit: Whether to use 4-bit quantization (requires bitsandbytes)
-            load_in_8bit: Whether to use 8-bit quantization (requires bitsandbytes)
         """
         self.api_key = api_key
         self.model_name = model_name or "mistralai/Mistral-7B-Instruct-v0.2"
-        self.use_local = use_local
-        self.device = device or "auto"
-        self.load_in_4bit = load_in_4bit
-        self.load_in_8bit = load_in_8bit
-        
-        # Initialize clients based on mode (API or local)
         self.client = None
-        self.tokenizer = None
-        self.model = None
         
-        if not use_local and api_key:
+        if api_key:
             try:
                 from huggingface_hub.inference_api import InferenceApi
                 self.client = InferenceApi(
@@ -288,78 +275,24 @@ class HuggingFaceAdapter(ModelAdapter):
                 logger.info(f"Initialized Hugging Face API client for model: {self.model_name}")
             except ImportError:
                 logger.warning("huggingface_hub not installed, cannot use Hugging Face API")
+                logger.warning("Please install with: pip install huggingface_hub")
             except Exception as e:
                 logger.error(f"Failed to initialize Hugging Face API client: {e}")
-        elif use_local:
-            # Local model will be loaded on first use to avoid startup delays
-            logger.info(f"Hugging Face local adapter initialized for model: {self.model_name}")
-            
-    async def _load_local_model(self):
-        """Load the local Hugging Face model if not already loaded."""
-        if self.model is not None and self.tokenizer is not None:
-            return True
-            
-        try:
-            from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
-            import torch
-            
-            logger.info(f"Loading local Hugging Face model: {self.model_name}")
-            
-            # Determine quantization config
-            quantization_config = None
-            if self.load_in_4bit or self.load_in_8bit:
-                try:
-                    quantization_config = BitsAndBytesConfig(
-                        load_in_4bit=self.load_in_4bit,
-                        load_in_8bit=self.load_in_8bit,
-                        bnb_4bit_compute_dtype=torch.float16
-                    )
-                except ImportError:
-                    logger.warning("bitsandbytes not installed, cannot use quantization")
-            
-            # Determine device mapping
-            device_map = self.device if self.device != "auto" else "auto"
-            
-            # Load tokenizer
-            self.tokenizer = AutoTokenizer.from_pretrained(
-                self.model_name,
-                trust_remote_code=True
-            )
-            
-            # Load model
-            self.model = AutoModelForCausalLM.from_pretrained(
-                self.model_name,
-                quantization_config=quantization_config,
-                device_map=device_map,
-                trust_remote_code=True,
-                torch_dtype=torch.float16 if device_map != "cpu" else None
-            )
-            
-            logger.info(f"Successfully loaded local Hugging Face model: {self.model_name}")
-            return True
-        except ImportError as e:
-            logger.error(f"Required packages not installed for local Hugging Face models: {e}")
-            return False
-        except Exception as e:
-            logger.error(f"Failed to load local Hugging Face model: {e}")
-            return False
     
-    def is_available(self):
-        """Check if the Hugging Face model is available."""
-        if not self.use_local and self.api_key:
-            return self.client is not None
-        elif self.use_local:
-            try:
-                import transformers
-                import torch
-                return True
-            except ImportError:
-                return False
-        return False
+    def is_available(self) -> bool:
+        """Check if the Hugging Face API is available."""
+        return self.client is not None
     
-    async def generate(self, messages, system_prompt=None, temperature=0.7, max_tokens=1000):
+    async def generate(
+        self,
+        messages: List[Dict[str, str]],
+        system_prompt: str = None,
+        temperature: float = 0.7,
+        max_tokens: int = 1000,
+        **kwargs
+    ) -> str:
         """
-        Generate a response from the Hugging Face model.
+        Generate a response from the Hugging Face model via API.
         
         Args:
             messages: List of message dictionaries with 'role' and 'content'
@@ -370,64 +303,27 @@ class HuggingFaceAdapter(ModelAdapter):
         Returns:
             Generated text
         """
+        if not self.is_available():
+            raise RuntimeError("Hugging Face API client is not available")
+        
         # Format messages according to model requirements
         formatted_prompt = self._format_messages(messages, system_prompt)
         
-        if not self.use_local and self.client:
-            # API-based generation
-            try:
-                response = self.client.text_generation(
-                    prompt=formatted_prompt,
-                    parameters={
-                        "temperature": temperature,
-                        "max_new_tokens": max_tokens,
-                        "return_full_text": False
-                    }
-                )
-                return response
-            except Exception as e:
-                logger.error(f"Error generating text with Hugging Face API: {e}")
-                raise RuntimeError(f"Failed to generate text with Hugging Face API: {e}")
-        elif self.use_local:
-            # Local model generation
-            if not await self._load_local_model():
-                raise RuntimeError("Failed to load local Hugging Face model")
-            
-            try:
-                import torch
-                from transformers import TextIteratorStreamer
-                from threading import Thread
-                
-                inputs = self.tokenizer(formatted_prompt, return_tensors="pt")
-                inputs = inputs.to(self.model.device)
-                
-                # Set generation parameters
-                generation_config = {
-                    "max_new_tokens": max_tokens,
+        try:
+            response = self.client.text_generation(
+                prompt=formatted_prompt,
+                parameters={
                     "temperature": temperature,
-                    "do_sample": temperature > 0,
-                    "top_p": 0.95,
-                    "repetition_penalty": 1.1
+                    "max_new_tokens": max_tokens,
+                    "return_full_text": False
                 }
-                
-                # Generate response
-                with torch.no_grad():
-                    output = self.model.generate(
-                        inputs["input_ids"],
-                        attention_mask=inputs.get("attention_mask", None),
-                        **generation_config
-                    )
-                
-                # Decode and return response
-                response = self.tokenizer.decode(output[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True)
-                return response
-            except Exception as e:
-                logger.error(f"Error generating text with local Hugging Face model: {e}")
-                raise RuntimeError(f"Failed to generate text with local Hugging Face model: {e}")
-        else:
-            raise RuntimeError("Hugging Face model is not available")
+            )
+            return response
+        except Exception as e:
+            logger.error(f"Error generating text with Hugging Face API: {e}")
+            raise RuntimeError(f"Failed to generate text with Hugging Face API: {e}")
     
-    def _format_messages(self, messages, system_prompt=None):
+    def _format_messages(self, messages: List[Dict[str, str]], system_prompt: str = None) -> str:
         """
         Format messages for the Hugging Face model.
         
@@ -442,24 +338,7 @@ class HuggingFaceAdapter(ModelAdapter):
         model_name_lower = self.model_name.lower()
         
         if "llama" in model_name_lower or "mistral" in model_name_lower:
-            # Use Llama/Mistral chat template if available in newer transformers
-            if self.tokenizer and hasattr(self.tokenizer, "apply_chat_template"):
-                try:
-                    # Convert messages to format expected by apply_chat_template
-                    formatted_messages = []
-                    if system_prompt:
-                        formatted_messages.append({"role": "system", "content": system_prompt})
-                    formatted_messages.extend(messages)
-                    
-                    return self.tokenizer.apply_chat_template(
-                        formatted_messages, 
-                        tokenize=False, 
-                        add_generation_prompt=True
-                    )
-                except Exception as e:
-                    logger.warning(f"Failed to use chat template: {e}, falling back to manual format")
-            
-            # Manual Llama 2 format
+            # Manual Llama 2/Mistral format
             formatted_prompt = ""
             if system_prompt:
                 formatted_prompt += f"<s>[INST] <<SYS>>\n{system_prompt}\n<</SYS>>\n\n"

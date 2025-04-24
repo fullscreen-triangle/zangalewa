@@ -1,170 +1,86 @@
 """
-Command line interface for setting up local language models.
+Command line interface for HuggingFace API model information.
 """
 
 import click
 from rich.console import Console
-from rich.table import Table
 from rich.panel import Panel
 from rich import print as rprint
 
-from zangalewa.utils.model_setup import (
-    check_ollama_installed, check_ollama_running,
-    get_installed_models, start_ollama_service,
-    setup_local_models, model_setup_wizard
-)
+from zangalewa.utils.config import get_config
 
 console = Console()
 
-@click.group(help="Commands for setting up and managing required language models")
+@click.group(help="Commands for managing HuggingFace API integration")
 def models():
-    """Model management commands for required language models."""
+    """Model management commands for HuggingFace API integration."""
     pass
 
-@models.command(help="Check the status of required models and services")
+@models.command(help="Check the status of HuggingFace API configuration")
 def status():
-    """Check the status of required models and Ollama service."""
-    console.print(Panel.fit("[bold]Required Model Status[/bold]"))
+    """Check if the HuggingFace API key is configured."""
+    console.print(Panel.fit("[bold]HuggingFace API Status[/bold]"))
     
-    # Check Ollama installation
-    ollama_installed = check_ollama_installed()
-    if ollama_installed:
-        console.print("[green]✓[/green] Ollama is installed")
-    else:
-        console.print("[red]✗[/red] Ollama is [bold]not[/bold] installed")
-        console.print("   [red]ERROR:[/red] Ollama is [bold]REQUIRED[/bold] for Zangalewa to function")
-        console.print("   Install Ollama from [link]https://ollama.ai[/link]")
-        return
+    # Check for API key
+    config = get_config()
+    api_key = config.get("HUGGINGFACE_API_KEY")
     
-    # Check if Ollama service is running
-    ollama_running = check_ollama_running()
-    if ollama_running:
-        console.print("[green]✓[/green] Ollama service is running")
-    else:
-        console.print("[red]✗[/red] Ollama service is [bold]not[/bold] running")
-        console.print("   [red]ERROR:[/red] Ollama service must be running for Zangalewa to function")
-        console.print("   Start Ollama with [bold]ollama serve[/bold]")
-        return
-    
-    # Show installed models
-    installed_models = get_installed_models()
-    
-    if installed_models:
-        table = Table(title="Required Models Status")
-        table.add_column("Model")
-        table.add_column("Purpose")
-        table.add_column("Status")
+    if api_key:
+        console.print("[green]✓[/green] HuggingFace API key is configured")
         
-        required_models = {
-            "mistral": "General interaction and orchestration",
-            "codellama:7b-python": "Python code generation and analysis",
-            "deepseek-coder:6.7b": "React and general code generation"
-        }
+        # Display configured models
+        huggingface_models = config.get("llm", {}).get("huggingface_models", {})
+        if huggingface_models:
+            console.print("\nConfigured models:")
+            for purpose, model in huggingface_models.items():
+                console.print(f"  [blue]•[/blue] {purpose}: [cyan]{model}[/cyan]")
         
-        all_installed = True
-        for model, purpose in required_models.items():
-            if model in installed_models:
-                table.add_row(model, purpose, "[green]Installed[/green]")
-            else:
-                table.add_row(model, purpose, "[red]MISSING - REQUIRED[/red]")
-                all_installed = False
-                
-        console.print(table)
-        
-        if all_installed:
-            console.print("[green]✓ All required models are installed! Zangalewa is ready to use.[/green]")
-        else:
-            console.print("[red]✗ Some required models are missing. Zangalewa will not function properly.[/red]")
-            console.print("Run [bold]zangalewa models setup --all[/bold] to install all required models")
+        console.print("\n[green]Zangalewa is ready to use with HuggingFace models![/green]")
     else:
-        console.print("[red]✗ No models are installed[/red]")
-        console.print("[red]Zangalewa requires local models to function[/red]")
-        console.print("Run [bold]zangalewa models setup --all[/bold] to install required models")
+        console.print("[red]✗[/red] HuggingFace API key is [bold]not[/bold] configured")
+        console.print("   [red]ERROR:[/red] HuggingFace API key is [bold]REQUIRED[/bold] for Zangalewa to function")
+        console.print("\nPlease set your HuggingFace API key in one of the following ways:")
+        console.print("  1. Set the HUGGINGFACE_API_KEY environment variable")
+        console.print("  2. Add it to your .env file")
+        console.print("  3. Update your configuration file")
+        
+        console.print("\nTo obtain a HuggingFace API key:")
+        console.print("  1. Create an account at [link]https://huggingface.co[/link]")
+        console.print("  2. Go to your profile settings > Access Tokens")
+        console.print("  3. Create a new token with 'read' scope")
 
-@models.command(help="Set up required local models (REQUIRED for Zangalewa to function)")
-@click.option("--all", is_flag=True, help="Install all required models (recommended)")
-@click.option("--mistral", is_flag=True, help="Install Mistral 7B model (required for orchestration)")
-@click.option("--codellama", is_flag=True, help="Install CodeLlama 7B Python model (required for Python code)")
-@click.option("--deepseek", is_flag=True, help="Install DeepSeek Coder 6.7B model (required for React code)")
-@click.option("--wizard", is_flag=True, help="Run the interactive setup wizard")
-def setup(all, mistral, codellama, deepseek, wizard):
-    """Set up required language models - REQUIRED for Zangalewa to function."""
-    if wizard:
-        model_setup_wizard()
-        return
+@models.command(help="Show information about using HuggingFace models")
+def info():
+    """Show information about the HuggingFace models used by Zangalewa."""
+    console.print(Panel.fit("[bold]HuggingFace Models Information[/bold]"))
     
-    models_to_install = []
+    # Get configuration
+    config = get_config()
+    huggingface_models = config.get("llm", {}).get("huggingface_models", {})
     
-    if all:
-        models_to_install = ["mistral", "codellama:7b-python", "deepseek-coder:6.7b"]
-    else:
-        if mistral:
-            models_to_install.append("mistral")
-        if codellama:
-            models_to_install.append("codellama:7b-python")
-        if deepseek:
-            models_to_install.append("deepseek-coder:6.7b")
+    # Display general information
+    console.print("Zangalewa now uses HuggingFace's API for all language model interactions.")
+    console.print("This allows you to access powerful models without downloading them locally.")
     
-    if not models_to_install:
-        console.print("[yellow]No models selected for installation[/yellow]")
-        console.print("[red]WARNING: Zangalewa requires all three models to function properly[/red]")
-        console.print("Use --all to install all required models (recommended)")
-        return
+    # Display configured models
+    if huggingface_models:
+        console.print("\n[bold]Currently configured models:[/bold]")
+        for purpose, model in huggingface_models.items():
+            console.print(f"  [blue]•[/blue] {purpose} ({purpose.capitalize()} tasks): [cyan]{model}[/cyan]")
     
-    # Check Ollama installation
-    if not check_ollama_installed():
-        console.print("[red]ERROR: Ollama is not installed[/red]")
-        console.print("[red]Ollama is REQUIRED for Zangalewa to function[/red]")
-        console.print("Install Ollama from [link]https://ollama.ai[/link]")
-        return
+    # Display API key information
+    console.print("\n[bold]API Key Configuration:[/bold]")
+    console.print("To use HuggingFace models, you need to set your API key in one of these ways:")
+    console.print("  1. Environment variable: HUGGINGFACE_API_KEY=your_key")
+    console.print("  2. In .env file: HUGGINGFACE_API_KEY=your_key")
+    console.print("  3. In configuration file under huggingface section")
     
-    # Check if Ollama service is running
-    if not check_ollama_running():
-        console.print("Ollama service is not running. Attempting to start...")
-        if not start_ollama_service():
-            console.print("[red]ERROR: Failed to start Ollama service[/red]")
-            console.print("[red]Ollama service must be running for Zangalewa to function[/red]")
-            console.print("Start it manually with [bold]ollama serve[/bold] and try again")
-            return
-        console.print("[green]Successfully started Ollama service[/green]")
-    
-    # Install models
-    console.print(f"Installing {len(models_to_install)} models...")
-    
-    with console.status("Installing models..."):
-        results = setup_local_models(models_to_install)
-    
-    # Show summary
-    table = Table(title="Installation Results")
-    table.add_column("Model")
-    table.add_column("Status")
-    
-    all_success = True
-    for model, success in results.items():
-        status = "[green]Installed[/green]" if success else "[red]Failed[/red]"
-        table.add_row(model, status)
-        if not success:
-            all_success = False
-    
-    console.print(table)
-    
-    # Show final message
-    if all_success:
-        if len(models_to_install) == 3:  # All three required models
-            console.print("[green]✓ All required models are installed! Zangalewa is ready to use.[/green]")
-        else:
-            # Check if all three required models are installed
-            installed = get_installed_models()
-            required = {"mistral", "codellama:7b-python", "deepseek-coder:6.7b"}
-            
-            if all(model in installed for model in required):
-                console.print("[green]✓ All required models are installed! Zangalewa is ready to use.[/green]")
-            else:
-                console.print("[yellow]⚠ Some required models may still be missing.[/yellow]")
-                console.print("Run [bold]zangalewa models status[/bold] to check which models are installed")
-    else:
-        console.print("[red]✗ Some models failed to install. Zangalewa requires all models to function properly.[/red]")
-        console.print("Please try again or check the Ollama documentation for troubleshooting.")
+    # Display how to get an API key
+    console.print("\n[bold]Getting a HuggingFace API Key:[/bold]")
+    console.print("  1. Create an account at [link]https://huggingface.co[/link]")
+    console.print("  2. Go to your profile settings > Access Tokens")
+    console.print("  3. Create a new token with 'read' scope")
+    console.print("  4. Use this token as your HUGGINGFACE_API_KEY")
 
 if __name__ == "__main__":
     models() 

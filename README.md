@@ -1,3 +1,5 @@
+# Zangalewa
+
 <h1 align="center">Zangalewa</h1>
 <p align="center"><em>"I take responsibility for my actions"</em></p>
 
@@ -29,11 +31,17 @@
   - [Visual Presentation Layer](#visual-presentation-layer)
 - [Installation and Setup](#installation-and-setup)
 - [Configuration](#configuration)
+- [Getting Started with HuggingFace API](#getting-started-with-huggingface-api)
 - [Usage Examples](#usage-examples)
 - [Development Roadmap](#development-roadmap)
 - [Completed Improvements](#completed-improvements)
 - [Contributing](#contributing)
 - [License](#license)
+- [LLM Integration](#llm-integration)
+  - [HuggingFace API Requirement](#huggingface-api-requirement)
+  - [Setting Up HuggingFace API](#setting-up-huggingface-api)
+  - [Optional Commercial API Support](#optional-commercial-api-support)
+  - [Model Selection](#model-selection)
 
 ## Overview
 
@@ -139,8 +147,9 @@ Zangalewa will be built using the following technologies:
 - **Core Language**: Python 3.10+
 - **Terminal Interface**: Rich, Textual
 - **AI/ML Integration**: 
-  - OpenAI API (GPT-4)
-  - Anthropic Claude API
+  - HuggingFace API (Primary)
+  - OpenAI API (Optional)
+  - Anthropic Claude API (Optional)
 - **Code Analysis**: ast, astroid, pylint, radon
 - **Knowledge Base**: SQLite, FAISS
 - **Process Management**: subprocess, psutil
@@ -749,11 +758,151 @@ This interactive process will help you configure:
 Alternatively, you can set up the following environment variables:
 
 ```
-Zangalewa_OPENAI_API_KEY=<your-openai-api-key>
-Zangalewa_ANTHROPIC_API_KEY=<your-anthropic-api-key>
-Zangalewa_GITHUB_TOKEN=<your-github-token>
-Zangalewa_PROJECT_DIR=<default-project-directory>
+HUGGINGFACE_API_KEY=<your-huggingface-api-key>
+OPENAI_API_KEY=<your-openai-api-key>
+ANTHROPIC_API_KEY=<your-anthropic-api-key>
+ZANGALEWA_GITHUB_TOKEN=<your-github-token>
+ZANGALEWA_PROJECT_DIR=<default-project-directory>
 ```
+
+## Getting Started with HuggingFace API
+
+Zangalewa now uses HuggingFace's API for language model interactions, allowing access to powerful models without downloading them locally. Here's how to get started:
+
+### Prerequisites
+
+- Git
+- Python 3.10+ 
+- HuggingFace account with API key
+
+### Step 1: Clone the Repository
+
+Open your terminal and run:
+
+```bash
+# Navigate to your desired installation folder
+cd ~/Development
+
+# Clone the Zangalewa repository
+git clone https://github.com/fullscreen-triangle/zangalewa.git
+
+# Navigate into the project directory
+cd zangalewa
+```
+
+### Step 2: Install Zangalewa
+
+```bash
+# Create a virtual environment (recommended)
+python -m venv .venv
+
+# Activate the virtual environment
+# For macOS/Linux:
+source .venv/bin/activate
+# For Windows:
+# .venv\Scripts\activate
+
+# Install dependencies and the package
+pip install -e .
+```
+
+### Step 3: Set Up Your HuggingFace API Key
+
+You'll need to get an API key from HuggingFace:
+
+1. Create an account at [huggingface.co](https://huggingface.co) if you don't have one
+2. Go to your profile settings > Access Tokens
+3. Create a new token with 'read' scope
+4. Set the API key as an environment variable:
+
+```bash
+# For macOS/Linux:
+export HUGGINGFACE_API_KEY=your_api_key_here
+
+# For Windows:
+# set HUGGINGFACE_API_KEY=your_api_key_here
+```
+
+Alternatively, add it to your `.env` file in the project directory:
+
+```
+HUGGINGFACE_API_KEY=your_api_key_here
+```
+
+### Step 4: Check Your Configuration
+
+Verify that your HuggingFace API key is properly configured:
+
+```bash
+zangalewa models status
+```
+
+You should see confirmation that your API key is configured and the models that will be used.
+
+### Step 5: Launch Zangalewa
+
+```bash
+# Start Zangalewa
+zangalewa
+```
+
+### Using Zangalewa with HuggingFace API
+
+Once launched, Zangalewa will guide you through an interactive onboarding:
+
+1. **Setting Up Your Workspace**
+   ```
+   > Where would you like to set up your main workspace?
+   ```
+
+2. **Using Basic Commands**
+   ```
+   > help
+   ```
+   This will display available commands and their descriptions.
+
+3. **Adding Commercial API Keys (Optional)**
+   You can add API keys for commercial models directly through the chat interface:
+   ```
+   > I'd like to add my OpenAI API key
+   ```
+   or
+   ```
+   > config add-key
+   ```
+
+4. **Working with Projects**
+   ```
+   > analyze project ./my-python-project
+   ```
+
+### Configured Models
+
+Zangalewa uses different HuggingFace models for different purposes:
+
+1. **General Purpose**: Mistral 7B Instruct
+   - Used for chat, orchestration, and general tasks
+
+2. **Code Generation**: CodeLlama 7B
+   - Specialized for Python code generation and analysis
+
+3. **Frontend Development**: DeepSeek Coder 6.7B
+   - Optimized for React and frontend code generation
+
+You can see which models are currently configured with:
+
+```bash
+zangalewa models info
+```
+
+### Troubleshooting
+
+If you encounter issues with HuggingFace API integration:
+
+1. Verify your API key is correct and properly set
+2. Check your internet connection
+3. Make sure your HuggingFace account has access to the required models
+4. Check the Zangalewa logs for any connection issues with the HuggingFace API
 
 ## Usage Examples
 
@@ -914,3 +1063,74 @@ We welcome contributions from the community! Please see [CONTRIBUTING.md](CONTRI
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## LLM Integration
+
+Zangalewa requires a HuggingFace API key to function. Commercial APIs are optional supplements.
+
+### HuggingFace API Requirement
+
+Zangalewa uses the HuggingFace API which is **REQUIRED** for the package to function. The package uses three specialized models for different purposes:
+
+- **Mistral 7B Instruct**: For general interaction and orchestration
+- **CodeLlama 7B**: For Python code generation and analysis
+- **DeepSeek Coder 6.7B**: For React and general code generation
+
+#### Setting Up HuggingFace API
+
+1. Create an account at [huggingface.co](https://huggingface.co) if you don't have one
+2. Go to your profile settings > Access Tokens
+3. Create a new token with 'read' scope
+4. Set up the API key:
+
+```bash
+# Check your HuggingFace API configuration
+zangalewa models status
+
+# View information about models
+zangalewa models info
+```
+
+> **IMPORTANT**: Zangalewa will not function without a valid HuggingFace API key. This key must be provided through environment variables or configuration files.
+
+### Optional Commercial API Support
+
+For enhanced capabilities, Zangalewa can optionally use commercial LLM providers:
+
+- **OpenAI API** - Set your API key in the config or as an environment variable `OPENAI_API_KEY`
+- **Anthropic API** - Set your API key in the config or as an environment variable `ANTHROPIC_API_KEY`
+
+Commercial models are not required but can provide enhanced capabilities for complex tasks.
+
+### Model Selection
+
+Zangalewa automatically uses the appropriate model for different tasks:
+
+- **Mistral 7B Instruct**: Used for general interaction, chat, and orchestration
+- **CodeLlama 7B**: Used for Python code generation and analysis
+- **DeepSeek Coder 6.7B**: Used for React and general code generation
+- **Commercial APIs**: Used for complex reasoning tasks when available (optional)
+
+You can configure model preferences in `config.yaml`:
+
+```yaml
+llm:
+  primary_provider: "auto"  # Options: auto, openai, anthropic, huggingface
+  openai:
+    model: "gpt-4"
+  anthropic:
+    model: "claude-2"
+  huggingface:
+    temperature: 0.3
+  huggingface_models:
+    general: "mistralai/Mistral-7B-Instruct-v0.2"
+    code: "codellama/CodeLlama-7b-hf"
+    frontend: "deepseek-ai/deepseek-coder-6.7b-base"
+```
+
+Each model is optimized for specific tasks:
+
+- **OpenAI/Anthropic**: Best for complex reasoning when API keys are available
+- **CodeLlama**: Excels at Python code generation and analysis
+- **DeepSeek Coder**: Specialized for ReactJS and general coding
+- **Mistral**: Good all-around model for general text and code tasks

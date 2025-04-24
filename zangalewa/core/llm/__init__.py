@@ -1,12 +1,11 @@
 """
 LLM integration module for Zangalewa, providing interfaces to 
-language models like OpenAI's GPT, Anthropic's Claude, and local models.
+language models like OpenAI's GPT, Anthropic's Claude, and HuggingFace models.
 """
 
 from zangalewa.core.llm.manager import LLMManager
 from zangalewa.core.llm.adapters import (
-    ModelAdapter, OpenAIAdapter, AnthropicAdapter,
-    OllamaAdapter, MistralAdapter, CodeLlamaAdapter, DeepSeekCoderAdapter, HuggingFaceAdapter
+    ModelAdapter, OpenAIAdapter, AnthropicAdapter, HuggingFaceAdapter
 )
 
 __all__ = [
@@ -14,9 +13,5 @@ __all__ = [
     "ModelAdapter",
     "OpenAIAdapter",
     "AnthropicAdapter",
-    "OllamaAdapter",
-    "MistralAdapter",
-    "CodeLlamaAdapter",
-    "DeepSeekCoderAdapter",
     "HuggingFaceAdapter",
 ] 

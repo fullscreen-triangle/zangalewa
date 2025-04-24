@@ -2,7 +2,7 @@
 
 # LLM Integration Settings
 llm:
-  primary_provider: "auto"  # Options: auto, openai, anthropic, mistral, codellama, deepseek, ollama
+  primary_provider: "huggingface"  # Options: auto, openai, anthropic, huggingface
   openai:
     model: "gpt-4"
     temperature: 0.2
@@ -15,41 +15,16 @@ llm:
     max_tokens: 4000
     timeout: 60
     retry_attempts: 3
-  # Local model settings
-  ollama:
-    base_url: "http://localhost:11434/api"
-    default_model: "mistral"  # Default Ollama model to use
-    temperature: 0.3
-    max_tokens: 4000
-    timeout: 120
-  # Specific local model settings
-  mistral:
-    temperature: 0.3
-    max_tokens: 4000
-    timeout: 120
-  codellama:
-    temperature: 0.2
-    max_tokens: 4000
-    timeout: 120
-  deepseek:
-    temperature: 0.2
-    max_tokens: 4000
-    timeout: 120
-  # HuggingFace settings
+  # HuggingFace API models
   huggingface:
-    model: "mistralai/Mistral-7B-Instruct-v0.2"
     temperature: 0.3
     max_tokens: 4000
     timeout: 120
-  # Local HuggingFace settings
-  local_huggingface:
-    model: "mistralai/Mistral-7B-Instruct-v0.2"
-    temperature: 0.3
-    max_tokens: 4000
-    timeout: 120
-    device: "auto"  # Options: auto, cpu, cuda:0, etc.
-    load_in_4bit: true  # Whether to use 4-bit quantization
-    load_in_8bit: false  # Whether to use 8-bit quantization
+    retry_attempts: 3
+  huggingface_models:
+    general: "mistralai/Mistral-7B-Instruct-v0.2"  # General purpose model
+    code: "codellama/CodeLlama-7b-hf"             # Code generation model
+    frontend: "deepseek-ai/deepseek-coder-6.7b-base"  # Frontend/React code model
 
 # Command Execution Settings
 executor:
