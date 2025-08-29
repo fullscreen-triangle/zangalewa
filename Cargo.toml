@@ -1,0 +1,170 @@
+[package]
+name = "zangalewa"
+version = "0.1.0"
+edition = "2021"
+authors = ["Kundai Farai Sachikonye <kundai.sachikonye@wzw.tum.de>"]
+description = "The Ultimate Consciousness-Aware AI Task Runner - A sophisticated task scheduling system integrating consciousness-based computing with atomic precision coordination"
+documentation = "https://docs.rs/zangalewa"
+homepage = "https://github.com/fullscreen-triangle/zangalewa"
+repository = "https://github.com/fullscreen-triangle/zangalewa"
+readme = "README.md"
+license = "MIT"
+keywords = ["ai", "task-runner", "consciousness", "scheduling", "automation"]
+categories = ["command-line-utilities", "development-tools", "science"]
+
+[workspace]
+members = [
+    "crates/consciousness-core",
+    "crates/atomic-scheduler", 
+    "crates/task-coordinator",
+    "crates/ai-integration",
+    "crates/domain-bridge",
+    "crates/config-manager",
+]
+
+[dependencies]
+# Core async runtime and utilities
+tokio = { version = "1.35", features = ["full"] }
+futures = "0.3"
+async-trait = "0.1"
+
+# Terminal UI and user interaction
+ratatui = "0.25"
+crossterm = "0.27"
+tui-textarea = "0.4"
+
+# Serialization and configuration
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+config = "0.14"
+
+# Error handling and logging
+anyhow = "1.0"
+thiserror = "1.0"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+tracing-appender = "0.2"
+
+# HTTP client and API integration
+reqwest = { version = "0.11", features = ["json", "stream"] }
+url = "2.5"
+
+# Database and storage
+surrealdb = { version = "1.0", features = ["kv-rocksdb"] }
+redis = { version = "0.24", features = ["tokio-comp", "connection-manager"] }
+
+# Time and scheduling
+chrono = { version = "0.4", features = ["serde"] }
+cron = "0.12"
+uuid = { version = "1.6", features = ["v4", "serde"] }
+
+# System interaction
+clap = { version = "4.4", features = ["derive", "env"] }
+directories = "5.0"
+sysinfo = "0.30"
+
+# Parallel processing and concurrency
+rayon = "1.8"
+crossbeam = "0.8"
+parking_lot = "0.12"
+dashmap = "5.5"
+
+# Networking and communication
+tungstenite = "0.21"
+tokio-tungstenite = "0.21"
+
+# Workspace dependencies
+consciousness-core = { path = "crates/consciousness-core" }
+atomic-scheduler = { path = "crates/atomic-scheduler" }
+task-coordinator = { path = "crates/task-coordinator" }
+ai-integration = { path = "crates/ai-integration" }
+domain-bridge = { path = "crates/domain-bridge" }
+config-manager = { path = "crates/config-manager" }
+
+[dev-dependencies]
+# Testing frameworks
+proptest = "1.4"
+criterion = { version = "0.5", features = ["html_reports"] }
+rstest = "0.18"
+mockall = "0.12"
+tempfile = "3.8"
+wiremock = "0.6"
+
+# Test utilities
+tokio-test = "0.4"
+serial_test = "3.0"
+
+[build-dependencies]
+built = { version = "0.7", features = ["chrono"] }
+
+[[bin]]
+name = "zangalewa"
+path = "src/main.rs"
+
+[features]
+default = ["consciousness", "atomic-precision", "ai-enhanced"]
+
+# Core consciousness features
+consciousness = ["consciousness-core/full"]
+atomic-precision = ["atomic-scheduler/precision"]
+ai-enhanced = ["ai-integration/all-providers"]
+
+# Integration features
+mzekezeke-integration = ["domain-bridge/mzekezeke"]
+stella-lorraine-integration = ["domain-bridge/stella-lorraine"]
+musande-integration = ["domain-bridge/musande"]
+kambuzuma-integration = ["domain-bridge/kambuzuma"]
+buhera-integration = ["domain-bridge/buhera"]
+bloodhound-integration = ["domain-bridge/bloodhound"]
+imhotep-integration = ["domain-bridge/imhotep"]
+jungfernstieg-integration = ["domain-bridge/jungfernstieg"]
+
+# Full integration with all packages
+full-stack = [
+    "consciousness",
+    "atomic-precision", 
+    "ai-enhanced",
+    "mzekezeke-integration",
+    "stella-lorraine-integration",
+    "musande-integration",
+    "kambuzuma-integration",
+    "buhera-integration",
+    "bloodhound-integration",
+    "imhotep-integration",
+    "jungfernstieg-integration"
+]
+
+# Development and debugging features
+debug-mode = []
+telemetry = ["tracing-subscriber/json"]
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
+
+[profile.dev]
+debug = true
+opt-level = 0
+
+[profile.test]
+debug = true
+opt-level = 1
+
+[[bench]]
+name = "consciousness_benchmarks"
+harness = false
+
+[[bench]]
+name = "scheduling_benchmarks" 
+harness = false
+
+[[bench]]
+name = "integration_benchmarks"
+harness = false
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]

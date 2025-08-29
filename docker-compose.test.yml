@@ -1,0 +1,60 @@
+# Zangalewa Testing Environment
+# Optimized for CI/CD and integration testing
+
+version: '3.8'
+
+services:
+  zangalewa:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: zangalewa-test
+    environment:
+      - RUST_LOG=debug
+      - ZANGALEWA_ENV=testing
+      - HUGGINGFACE_API_KEY=${HUGGINGFACE_API_KEY}
+    volumes:
+      - ./config:/app/config:ro
+    depends_on:
+      - redis-test
+      - surrealdb-test
+    networks:
+      - test-network
+    command: ["cargo", "test", "--all-features", "--workspace"]
+
+  redis-test:
+    image: redis:7-alpine
+    container_name: redis-test
+    networks:
+      - test-network
+    tmpfs:
+      - /data
+
+  surrealdb-test:
+    image: surrealdb/surrealdb:latest
+    container_name: surrealdb-test
+    command: start --log error --user root --pass root memory
+    networks:
+      - test-network
+
+  # Mock services for testing integrations
+  mock-services:
+    image: nginx:alpine
+    container_name: mock-services
+    ports:
+      - "8001:8001"
+      - "8002:8002"
+      - "8003:8003"
+      - "8004:8004"
+      - "8005:8005"
+      - "8006:8006"
+      - "8007:8007"
+      - "8008:8008"
+    volumes:
+      - ./docker/test-mocks:/etc/nginx/conf.d:ro
+    networks:
+      - test-network
+
+networks:
+  test-network:
+    driver: bridge

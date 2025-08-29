@@ -1,0 +1,193 @@
+# Zangalewa Development Environment
+# Complete consciousness-aware task runner with integrated services
+
+version: '3.8'
+
+services:
+  # Main Zangalewa service
+  zangalewa:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: zangalewa-main
+    ports:
+      - "9000:9000"    # Main API
+      - "9001:9001"    # WebSocket
+      - "9090:9090"    # Metrics
+      - "9091:9091"    # Health check
+    environment:
+      - RUST_LOG=debug
+      - ZANGALEWA_ENV=development
+      - HUGGINGFACE_API_KEY=${HUGGINGFACE_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+    volumes:
+      - ./config:/app/config:ro
+      - zangalewa-data:/app/data
+      - zangalewa-logs:/app/logs
+    depends_on:
+      - redis
+      - surrealdb
+    networks:
+      - zangalewa-network
+    restart: unless-stopped
+
+  # Redis for atomic coordination and caching
+  redis:
+    image: redis:7-alpine
+    container_name: zangalewa-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - zangalewa-network
+    restart: unless-stopped
+
+  # SurrealDB for consciousness state storage
+  surrealdb:
+    image: surrealdb/surrealdb:latest
+    container_name: zangalewa-surrealdb
+    ports:
+      - "8000:8000"
+    command: start --log trace --user root --pass root file:/data/consciousness.db
+    volumes:
+      - surrealdb-data:/data
+    networks:
+      - zangalewa-network
+    restart: unless-stopped
+
+  # Mock services for fullscreen-triangle ecosystem
+  # These simulate the other implemented packages
+  
+  # Mzekezeke - Multi-Dimensional Temporal Ephemeral Cryptography
+  mzekezeke-mock:
+    image: nginx:alpine
+    container_name: mzekezeke-service
+    ports:
+      - "8001:80"
+    volumes:
+      - ./docker/mocks/mzekezeke:/usr/share/nginx/html:ro
+    networks:
+      - zangalewa-network
+
+  # Stella-Lorraine - S-Entropy Framework
+  stella-lorraine-mock:
+    image: nginx:alpine
+    container_name: stella-lorraine-service
+    ports:
+      - "8002:80"
+    volumes:
+      - ./docker/mocks/stella-lorraine:/usr/share/nginx/html:ro
+    networks:
+      - zangalewa-network
+
+  # Musande - Sacred Mathematics
+  musande-mock:
+    image: nginx:alpine
+    container_name: musande-service
+    ports:
+      - "8003:80"
+    volumes:
+      - ./docker/mocks/musande:/usr/share/nginx/html:ro
+    networks:
+      - zangalewa-network
+
+  # Kambuzuma - Biomimetic Metacognitive Orchestration
+  kambuzuma-mock:
+    image: nginx:alpine
+    container_name: kambuzuma-service
+    ports:
+      - "8004:80"
+    volumes:
+      - ./docker/mocks/kambuzuma:/usr/share/nginx/html:ro
+    networks:
+      - zangalewa-network
+
+  # Buhera - Virtual Processing Operating System
+  buhera-mock:
+    image: nginx:alpine
+    container_name: buhera-service
+    ports:
+      - "8005:80"
+    volumes:
+      - ./docker/mocks/buhera:/usr/share/nginx/html:ro
+    networks:
+      - zangalewa-network
+
+  # Bloodhound - Consciousness-Aware Virtual Machine
+  bloodhound-mock:
+    image: nginx:alpine
+    container_name: bloodhound-service
+    ports:
+      - "8006:80"
+    volumes:
+      - ./docker/mocks/bloodhound:/usr/share/nginx/html:ro
+    networks:
+      - zangalewa-network
+
+  # Imhotep - Neural Interface Framework
+  imhotep-mock:
+    image: nginx:alpine
+    container_name: imhotep-service
+    ports:
+      - "8007:80"
+    volumes:
+      - ./docker/mocks/imhotep:/usr/share/nginx/html:ro
+    networks:
+      - zangalewa-network
+
+  # Jungfernstieg - Virtual Blood Circulation
+  jungfernstieg-mock:
+    image: nginx:alpine
+    container_name: jungfernstieg-service
+    ports:
+      - "8008:80"
+    volumes:
+      - ./docker/mocks/jungfernstieg:/usr/share/nginx/html:ro
+    networks:
+      - zangalewa-network
+
+  # Monitoring and observability
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: zangalewa-prometheus
+    ports:
+      - "9292:9090"
+    volumes:
+      - ./docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    networks:
+      - zangalewa-network
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: zangalewa-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./docker/grafana/provisioning:/etc/grafana/provisioning:ro
+    networks:
+      - zangalewa-network
+
+networks:
+  zangalewa-network:
+    driver: bridge
+
+volumes:
+  zangalewa-data:
+  zangalewa-logs:
+  redis-data:
+  surrealdb-data:
+  prometheus-data:
+  grafana-data:

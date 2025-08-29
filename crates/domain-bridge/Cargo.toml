@@ -1,0 +1,77 @@
+[package]
+name = "domain-bridge"
+version = "0.1.0"
+edition = "2021"
+authors = ["Kundai Farai Sachikonye <kundai.sachikonye@wzw.tum.de>"]
+description = "Integration bridge for fullscreen-triangle ecosystem packages"
+license = "MIT"
+
+[dependencies]
+# Core async and utilities
+tokio = { version = "1.35", features = ["full"] }
+async-trait = "0.1"
+futures = "0.3"
+
+# HTTP client and networking
+reqwest = { version = "0.11", features = ["json"] }
+tungstenite = "0.21"
+tokio-tungstenite = "0.21"
+url = "2.5"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Error handling and logging
+anyhow = "1.0"
+thiserror = "1.0"
+tracing = "0.1"
+
+# Time and UUID
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1.6", features = ["v4"] }
+
+# Health checking and monitoring
+tokio-util = "0.7"
+
+# Workspace dependencies
+consciousness-core = { path = "../consciousness-core" }
+
+[dev-dependencies]
+tokio-test = "0.4"
+wiremock = "0.6"
+
+[features]
+default = []
+
+# Individual package integrations
+mzekezeke = []
+stella-lorraine = []
+musande = []
+kambuzuma = []
+buhera = []
+bloodhound = []
+imhotep = []
+jungfernstieg = []
+
+# Package groups
+cryptography = ["mzekezeke"]
+temporal-navigation = ["stella-lorraine"]
+sacred-mathematics = ["musande"]
+quantum-orchestration = ["kambuzuma"]
+consciousness-os = ["buhera"]
+vm-integration = ["bloodhound"]
+neural-interface = ["imhotep"]
+biological-support = ["jungfernstieg"]
+
+# Full ecosystem integration
+full-ecosystem = [
+    "mzekezeke",
+    "stella-lorraine", 
+    "musande",
+    "kambuzuma",
+    "buhera",
+    "bloodhound",
+    "imhotep",
+    "jungfernstieg"
+]

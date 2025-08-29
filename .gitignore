@@ -1,96 +1,92 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+# Rust build artifacts
+/target/
+/Cargo.lock
 
-# C extensions
-*.so
-
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-.hypothesis/
-.pytest_cache/
-
-# Sphinx documentation
-docs/_build/
-
-# MkDocs documentation
-/site
-
-# PyBuilder
-target/
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# IPython
-profile_default/
-ipython_config.py
-
-# pyenv
-.python-version
-
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-.env.local
-.env.development
-.env.test
-.env.production
-
-# IDE settings
-.idea/
+# IDE and editor files
 .vscode/
+.idea/
 *.swp
 *.swo
+*~
 
-# OS specific files
+# Environment and secrets
+.env
+.env.local
+.env.production
+*.key
+*.pem
+secrets/
+
+# Consciousness state data
+*.consciousness
+consciousness.db*
+/data/
+/logs/
+/cache/
+
+# Local development
+dev-data/
+test-data/
+.dev/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary files
+*.tmp
+*.temp
+/tmp/
+
+# Build outputs
+/dist/
+/build/
+*.tar.gz
+*.zip
+
+# Documentation build
+/target/doc/
+book/
+
+# Testing artifacts
+/.tarpaulin/
+/coverage/
+
+# OS specific
 .DS_Store
 Thumbs.db
 
-# Project specific
-*.db
-*.sqlite3
-logs/
-temp/
+# Docker volumes and data
+docker/data/
+docker/logs/
 
-# FAISS indexes
-*.index
+# Backup files
+*.bak
+*.backup
+/backup/
 
-# API keys and secrets
-secrets/
+# Lock files
+package-lock.json
+yarn.lock
+
+# Local configuration overrides
+config/local.toml
+config/override.toml
+
+# Consciousness debugging files
+consciousness-trace-*
+atomic-precision-log-*
+cross-domain-debug-*
+
+# Sacred mathematics computation cache
+sacred-cache/
+stella-lorraine-cache/
+
+# Performance benchmark results
+bench-results/
+flamegraphs/
+
+# Service integration test artifacts
+integration-test-data/
+mock-service-logs/

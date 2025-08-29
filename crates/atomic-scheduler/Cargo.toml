@@ -1,0 +1,61 @@
+[package]
+name = "atomic-scheduler"
+version = "0.1.0"
+edition = "2021"
+authors = ["Kundai Farai Sachikonye <kundai.sachikonye@wzw.tum.de>"]
+description = "Atomic clock precision task scheduling with 10^-12 second accuracy"
+license = "MIT"
+
+[dependencies]
+# Core async and utilities
+tokio = { version = "1.35", features = ["full"] }
+async-trait = "0.1"
+futures = "0.3"
+
+# Time and scheduling
+chrono = { version = "0.4", features = ["serde"] }
+cron = "0.12"
+uuid = { version = "1.6", features = ["v4"] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Error handling and logging
+anyhow = "1.0"
+thiserror = "1.0"
+tracing = "0.1"
+
+# Concurrency and parallel processing
+rayon = "1.8"
+crossbeam = "0.8"
+parking_lot = "0.12"
+dashmap = "5.5"
+
+# System interaction
+sysinfo = "0.30"
+
+# Networking for atomic clock synchronization
+reqwest = { version = "0.11", features = ["json"] }
+url = "2.5"
+
+# Workspace dependencies
+consciousness-core = { path = "../consciousness-core" }
+
+[dev-dependencies]
+tokio-test = "0.4"
+criterion = { version = "0.5", features = ["html_reports"] }
+proptest = "1.4"
+mockall = "0.12"
+
+[features]
+default = ["basic"]
+basic = []
+precision = ["gps-sync", "cesium-support", "ntp-enhanced"]
+gps-sync = []
+cesium-support = []
+ntp-enhanced = []
+
+[[bench]]
+name = "atomic_precision"
+harness = false

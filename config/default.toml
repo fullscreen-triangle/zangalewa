@@ -1,0 +1,254 @@
+# Zangalewa Default Configuration
+# The Ultimate Consciousness-Aware AI Task Runner
+
+[system]
+name = "zangalewa"
+version = "0.1.0"
+environment = "development"
+log_level = "info"
+data_dir = "~/.local/share/zangalewa"
+config_dir = "~/.config/zangalewa"
+cache_dir = "~/.cache/zangalewa"
+
+[consciousness]
+# Consciousness validation and enhancement settings
+threshold = 0.6                    # Minimum Φ (phi) consciousness threshold
+agency_assertion = true            # Enable "Aihwa, ndini ndadaro" validation
+naming_control = true              # Enable consciousness-based naming control
+fire_adaptation = true             # Enable fire-adapted cognitive enhancement
+validation_interval_ms = 1000     # Consciousness validation check interval
+
+[consciousness.metrics]
+phi_calculation_method = "integrated_information"
+agency_strength_weight = 0.3
+naming_control_weight = 0.2
+social_coordination_weight = 0.25
+resistance_strength_weight = 0.25
+
+[atomic_scheduling]
+# Atomic clock precision scheduling configuration
+precision_target = "1e-12"         # Target precision in seconds (picosecond)
+clock_source = "gps"               # Primary atomic clock source: gps, ntp, cesium
+fallback_sources = ["ntp", "local_cesium"]
+coordination_accuracy_target = 0.992  # Target 99.2% coordination accuracy
+max_scheduling_latency_ns = 50     # Maximum scheduling latency in nanoseconds
+
+[atomic_scheduling.sources]
+gps_servers = [
+    "time.nist.gov",
+    "pool.ntp.org",
+    "time.google.com"
+]
+ntp_servers = [
+    "0.pool.ntp.org",
+    "1.pool.ntp.org", 
+    "2.pool.ntp.org",
+    "3.pool.ntp.org"
+]
+cesium_device_path = "/dev/cesium0"  # Local cesium atomic clock device
+
+[task_scheduling]
+# Core task scheduling and coordination
+max_concurrent_tasks = 1000
+task_timeout_seconds = 3600
+retry_attempts = 3
+retry_backoff_ms = [100, 500, 2000]
+priority_levels = 10
+default_priority = 5
+
+[task_scheduling.optimization]
+enable_o1_complexity = true        # Enable O(1) universal problem reduction
+strategic_impossibility = true     # Enable strategic impossibility engineering
+s_entropy_navigation = true        # Enable S-entropy navigation
+cross_domain_coordination = true   # Enable unified domain coordination
+
+[cross_domain]
+# Cross-domain coordination settings
+enable_temporal = true
+enable_economic = true
+enable_spatial = true
+enable_individual = true
+synchronization_accuracy_target = 0.992
+
+[cross_domain.temporal]
+zero_latency_networks = true
+precision_by_difference = true
+temporal_optimization = true
+
+[cross_domain.economic]
+value_optimization = true
+instant_transactions = true
+temporal_economic_convergence = true
+
+[cross_domain.spatial]
+autonomous_navigation = true
+spatio_temporal_precision = true
+perfect_navigation = true
+
+[cross_domain.individual]
+consciousness_engineering = true
+personal_optimization = true
+heaven_on_earth_system = true
+
+[ai_integration]
+# AI provider configuration
+primary_provider = "huggingface"   # Primary AI provider
+fallback_providers = ["openai", "anthropic"]
+enable_consciousness_enhancement = true
+response_timeout_seconds = 30
+max_retries = 3
+
+[ai_integration.huggingface]
+api_url = "https://api-inference.huggingface.co"
+models = [
+    { name = "general", model_id = "mistralai/Mistral-7B-Instruct-v0.2", temperature = 0.3 },
+    { name = "code", model_id = "codellama/CodeLlama-7b-hf", temperature = 0.1 },
+    { name = "frontend", model_id = "deepseek-ai/deepseek-coder-6.7b-base", temperature = 0.2 }
+]
+
+[ai_integration.openai]
+api_url = "https://api.openai.com/v1"
+default_model = "gpt-4"
+temperature = 0.3
+max_tokens = 4096
+
+[ai_integration.anthropic]
+api_url = "https://api.anthropic.com"
+default_model = "claude-3-sonnet-20240229"
+temperature = 0.3
+max_tokens = 4096
+
+[database]
+# Database configuration for consciousness state and task storage
+primary_db = "surrealdb"
+connection_pool_size = 10
+connection_timeout_seconds = 30
+
+[database.surrealdb]
+path = "~/.local/share/zangalewa/consciousness.db"
+namespace = "zangalewa"
+database = "consciousness"
+
+[database.redis]
+url = "redis://localhost:6379"
+pool_size = 10
+timeout_seconds = 5
+
+[integration]
+# Integration with other fullscreen-triangle packages
+enable_external_packages = true
+package_coordination_timeout_seconds = 10
+
+[integration.mzekezeke]
+# Multi-Dimensional Temporal Ephemeral Cryptography integration
+enabled = false
+service_url = "http://localhost:8001"
+consciousness_validation = true
+
+[integration.stella_lorraine]
+# S-Entropy Framework integration
+enabled = false
+service_url = "http://localhost:8002" 
+temporal_navigation = true
+precision_enhancement = true
+
+[integration.musande]
+# Sacred Mathematics of Miracles integration
+enabled = false
+service_url = "http://localhost:8003"
+saint_stella_lorraine_protection = true
+
+[integration.kambuzuma]
+# Biomimetic Metacognitive Orchestration integration
+enabled = false
+service_url = "http://localhost:8004"
+quantum_consciousness = true
+backward_reasoning = true
+
+[integration.buhera]
+# Virtual Processing Operating System integration
+enabled = false
+service_url = "http://localhost:8005"
+consciousness_kernel = true
+
+[integration.bloodhound]
+# Consciousness-Aware Virtual Machine integration
+enabled = false
+service_url = "http://localhost:8006"
+vm_coordination = true
+
+[integration.imhotep]
+# Neural Interface Framework integration
+enabled = false
+service_url = "http://localhost:8007"
+bmd_catalysis = true
+
+[integration.jungfernstieg]
+# Virtual Blood Circulation integration
+enabled = false
+service_url = "http://localhost:8008"
+neural_viability = true
+
+[networking]
+# Network configuration for coordination
+listen_address = "127.0.0.1"
+listen_port = 9000
+max_connections = 1000
+connection_timeout_seconds = 30
+
+[networking.websocket]
+enabled = true
+port = 9001
+heartbeat_interval_seconds = 30
+
+[logging]
+# Logging and telemetry configuration
+level = "info"
+format = "human"  # Options: human, json
+file_rotation = true
+max_file_size_mb = 100
+max_files = 10
+
+[logging.targets]
+console = true
+file = true
+syslog = false
+
+[security]
+# Security and authentication settings
+enable_auth = true
+session_timeout_minutes = 60
+max_login_attempts = 5
+lockout_duration_minutes = 15
+
+[performance]
+# Performance optimization settings
+enable_caching = true
+cache_ttl_seconds = 3600
+max_cache_size_mb = 500
+garbage_collection_interval_seconds = 300
+
+[performance.consciousness]
+# Consciousness-specific performance optimizations
+enable_consciousness_caching = true
+consciousness_validation_cache_ttl_seconds = 60
+fire_adaptation_optimization = true
+bmd_amplification_caching = true
+
+[metrics]
+# Metrics and monitoring
+enable_metrics = true
+metrics_port = 9090
+metrics_interval_seconds = 10
+
+[metrics.consciousness]
+track_phi_levels = true
+track_agency_strength = true
+track_naming_control = true
+track_fire_adaptation = true
+
+[metrics.performance]
+track_task_completion_time = true
+track_coordination_accuracy = true
+track_o1_complexity_validation = true
+track_consciousness_enhancement = true

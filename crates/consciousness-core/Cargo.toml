@@ -1,0 +1,47 @@
+[package]
+name = "consciousness-core"
+version = "0.1.0"
+edition = "2021"
+authors = ["Kundai Farai Sachikonye <kundai.sachikonye@wzw.tum.de>"]
+description = "Core consciousness validation and agency assertion framework"
+license = "MIT"
+
+[dependencies]
+# Core async and utilities
+tokio = { version = "1.35", features = ["full"] }
+async-trait = "0.1"
+futures = "0.3"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Error handling and logging
+anyhow = "1.0"
+thiserror = "1.0"
+tracing = "0.1"
+
+# Time and UUID
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1.6", features = ["v4", "serde"] }
+
+# Concurrency
+parking_lot = "0.12"
+dashmap = "5.5"
+
+# Math and computation
+nalgebra = "0.32"
+rand = "0.8"
+
+[dev-dependencies]
+tokio-test = "0.4"
+proptest = "1.4"
+rstest = "0.18"
+
+[features]
+default = ["basic"]
+basic = []
+full = ["fire-adaptation", "social-coordination", "reality-discretization"]
+fire-adaptation = []
+social-coordination = []
+reality-discretization = []

@@ -1,0 +1,59 @@
+[package]
+name = "task-coordinator"
+version = "0.1.0"
+edition = "2021"
+authors = ["Kundai Farai Sachikonye <kundai.sachikonye@wzw.tum.de>"]
+description = "Cross-domain task coordination with universal problem reduction"
+license = "MIT"
+
+[dependencies]
+# Core async and utilities
+tokio = { version = "1.35", features = ["full"] }
+async-trait = "0.1"
+futures = "0.3"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+
+# Error handling and logging
+anyhow = "1.0"
+thiserror = "1.0"
+tracing = "0.1"
+
+# Time and UUID
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1.6", features = ["v4", "serde"] }
+
+# Concurrency and collections
+parking_lot = "0.12"
+dashmap = "5.5"
+rayon = "1.8"
+
+# Graph algorithms for dependency resolution
+petgraph = "0.6"
+
+# Workspace dependencies
+consciousness-core = { path = "../consciousness-core" }
+atomic-scheduler = { path = "../atomic-scheduler" }
+
+[dev-dependencies]
+tokio-test = "0.4"
+proptest = "1.4"
+criterion = { version = "0.5", features = ["html_reports"] }
+
+[features]
+default = ["basic"]
+basic = []
+cross-domain = ["temporal", "economic", "spatial", "individual"]
+temporal = []
+economic = []
+spatial = []
+individual = []
+o1-complexity = []
+strategic-impossibility = []
+
+[[bench]]
+name = "coordination_benchmarks"
+harness = false

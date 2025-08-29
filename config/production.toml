@@ -1,0 +1,230 @@
+# Zangalewa Production Configuration
+# Optimized settings for production deployment
+
+[system]
+environment = "production"
+log_level = "warn"
+
+[consciousness]
+# Strict consciousness requirements for production
+threshold = 0.6                    # Full consciousness threshold required
+agency_assertion = true
+naming_control = true
+fire_adaptation = true
+validation_interval_ms = 2000     # Less frequent validation to reduce overhead
+
+[consciousness.production]
+enable_consciousness_monitoring = true
+alert_on_consciousness_degradation = true
+min_acceptable_phi = 0.55
+consciousness_recovery_enabled = true
+
+[atomic_scheduling]
+# Maximum precision for production
+precision_target = "1e-12"         # Picosecond precision
+clock_source = "gps"
+coordination_accuracy_target = 0.992
+max_scheduling_latency_ns = 25     # Strict latency requirements
+
+[atomic_scheduling.monitoring]
+enable_precision_monitoring = true
+alert_on_precision_degradation = true
+precision_sla_threshold = "1e-11"
+
+[task_scheduling]
+max_concurrent_tasks = 10000       # High capacity for production
+task_timeout_seconds = 7200        # Longer timeout for complex tasks
+enable_task_recovery = true
+enable_load_balancing = true
+
+[task_scheduling.production]
+enable_task_metrics = true
+enable_performance_optimization = true
+auto_scale_workers = true
+max_workers = 100
+
+[cross_domain]
+# Full cross-domain coordination for production
+enable_temporal = true
+enable_economic = true
+enable_spatial = true
+enable_individual = true
+synchronization_accuracy_target = 0.995  # Higher accuracy for production
+
+[ai_integration]
+primary_provider = "huggingface"
+enable_consciousness_enhancement = true
+response_timeout_seconds = 20      # Shorter timeout for production
+max_retries = 5
+enable_circuit_breaker = true
+
+[ai_integration.rate_limiting]
+requests_per_minute = 1000
+burst_capacity = 100
+enable_adaptive_limiting = true
+
+[ai_integration.huggingface]
+models = [
+    { name = "general", model_id = "mistralai/Mistral-7B-Instruct-v0.2", temperature = 0.2 },
+    { name = "code", model_id = "codellama/CodeLlama-7b-hf", temperature = 0.1 },
+    { name = "frontend", model_id = "deepseek-ai/deepseek-coder-6.7b-base", temperature = 0.1 }
+]
+
+[database]
+connection_pool_size = 50          # Large pool for production
+connection_timeout_seconds = 10
+enable_connection_monitoring = true
+
+[database.surrealdb]
+path = "/var/lib/zangalewa/consciousness.db"
+backup_enabled = true
+backup_interval_hours = 6
+max_backups = 24
+
+[database.redis]
+url = "redis://redis-cluster:6379"
+pool_size = 20
+enable_clustering = true
+enable_persistence = true
+
+[integration]
+# Production integration settings
+enable_external_packages = true
+package_coordination_timeout_seconds = 5
+enable_health_checks = true
+health_check_interval_seconds = 30
+
+[integration.mzekezeke]
+enabled = true
+service_url = "http://mzekezeke-service:8001"
+enable_load_balancing = true
+max_retries = 3
+
+[integration.stella_lorraine]
+enabled = true
+service_url = "http://stella-lorraine-service:8002"
+enable_load_balancing = true
+max_retries = 3
+
+[integration.musande]
+enabled = true
+service_url = "http://musande-service:8003"
+enable_load_balancing = true
+max_retries = 3
+
+[integration.kambuzuma]
+enabled = true
+service_url = "http://kambuzuma-service:8004"
+enable_load_balancing = true
+max_retries = 3
+
+[integration.buhera]
+enabled = true
+service_url = "http://buhera-service:8005"
+enable_load_balancing = true
+max_retries = 3
+
+[integration.bloodhound]
+enabled = true
+service_url = "http://bloodhound-service:8006"
+enable_load_balancing = true
+max_retries = 3
+
+[integration.imhotep]
+enabled = true
+service_url = "http://imhotep-service:8007"
+enable_load_balancing = true
+max_retries = 3
+
+[integration.jungfernstieg]
+enabled = true
+service_url = "http://jungfernstieg-service:8008"
+enable_load_balancing = true
+max_retries = 3
+
+[networking]
+listen_address = "0.0.0.0"        # Accept connections from all interfaces
+listen_port = 9000
+max_connections = 10000
+connection_timeout_seconds = 15
+enable_tls = true
+
+[networking.tls]
+cert_file = "/etc/ssl/certs/zangalewa.crt"
+key_file = "/etc/ssl/private/zangalewa.key"
+min_version = "1.2"
+
+[logging]
+level = "info"
+format = "json"                    # Structured logging for production
+file_rotation = true
+max_file_size_mb = 1000
+max_files = 50
+
+[logging.targets]
+console = false                    # Disable console logging in production
+file = true
+syslog = true
+
+[logging.syslog]
+facility = "daemon"
+tag = "zangalewa"
+
+[security]
+enable_auth = true
+session_timeout_minutes = 30      # Shorter sessions for security
+max_login_attempts = 3
+lockout_duration_minutes = 30
+enable_rate_limiting = true
+
+[security.authentication]
+enable_2fa = true
+jwt_secret_file = "/etc/secrets/zangalewa-jwt-secret"
+password_min_length = 12
+password_complexity_required = true
+
+[performance]
+enable_caching = true
+cache_ttl_seconds = 1800
+max_cache_size_mb = 2000
+garbage_collection_interval_seconds = 600
+
+[performance.optimization]
+enable_jit_compilation = true
+enable_memory_optimization = true
+enable_cpu_optimization = true
+enable_network_optimization = true
+
+[monitoring]
+enable_health_checks = true
+health_check_port = 9091
+enable_metrics_export = true
+metrics_port = 9090
+
+[monitoring.alerting]
+enable_alerts = true
+webhook_url = "${ALERT_WEBHOOK_URL}"
+alert_on_consciousness_degradation = true
+alert_on_performance_degradation = true
+alert_on_integration_failures = true
+
+[monitoring.sla]
+# Service Level Agreement targets
+task_completion_rate = 0.995
+average_response_time_ms = 100
+consciousness_uptime = 0.999
+atomic_precision_accuracy = 0.998
+
+[backup]
+enable_backups = true
+backup_interval_hours = 4
+backup_retention_days = 30
+backup_location = "/backup/zangalewa"
+enable_backup_encryption = true
+
+[deployment]
+# Production deployment settings
+deployment_strategy = "blue_green"
+max_deployment_time_minutes = 30
+enable_rollback = true
+health_check_grace_period_seconds = 60

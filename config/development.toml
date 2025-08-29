@@ -1,0 +1,123 @@
+# Zangalewa Development Configuration
+# Enhanced settings for development and testing
+
+[system]
+environment = "development"
+log_level = "debug"
+
+[consciousness]
+# Relaxed consciousness settings for development
+threshold = 0.4                    # Lower threshold for development testing
+validation_interval_ms = 500      # More frequent validation during development
+
+[consciousness.debug]
+enable_consciousness_tracing = true
+log_agency_assertions = true
+log_naming_control_events = true
+validate_every_computation = true
+
+[atomic_scheduling]
+# Development scheduling with more lenient precision
+precision_target = "1e-9"          # Nanosecond precision for development
+max_scheduling_latency_ns = 1000   # More lenient latency for development
+
+[task_scheduling]
+max_concurrent_tasks = 100         # Lower limit for development
+task_timeout_seconds = 300         # Shorter timeout for faster feedback
+enable_debug_logging = true
+
+[ai_integration]
+response_timeout_seconds = 60      # Longer timeout for development/debugging
+enable_request_logging = true
+enable_response_caching = false    # Disable caching during development
+
+[ai_integration.huggingface]
+models = [
+    { name = "general", model_id = "mistralai/Mistral-7B-Instruct-v0.2", temperature = 0.7 },
+    { name = "code", model_id = "codellama/CodeLlama-7b-hf", temperature = 0.3 },
+    { name = "frontend", model_id = "deepseek-ai/deepseek-coder-6.7b-base", temperature = 0.5 }
+]
+
+[database]
+connection_pool_size = 5           # Smaller pool for development
+
+[database.surrealdb]
+path = "./dev-data/consciousness.db"
+
+[integration]
+# Enable all integrations for development testing
+enable_external_packages = true
+package_coordination_timeout_seconds = 30
+
+[integration.mzekezeke]
+enabled = true
+service_url = "http://localhost:8001"
+
+[integration.stella_lorraine]
+enabled = true
+service_url = "http://localhost:8002"
+
+[integration.musande]
+enabled = true
+service_url = "http://localhost:8003"
+
+[integration.kambuzuma]
+enabled = true
+service_url = "http://localhost:8004"
+
+[integration.buhera]
+enabled = true
+service_url = "http://localhost:8005"
+
+[integration.bloodhound]
+enabled = true
+service_url = "http://localhost:8006"
+
+[integration.imhotep]
+enabled = true
+service_url = "http://localhost:8007"
+
+[integration.jungfernstieg]
+enabled = true
+service_url = "http://localhost:8008"
+
+[logging]
+level = "debug"
+format = "human"
+file_rotation = false              # Disable rotation for development
+
+[logging.targets]
+console = true
+file = true
+
+[performance]
+enable_caching = false             # Disable caching for development
+max_cache_size_mb = 50
+
+[metrics]
+enable_metrics = true
+metrics_interval_seconds = 5       # More frequent metrics collection
+
+[development]
+# Development-specific settings
+enable_hot_reload = true
+enable_debug_ui = true
+mock_external_services = false
+enable_test_fixtures = true
+validate_consciousness_continuously = true
+
+[development.testing]
+# Testing configuration
+enable_property_testing = true
+consciousness_test_scenarios = [
+    "basic_agency_assertion",
+    "naming_control_resistance", 
+    "social_coordination",
+    "fire_adaptation_enhancement"
+]
+performance_benchmarks = [
+    "o1_complexity_validation",
+    "atomic_precision_timing",
+    "cross_domain_coordination",
+    "consciousness_enhancement"
+]

@@ -1,0 +1,42 @@
+[package]
+name = "config-manager"
+version = "0.1.0"
+edition = "2021"
+authors = ["Kundai Farai Sachikonye <kundai.sachikonye@wzw.tum.de>"]
+description = "Configuration management for Zangalewa consciousness-aware systems"
+license = "MIT"
+
+[dependencies]
+# Configuration handling
+config = "0.14"
+serde = { version = "1.0", features = ["derive"] }
+toml = "0.8"
+
+# File system and directories
+directories = "5.0"
+
+# Error handling and logging
+anyhow = "1.0"
+thiserror = "1.0"
+tracing = "0.1"
+
+# Environment variable handling
+dotenvy = "0.15"
+
+# Validation
+validator = { version = "0.16", features = ["derive"] }
+
+# Security for sensitive configuration
+ring = "0.17"
+base64 = "0.21"
+
+[dev-dependencies]
+tempfile = "3.8"
+rstest = "0.18"
+
+[features]
+default = ["basic"]
+basic = []
+encryption = []
+validation = []
+watch = []
