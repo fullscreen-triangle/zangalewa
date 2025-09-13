@@ -1,0 +1,173 @@
+{
+  "name": "pugachev-cobra",
+  "displayName": "Pugachev Cobra: Finite Observer AI Validation",
+  "description": "Finite observer validation system for AI-generated content based on mathematical consciousness principles",
+  "version": "0.1.0",
+  "publisher": "zangalewa",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other",
+    "Machine Learning",
+    "Linters"
+  ],
+  "keywords": [
+    "ai-validation",
+    "consciousness",
+    "finite-observer",
+    "systematic-bias",
+    "llm-safety"
+  ],
+  "activationEvents": [
+    "onCommand:pugachev-cobra.validateSelection",
+    "onCommand:pugachev-cobra.validateDocument",
+    "onCommand:pugachev-cobra.configureContext",
+    "onLanguage:markdown",
+    "onLanguage:plaintext",
+    "onLanguage:typescript",
+    "onLanguage:javascript",
+    "onLanguage:python"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "pugachev-cobra.validateSelection",
+        "title": "Validate Selection with Finite Observer",
+        "category": "Pugachev Cobra"
+      },
+      {
+        "command": "pugachev-cobra.validateDocument",
+        "title": "Validate Entire Document",
+        "category": "Pugachev Cobra"
+      },
+      {
+        "command": "pugachev-cobra.configureContext",
+        "title": "Configure Problem Context",
+        "category": "Pugachev Cobra"
+      },
+      {
+        "command": "pugachev-cobra.showDiagnostics",
+        "title": "Show Validation Diagnostics",
+        "category": "Pugachev Cobra"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "pugachev-cobra.validateSelection",
+          "group": "pugachev-cobra",
+          "when": "editorHasSelection"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "pugachev-cobra.validateSelection",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "pugachev-cobra.validateDocument"
+        },
+        {
+          "command": "pugachev-cobra.configureContext"
+        }
+      ]
+    },
+    "configuration": {
+      "type": "object",
+      "title": "Pugachev Cobra Configuration",
+      "properties": {
+        "pugachev-cobra.consciousnessThreshold": {
+          "type": "number",
+          "default": 0.6,
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Consciousness threshold for validation adequacy (Φ threshold)"
+        },
+        "pugachev-cobra.terminationCriteria": {
+          "type": "object",
+          "default": {
+            "maxProcessingTime": 5000,
+            "sufficiencyThreshold": 0.7,
+            "taskTimeoutMs": 1000
+          },
+          "description": "Termination criteria for bounded processing"
+        },
+        "pugachev-cobra.systematicBias": {
+          "type": "object",
+          "default": {
+            "professionalCommunication": {
+              "factualAccuracy": 0.9,
+              "conservativeTone": 0.8,
+              "verifiabilitY": 0.9
+            },
+            "creativeExploration": {
+              "novelty": 0.7,
+              "logicalConsistency": 0.6,
+              "theoreticalRigor": 0.8
+            },
+            "technicalAnalysis": {
+              "mathematicalRigor": 0.9,
+              "empiricalEvidence": 0.8,
+              "methodological": 0.8
+            }
+          },
+          "description": "Systematic bias configurations for different problem contexts"
+        },
+        "pugachev-cobra.llmProvider": {
+          "type": "string",
+          "enum": ["openai", "anthropic", "huggingface", "local"],
+          "default": "openai",
+          "description": "LLM provider for meta-knowledge processing"
+        },
+        "pugachev-cobra.apiKeys": {
+          "type": "object",
+          "default": {},
+          "description": "API keys for LLM providers (stored securely)",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "languages": [
+      {
+        "id": "pugachev-validation",
+        "extensions": [".pcv"],
+        "configuration": "./language-configuration.json"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package",
+    "deploy": "vsce publish"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@types/node": "16.x",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "eslint": "^8.28.0",
+    "typescript": "^4.9.4",
+    "@vscode/test-electron": "^2.2.0",
+    "@vscode/vsce": "^2.15.0"
+  },
+  "dependencies": {
+    "openai": "^4.0.0",
+    "@anthropic-ai/sdk": "^0.9.0",
+    "axios": "^1.4.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fullscreen-triangle/zangalewa"
+  },
+  "license": "MIT",
+  "icon": "assets/icon.png"
+}
