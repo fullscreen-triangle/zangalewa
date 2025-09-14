@@ -1,280 +1,305 @@
 /**
- * Pugachev Cobra: Finite Observer AI Validation Extension
+ * Pugachev Cobra VS Code Extension
  * 
- * Mathematical framework for bounded artificial intelligence processing
- * based on systematic bias and finite observer principles.
+ * Finite Observer AI Validation System with Metacognitive Orchestration
+ * Integrates the 8-stage pipeline from four-sided-triangle for autonomous operation
  */
 
 import * as vscode from 'vscode';
-import { FiniteObserverEngine } from './core/FiniteObserverEngine';
-import { ValidationDiagnosticsProvider } from './providers/ValidationDiagnosticsProvider';
+import { MetacognitiveOrchestrator } from './orchestrator/MetacognitiveOrchestrator';
 import { ProblemContextManager } from './core/ProblemContextManager';
-import { SystematicBiasGenerator } from './core/SystematicBiasGenerator';
+import { ValidationDiagnosticsProvider } from './providers/ValidationDiagnosticsProvider';
+
+let orchestrator: MetacognitiveOrchestrator;
+let contextManager: ProblemContextManager;
+let diagnosticsProvider: ValidationDiagnosticsProvider;
 
 export function activate(context: vscode.ExtensionContext) {
-    console.log('Activating Pugachev Cobra extension...');
+    console.log('Pugachev Cobra: Finite Observer AI Validation System activated!');
 
-    // Initialize core systems
-    const finiteObserverEngine = new FiniteObserverEngine(context);
-    const problemContextManager = new ProblemContextManager();
-    const systematicBiasGenerator = new SystematicBiasGenerator();
-    const diagnosticsProvider = new ValidationDiagnosticsProvider();
+    // Initialize core components
+    orchestrator = new MetacognitiveOrchestrator(context);
+    contextManager = new ProblemContextManager(context);
+    diagnosticsProvider = new ValidationDiagnosticsProvider(context);
 
-    // Register diagnostic provider
-    const diagnosticsCollection = vscode.languages.createDiagnosticCollection('pugachev-cobra');
-    context.subscriptions.push(diagnosticsCollection);
-
-    // Command: Validate Selection
+    // Register main validation commands
     const validateSelectionCommand = vscode.commands.registerCommand(
         'pugachev-cobra.validateSelection',
-        async () => {
-            const editor = vscode.window.activeTextEditor;
-            if (!editor) {
-                vscode.window.showWarningMessage('No active editor found');
-                return;
-            }
-
-            const selection = editor.selection;
-            const selectedText = editor.document.getText(selection);
-            
-            if (!selectedText.trim()) {
-                vscode.window.showWarningMessage('No text selected for validation');
-                return;
-            }
-
-            try {
-                // Show progress indicator
-                await vscode.window.withProgress({
-                    location: vscode.ProgressLocation.Notification,
-                    title: "Validating with Finite Observer...",
-                    cancellable: false
-                }, async (progress) => {
-                    progress.report({ increment: 0, message: "Analyzing problem context..." });
-                    
-                    // Determine problem context
-                    const problemContext = await problemContextManager.analyzeContext(
-                        editor.document,
-                        selection
-                    );
-                    
-                    progress.report({ increment: 30, message: "Generating systematic bias..." });
-                    
-                    // Generate appropriate systematic bias
-                    const systematicBias = await systematicBiasGenerator.generateBias(problemContext);
-                    
-                    progress.report({ increment: 60, message: "Processing with bounded validation..." });
-                    
-                    // Perform finite observer validation
-                    const validationResult = await finiteObserverEngine.validateContent(
-                        selectedText,
-                        problemContext,
-                        systematicBias
-                    );
-
-                    progress.report({ increment: 100, message: "Validation complete" });
-                    
-                    // Display results
-                    await displayValidationResults(validationResult, editor, selection, diagnosticsCollection);
-                });
-
-            } catch (error) {
-                const errorMessage = error instanceof Error ? error.message : String(error);
-                vscode.window.showErrorMessage(`Validation failed: ${errorMessage}`);
-                console.error('Validation error:', error);
-            }
-        }
+        async () => await handleValidateSelection()
     );
 
-    // Command: Validate Document
     const validateDocumentCommand = vscode.commands.registerCommand(
-        'pugachev-cobra.validateDocument',
-        async () => {
-            const editor = vscode.window.activeTextEditor;
-            if (!editor) {
-                vscode.window.showWarningMessage('No active editor found');
-                return;
-            }
-
-            const document = editor.document;
-            const fullText = document.getText();
-
-            if (!fullText.trim()) {
-                vscode.window.showWarningMessage('Document is empty');
-                return;
-            }
-
-            try {
-                await vscode.window.withProgress({
-                    location: vscode.ProgressLocation.Notification,
-                    title: "Validating entire document...",
-                    cancellable: true
-                }, async (progress, token) => {
-                    // Analyze document context
-                    const problemContext = await problemContextManager.analyzeDocumentContext(document);
-                    const systematicBias = await systematicBiasGenerator.generateBias(problemContext);
-
-                    // Validate document with cancellation support
-                    const validationResult = await finiteObserverEngine.validateDocument(
-                        document,
-                        problemContext,
-                        systematicBias,
-                        progress,
-                        token
-                    );
-
-                    // Update diagnostics for entire document
-                    await updateDocumentDiagnostics(validationResult, document, diagnosticsCollection);
-                });
-
-            } catch (error) {
-                if (error instanceof vscode.CancellationError) {
-                    vscode.window.showInformationMessage('Document validation cancelled');
-                } else {
-                    const errorMessage = error instanceof Error ? error.message : String(error);
-                    vscode.window.showErrorMessage(`Document validation failed: ${errorMessage}`);
-                    console.error('Document validation error:', error);
-                }
-            }
-        }
+        'pugachev-cobra.validateDocument', 
+        async () => await handleValidateDocument()
     );
 
-    // Command: Configure Context
     const configureContextCommand = vscode.commands.registerCommand(
         'pugachev-cobra.configureContext',
-        async () => {
-            const contextTypes = [
-                'Professional Communication',
-                'Creative Exploration', 
-                'Technical Analysis',
-                'Academic Writing',
-                'Code Documentation',
-                'Custom...'
-            ];
-
-            const selectedContext = await vscode.window.showQuickPick(contextTypes, {
-                placeHolder: 'Select problem context for validation'
-            });
-
-            if (selectedContext) {
-                if (selectedContext === 'Custom...') {
-                    const customContext = await vscode.window.showInputBox({
-                        prompt: 'Enter custom problem context',
-                        placeHolder: 'e.g., Legal Documentation, Scientific Research'
-                    });
-                    
-                    if (customContext) {
-                        await problemContextManager.setCustomContext(customContext);
-                        vscode.window.showInformationMessage(`Context set to: ${customContext}`);
-                    }
-                } else {
-                    await problemContextManager.setContext(selectedContext);
-                    vscode.window.showInformationMessage(`Context set to: ${selectedContext}`);
-                }
-            }
-        }
+        async () => await handleConfigureContext()
     );
 
-    // Command: Show Diagnostics
-    const showDiagnosticsCommand = vscode.commands.registerCommand(
-        'pugachev-cobra.showDiagnostics',
-        () => {
-            vscode.commands.executeCommand('workbench.panel.markers.view.focus');
-        }
-    );
+    // Register diagnostic provider
+    const diagnosticCollection = vscode.languages.createDiagnosticCollection('pugachev-cobra');
+    context.subscriptions.push(diagnosticCollection);
 
-    // Register all commands
+    // Register all disposables
     context.subscriptions.push(
         validateSelectionCommand,
         validateDocumentCommand,
         configureContextCommand,
-        showDiagnosticsCommand
+        diagnosticCollection
     );
 
-    // Status bar item
-    const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
-    statusBarItem.text = "$(shield) Pugachev Cobra";
-    statusBarItem.tooltip = "Finite Observer AI Validation - Click to configure";
-    statusBarItem.command = 'pugachev-cobra.configureContext';
-    statusBarItem.show();
-    context.subscriptions.push(statusBarItem);
+    // Set up automatic validation on document changes
+    const onDidChangeTextDocument = vscode.workspace.onDidChangeTextDocument(async (event) => {
+        await handleDocumentChange(event, diagnosticCollection);
+    });
+    context.subscriptions.push(onDidChangeTextDocument);
 
-    console.log('Pugachev Cobra extension activated successfully');
+    vscode.window.showInformationMessage('🧠 Pugachev Cobra: Consciousness-Aware AI Validation Ready!');
 }
 
-async function displayValidationResults(
-    validationResult: any,
-    editor: vscode.TextEditor,
-    selection: vscode.Selection,
-    diagnosticsCollection: vscode.DiagnosticCollection
-) {
-    const document = editor.document;
-    const diagnostics: vscode.Diagnostic[] = [];
-
-    if (validationResult.issues && validationResult.issues.length > 0) {
-        for (const issue of validationResult.issues) {
-            const diagnostic = new vscode.Diagnostic(
-                selection,
-                issue.message,
-                issue.severity === 'error' ? vscode.DiagnosticSeverity.Error :
-                issue.severity === 'warning' ? vscode.DiagnosticSeverity.Warning :
-                vscode.DiagnosticSeverity.Information
-            );
-            diagnostic.source = 'Pugachev Cobra';
-            diagnostic.code = issue.code || 'finite-observer-validation';
-            diagnostics.push(diagnostic);
-        }
+/**
+ * Handles validation of selected text
+ */
+async function handleValidateSelection(): Promise<void> {
+    const editor = vscode.window.activeTextEditor;
+    if (!editor) {
+        vscode.window.showErrorMessage('No active text editor found');
+        return;
     }
 
-    // Update diagnostics
-    diagnosticsCollection.set(document.uri, diagnostics);
+    const selection = editor.selection;
+    if (selection.isEmpty) {
+        vscode.window.showErrorMessage('No text selected for validation');
+        return;
+    }
 
-    // Show summary message
-    const consciousnessLevel = validationResult.consciousnessLevel || 0;
-    const adequacyLevel = validationResult.adequacyLevel || 0;
+    const selectedText = editor.document.getText(selection);
+    await performValidation(selectedText, editor.document);
+}
 
-    if (validationResult.isValid) {
-        vscode.window.showInformationMessage(
-            `✅ Validation passed (Φ=${consciousnessLevel.toFixed(3)}, Adequacy=${adequacyLevel.toFixed(3)})`
-        );
-    } else {
-        vscode.window.showWarningMessage(
-            `⚠️  Validation issues detected (Φ=${consciousnessLevel.toFixed(3)}, Adequacy=${adequacyLevel.toFixed(3)})`
-        );
+/**
+ * Handles validation of entire document
+ */
+async function handleValidateDocument(): Promise<void> {
+    const editor = vscode.window.activeTextEditor;
+    if (!editor) {
+        vscode.window.showErrorMessage('No active text editor found');
+        return;
+    }
+
+    const documentText = editor.document.getText();
+    await performValidation(documentText, editor.document);
+}
+
+/**
+ * Handles context configuration
+ */
+async function handleConfigureContext(): Promise<void> {
+    const contextTypes = [
+        'Professional Communication',
+        'Creative Exploration', 
+        'Technical Analysis',
+        'Academic Writing'
+    ];
+
+    const selectedType = await vscode.window.showQuickPick(contextTypes, {
+        placeHolder: 'Select the type of content being validated'
+    });
+
+    if (!selectedType) return;
+
+    const stakes = await vscode.window.showQuickPick(
+        ['Low', 'Medium', 'High', 'Critical'],
+        { placeHolder: 'Select the importance level of this content' }
+    );
+
+    if (!stakes) return;
+
+    // Update configuration
+    const config = vscode.workspace.getConfiguration('pugachev-cobra');
+    await config.update('context.type', selectedType, vscode.ConfigurationTarget.Workspace);
+    await config.update('context.stakes', stakes.toLowerCase(), vscode.ConfigurationTarget.Workspace);
+
+    vscode.window.showInformationMessage(`Context configured: ${selectedType} (${stakes} stakes)`);
+}
+
+/**
+ * Handles document change events for real-time validation
+ */
+async function handleDocumentChange(
+    event: vscode.TextDocumentChangeEvent,
+    diagnosticCollection: vscode.DiagnosticCollection
+): Promise<void> {
+    // Only validate on significant changes (avoid constant validation)
+    if (event.contentChanges.length === 0) return;
+    
+    const config = vscode.workspace.getConfiguration('pugachev-cobra');
+    const enableRealTime = config.get('validation.realTime', false);
+    
+    if (!enableRealTime) return;
+
+    // Debounce validation (wait for user to stop typing)
+    const document = event.document;
+    setTimeout(async () => {
+        await performValidationWithDiagnostics(document.getText(), document, diagnosticCollection);
+    }, 2000);
+}
+
+/**
+ * Core validation logic using metacognitive orchestrator
+ */
+async function performValidation(content: string, document: vscode.TextDocument): Promise<void> {
+    try {
+        // Show progress
+        await vscode.window.withProgress({
+            location: vscode.ProgressLocation.Notification,
+            title: "🧠 Pugachev Cobra: Processing...",
+            cancellable: false
+        }, async (progress) => {
+            progress.report({ increment: 0, message: "Analyzing context..." });
+
+            // Analyze problem context
+            const context = await contextManager.analyzeProblemType(content);
+            
+            progress.report({ increment: 20, message: "Initializing metacognitive orchestrator..." });
+
+            // Execute validation through orchestrator
+            const result = await orchestrator.orchestrateValidation(content, context);
+
+            progress.report({ increment: 80, message: "Finalizing results..." });
+
+            // Display results
+            await displayValidationResults(result, document);
+            
+            progress.report({ increment: 100, message: "Complete!" });
+        });
+
+    } catch (error: any) {
+        vscode.window.showErrorMessage(`Validation failed: ${error.message}`);
+        console.error('Pugachev Cobra validation error:', error);
     }
 }
 
-async function updateDocumentDiagnostics(
-    validationResult: any,
+/**
+ * Validation with diagnostic integration
+ */
+async function performValidationWithDiagnostics(
+    content: string,
     document: vscode.TextDocument,
-    diagnosticsCollection: vscode.DiagnosticCollection
-) {
-    const diagnostics: vscode.Diagnostic[] = [];
+    diagnosticCollection: vscode.DiagnosticCollection
+): Promise<void> {
+    try {
+        const context = await contextManager.analyzeProblemType(content);
+        const result = await orchestrator.orchestrateValidation(content, context);
+        
+        // Convert results to diagnostics
+        const diagnostics = await diagnosticsProvider.provideDiagnostics(result.finalResult, document);
+        diagnosticCollection.set(document.uri, diagnostics);
 
-    if (validationResult.documentIssues) {
-        for (const issue of validationResult.documentIssues) {
-            const range = new vscode.Range(
-                issue.range?.start || 0,
-                0,
-                issue.range?.end || document.lineCount - 1,
-                0
-            );
-
-            const diagnostic = new vscode.Diagnostic(
-                range,
-                issue.message,
-                issue.severity === 'error' ? vscode.DiagnosticSeverity.Error :
-                issue.severity === 'warning' ? vscode.DiagnosticSeverity.Warning :
-                vscode.DiagnosticSeverity.Information
-            );
-            diagnostic.source = 'Pugachev Cobra';
-            diagnostic.code = issue.code || 'document-validation';
-            diagnostics.push(diagnostic);
-        }
+    } catch (error) {
+        console.warn('Real-time validation failed:', error);
     }
+}
 
-    diagnosticsCollection.set(document.uri, diagnostics);
+/**
+ * Displays validation results to user
+ */
+async function displayValidationResults(
+    result: {
+        finalResult: any[];
+        decisions: any[];
+        qualityMetrics: any;
+        processingStrategy: any;
+    },
+    document: vscode.TextDocument
+): Promise<void> {
+    const { finalResult, decisions, qualityMetrics, processingStrategy } = result;
+
+    // Create summary message
+    const issueCount = finalResult.reduce((sum, r) => sum + (r.issues?.length || 0), 0);
+    const averageConfidence = finalResult.reduce((sum, r) => sum + r.confidence, 0) / finalResult.length;
+    
+    const summary = `✅ Validation Complete!
+    
+📊 Results Summary:
+• Overall Quality: ${(qualityMetrics.overallScore * 100).toFixed(1)}%
+• Confidence: ${(averageConfidence * 100).toFixed(1)}%
+• Issues Found: ${issueCount}
+• Refinement Iterations: ${decisions.length}
+• Processing Strategy: ${processingStrategy.approach}
+
+🎯 Quality Dimensions:
+${Object.entries(qualityMetrics.dimensionScores)
+  .map(([dim, score]) => `• ${dim}: ${((score as number) * 100).toFixed(1)}%`)
+  .join('\n')}`;
+
+    // Show results in information message
+    const action = await vscode.window.showInformationMessage(
+        summary,
+        'View Details',
+        'Show Issues',
+        'OK'
+    );
+
+    if (action === 'View Details') {
+        await showDetailedResults(result);
+    } else if (action === 'Show Issues') {
+        await showIssuesPanel(finalResult, document);
+    }
+}
+
+/**
+ * Shows detailed results in output channel
+ */
+async function showDetailedResults(result: any): Promise<void> {
+    const outputChannel = vscode.window.createOutputChannel('Pugachev Cobra - Details');
+    
+    outputChannel.appendLine('🧠 PUGACHEV COBRA: FINITE OBSERVER VALIDATION RESULTS');
+    outputChannel.appendLine('=' .repeat(60));
+    outputChannel.appendLine('');
+    
+    outputChannel.appendLine('📈 QUALITY ANALYSIS:');
+    outputChannel.appendLine(`Overall Score: ${(result.qualityMetrics.overallScore * 100).toFixed(2)}%`);
+    outputChannel.appendLine(`Confidence: ${(result.qualityMetrics.confidence * 100).toFixed(2)}%`);
+    outputChannel.appendLine('');
+    
+    outputChannel.appendLine('🎯 DIMENSION BREAKDOWN:');
+    for (const [dimension, score] of Object.entries(result.qualityMetrics.dimensionScores)) {
+        outputChannel.appendLine(`• ${dimension}: ${((score as number) * 100).toFixed(2)}%`);
+    }
+    outputChannel.appendLine('');
+    
+    outputChannel.appendLine('🔄 REFINEMENT DECISIONS:');
+    result.decisions.forEach((decision: any, i: number) => {
+        outputChannel.appendLine(`${i + 1}. ${decision.reason}`);
+        outputChannel.appendLine(`   Target Areas: ${decision.targetAreas.join(', ')}`);
+        outputChannel.appendLine(`   Confidence: ${(decision.confidence * 100).toFixed(1)}%`);
+    });
+    outputChannel.appendLine('');
+    
+    outputChannel.appendLine('💡 RECOMMENDATIONS:');
+    result.qualityMetrics.improvementRecommendations.forEach((rec: string, i: number) => {
+        outputChannel.appendLine(`${i + 1}. ${rec}`);
+    });
+    
+    outputChannel.show(true);
+}
+
+/**
+ * Shows issues in problems panel
+ */
+async function showIssuesPanel(results: any[], document: vscode.TextDocument): Promise<void> {
+    const diagnostics = await diagnosticsProvider.provideDiagnostics(results, document);
+    const diagnosticCollection = vscode.languages.createDiagnosticCollection('pugachev-cobra-issues');
+    diagnosticCollection.set(document.uri, diagnostics);
+    
+    // Focus on problems panel
+    vscode.commands.executeCommand('workbench.panel.markers.view.focus');
 }
 
 export function deactivate() {
+    // Cleanup resources
     console.log('Pugachev Cobra extension deactivated');
 }
