@@ -15,6 +15,8 @@ import { ProcessMonitor } from './ProcessMonitor';
 import { DynamicPromptGenerator } from './DynamicPromptGenerator';
 import { EightStagePipeline } from './EightStagePipeline';
 import { RidiculousSolutionGenerator } from '../core/RidiculousSolutionGenerator';
+import { SubtaskRidiculousGenerator } from '../core/SubtaskRidiculousGenerator';
+import { IntentValidationEngine } from '../core/IntentValidationEngine';
 import { 
     ValidationTask, 
     ProblemContext, 
@@ -26,7 +28,11 @@ import {
     OrchestrationStrategy,
     PugachevCobraResult,
     RidiculousSolution,
-    ValidationBoundaries
+    ValidationBoundaries,
+    RefinedPugachevCobraResult,
+    RefinedValidationBoundaries,
+    IntentValidationResult,
+    IntentValidationConfig
 } from '../types/ValidationTypes';
 
 export class MetacognitiveOrchestrator {
@@ -35,6 +41,8 @@ export class MetacognitiveOrchestrator {
     private promptGenerator: DynamicPromptGenerator;
     private pipeline: EightStagePipeline;
     private ridiculousSolutionGenerator: RidiculousSolutionGenerator;
+    private subtaskRidiculousGenerator: SubtaskRidiculousGenerator;
+    private intentValidationEngine: IntentValidationEngine;
     private config: vscode.WorkspaceConfiguration;
 
     constructor(private context: vscode.ExtensionContext) {
@@ -44,6 +52,14 @@ export class MetacognitiveOrchestrator {
         this.promptGenerator = new DynamicPromptGenerator(context);
         this.pipeline = new EightStagePipeline(context);
         this.ridiculousSolutionGenerator = new RidiculousSolutionGenerator(context);
+        this.subtaskRidiculousGenerator = new SubtaskRidiculousGenerator(context);
+        this.intentValidationEngine = new IntentValidationEngine({
+            intentMatchThreshold: 0.7,
+            maxWhyQuestions: 10,
+            maxCounterfactuals: 5,
+            temporalAmbiguityDetection: true,
+            recursiveWhyDepth: 2
+        });
     }
 
     /**
@@ -66,6 +82,8 @@ export class MetacognitiveOrchestrator {
         qualityMetrics: QualityMetrics;
         processingStrategy: OrchestrationStrategy;
         pugachevCobraResult: PugachevCobraResult;
+        refinedPugachevCobraResult: RefinedPugachevCobraResult;
+        intentValidationResult: IntentValidationResult;
     }> {
         // Create processing session with working memory
         const session = await this.workingMemory.createSession({
@@ -94,8 +112,16 @@ export class MetacognitiveOrchestrator {
                 session
             );
             
-            // Phase 5: THE PUGACHEV COBRA MANEUVER
-            // Generate ridiculous solution and create validation boundaries
+            // Phase 5: THE REFINED PUGACHEV COBRA MANEUVER
+            // "Reality happens" principle - decompose and make only unknown subtasks ridiculous
+            const refinedPugachevCobraResult = await this.performRefinedPugachevCobraValidation(
+                content,
+                verifiedResults,
+                initialContext,
+                session
+            );
+            
+            // Phase 5.5: Legacy support - original whole-problem approach for comparison
             const pugachevCobraResult = await this.performPugachevCobraValidation(
                 content,
                 verifiedResults,
@@ -103,7 +129,28 @@ export class MetacognitiveOrchestrator {
                 session
             );
             
-            // Phase 6: Final Decision Based on Boundaries (NOT absolute correctness)
+            // Phase 5.5: REFINED PUGACHEV COBRA (Subtask-level) - "Reality happens" principle
+            const refinedPugachevCobraResult = await this.performRefinedPugachevCobraValidation(
+                content,
+                verifiedResults,
+                initialContext,
+                session
+            );
+
+            // Phase 5.75: INTENT VALIDATION - The "09.11.2025 Insight"
+            // Validate that the solution matches the inferred user intent
+            const intentValidationResult = await this.intentValidationEngine.validateIntent(
+                content,
+                JSON.stringify(verifiedResults), // Response to validate
+                {
+                    domain: initialContext.domain,
+                    stakes: initialContext.stakes,
+                    timestamp: Date.now(),
+                    session: session.sessionId
+                }
+            );
+
+            // Phase 6: Final Decision Based on Boundaries + Intent (NOT absolute correctness)
             const finalQuality = await this.processMonitor.computeFinalQuality(verifiedResults, session);
             const decisions = await this.workingMemory.getRefinementHistory(session.sessionId);
             
@@ -112,7 +159,9 @@ export class MetacognitiveOrchestrator {
                 decisions,
                 qualityMetrics: finalQuality,
                 processingStrategy: strategy,
-                pugachevCobraResult
+                pugachevCobraResult,
+                refinedPugachevCobraResult,
+                intentValidationResult
             };
 
         } finally {
@@ -566,6 +615,225 @@ export class MetacognitiveOrchestrator {
         };
 
         return pugachevCobraResult;
+    }
+
+    /**
+     * THE REFINED PUGACHEV COBRA VALIDATION MECHANISM
+     * 
+     * Based on "Reality happens" principle and subtask decomposition:
+     * 1. Reality exists → all problems have solutions
+     * 2. Decompose problem into subtasks  
+     * 3. Keep known solutions (grammar, structure, etc.)
+     * 4. Make ONLY unknown subtasks ridiculous (fact-checking, domain knowledge)
+     * 5. Create precise boundaries only where needed
+     * 
+     * This is the breakthrough refinement: surgical precision instead of blanket absurdity.
+     */
+    private async performRefinedPugachevCobraValidation(
+        originalContent: string,
+        originalSolution: TaskResult[],
+        context: ProblemContext,
+        session: ProcessingSession
+    ): Promise<RefinedPugachevCobraResult> {
+        // Step 1: Generate systematic bias for subtask-level processing
+        const systematicBias = await this.generateContrastBias(context);
+        
+        // Step 2: THE REFINED PUGACHEV COBRA - Subtask decomposition with selective ridiculous solutions
+        const refinedBoundaries = await this.subtaskRidiculousGenerator.generateSubtaskBoundaries(
+            originalContent,
+            context,
+            systematicBias
+        );
+
+        // Step 3: Evaluate original solution against refined boundaries
+        const finalValidation = await this.evaluateAgainstSubtaskBoundaries(
+            originalSolution,
+            refinedBoundaries,
+            context
+        );
+
+        // Step 4: Calculate confidence based on reality-happens principle
+        const confidence = this.calculateRefinedConfidence(refinedBoundaries, finalValidation);
+
+        // Store refined results in working memory
+        await this.workingMemory.storeStageOutput(session.sessionId, 'refined_pugachev_cobra_validation', {
+            refinedBoundaries,
+            finalValidation,
+            confidence,
+            realityProof: "If reality exists and functions, all constituent problems have solutions"
+        });
+
+        // Extract decomposition details from boundaries
+        const subtaskDecomposition = {
+            originalProblem: originalContent,
+            subtasks: [
+                ...Object.keys(refinedBoundaries.knownSolutions).map(id => ({ id, type: 'known' })),
+                ...Object.keys(refinedBoundaries.unknownBoundaries).map(id => ({ id, type: 'unknown' }))
+            ],
+            decompositionRationale: 'Based on reality-happens principle: all subtasks must have solutions',
+            totalSubtasks: refinedBoundaries.totalSubtasks,
+            estimatedSolvability: refinedBoundaries.overallSolvability
+        };
+
+        const refinedPugachevCobraResult: RefinedPugachevCobraResult = {
+            originalProblem: originalContent,
+            subtaskDecomposition: subtaskDecomposition as any,
+            knownSubtasks: Object.entries(refinedBoundaries.knownSolutions).map(([id, solution]) => ({
+                id,
+                type: 'known-solution',
+                importance: 1.0,
+                estimatedComplexity: 0.2,
+                requiredCapabilities: ['established-pattern'],
+                dependencies: [],
+                solutionType: solution.solution as any,
+                confidence: solution.confidence,
+                reasoning: solution.reasoning
+            })),
+            unknownSubtasks: Object.keys(refinedBoundaries.unknownBoundaries).map(id => ({
+                id,
+                type: 'unknown-solution',
+                importance: 1.0,
+                estimatedComplexity: 0.7,
+                requiredCapabilities: ['boundary-validation'],
+                dependencies: [],
+                uncertaintyType: 'context-dependent' as any,
+                boundaryNeeded: true,
+                reasoning: 'Requires boundary-based validation'
+            })),
+            ridiculousSubtaskSolutions: [], // Would be populated by SubtaskRidiculousGenerator
+            refinedBoundaries,
+            finalValidation,
+            realityProof: {
+                solvabilityGuarantee: true,
+                decompositionComplete: true,
+                boundariesEstablished: Object.keys(refinedBoundaries.unknownBoundaries).length > 0,
+                reasoning: "If reality exists and functions, all constituent problems have solutions"
+            }
+        };
+
+        return refinedPugachevCobraResult;
+    }
+
+    /**
+     * Evaluates original solution against subtask-specific boundaries
+     */
+    private async evaluateAgainstSubtaskBoundaries(
+        originalSolution: TaskResult[],
+        boundaries: RefinedValidationBoundaries,
+        context: ProblemContext
+    ): Promise<{
+        knownPartsValid: boolean;
+        unknownPartsWithinBounds: boolean;
+        overallAssessment: 'valid' | 'needs-refinement' | 'boundary-violation';
+        confidence: number;
+    }> {
+        // Step 1: Known parts are always valid (established patterns)
+        const knownPartsValid = true; // By definition, known solutions work
+
+        // Step 2: Check unknown parts against boundaries
+        let unknownPartsWithinBounds = true;
+        let boundaryViolations = 0;
+        let totalUnknownChecks = 0;
+
+        for (const [subtaskId, boundary] of Object.entries(boundaries.unknownBoundaries)) {
+            totalUnknownChecks++;
+            
+            // Check if original solution violates "cannot mean" boundaries
+            const violatesCannotMean = await this.checkCannotMeanViolation(
+                originalSolution,
+                boundary.cannotMean,
+                subtaskId
+            );
+
+            if (violatesCannotMean) {
+                boundaryViolations++;
+                unknownPartsWithinBounds = false;
+            }
+        }
+
+        // Step 3: Overall assessment
+        let overallAssessment: 'valid' | 'needs-refinement' | 'boundary-violation';
+        let confidence: number;
+
+        if (knownPartsValid && unknownPartsWithinBounds) {
+            overallAssessment = 'valid';
+            confidence = 0.9;
+        } else if (boundaryViolations === 0 || boundaryViolations < totalUnknownChecks * 0.3) {
+            overallAssessment = 'needs-refinement';
+            confidence = 0.6;
+        } else {
+            overallAssessment = 'boundary-violation';
+            confidence = 0.3;
+        }
+
+        return {
+            knownPartsValid,
+            unknownPartsWithinBounds,
+            overallAssessment,
+            confidence
+        };
+    }
+
+    /**
+     * Checks if original solution violates "cannot mean" boundaries
+     */
+    private async checkCannotMeanViolation(
+        originalSolution: TaskResult[],
+        cannotMeanBoundaries: string[],
+        subtaskId: string
+    ): Promise<boolean> {
+        // Simple heuristic: check if any original solution issues suggest the forbidden approaches
+        for (const result of originalSolution) {
+            for (const issue of result.issues || []) {
+                for (const cannotMean of cannotMeanBoundaries) {
+                    // Check if the issue message suggests doing something from the "cannot mean" list
+                    const issueSuggestion = issue.suggestions?.join(' ').toLowerCase() || '';
+                    const cannotMeanLower = cannotMean.toLowerCase();
+                    
+                    if (issueSuggestion.includes('emoji') && cannotMeanLower.includes('emoji')) {
+                        return true; // Violation detected
+                    }
+                    if (issueSuggestion.includes('casual') && cannotMeanLower.includes('casual')) {
+                        return true;
+                    }
+                    if (issueSuggestion.includes('fabricat') && cannotMeanLower.includes('fabricat')) {
+                        return true;
+                    }
+                }
+            }
+        }
+        
+        return false; // No violations detected
+    }
+
+    /**
+     * Calculates confidence based on reality-happens principle and boundary quality
+     */
+    private calculateRefinedConfidence(
+        boundaries: RefinedValidationBoundaries,
+        validation: any
+    ): number {
+        // Base confidence from reality-happens principle
+        const realityConfidence = boundaries.overallSolvability; // Always 1.0
+        
+        // Boundary quality confidence
+        const boundaryConfidence = boundaries.boundaryConfidence;
+        
+        // Validation result confidence
+        const validationConfidence = validation.confidence;
+        
+        // Known solution confidence boost
+        const knownSolutionRatio = Object.keys(boundaries.knownSolutions).length / boundaries.totalSubtasks;
+        const knownSolutionBoost = knownSolutionRatio * 0.2; // Up to 20% boost for known solutions
+        
+        // Combined confidence
+        return Math.min(
+            (realityConfidence * 0.3) + 
+            (boundaryConfidence * 0.3) + 
+            (validationConfidence * 0.3) + 
+            knownSolutionBoost,
+            1.0
+        );
     }
 
     /**

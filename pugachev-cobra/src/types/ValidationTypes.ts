@@ -2,8 +2,11 @@
  * ValidationTypes
  * 
  * Enhanced type definitions incorporating the metacognitive orchestrator,
- * 8-stage pipeline, and THE CORE PUGACHEV COBRA mechanism:
- * Ridiculous solution generation for boundary-based validation.
+ * 8-stage pipeline, and THE REFINED PUGACHEV COBRA mechanism:
+ * Subtask-level ridiculous solution generation for precise boundary creation.
+ * 
+ * Key insight: "Reality happens" = universal solvability proof
+ * Make SUBTASKS ridiculous, not the whole problem!
  */
 
 import * as vscode from 'vscode';
@@ -47,6 +50,7 @@ export interface ValidationTask {
     dependencies: string[];
     timeoutMs?: number;
     description?: string;
+    knownSolution?: boolean; // NEW: Is this subtask's solution known?
 }
 
 export interface TaskResult {
@@ -63,6 +67,7 @@ export interface TaskResult {
         resourcesUsed?: any;
         absurdityType?: string;
         intentionallyRidiculous?: boolean;
+        subtaskType?: 'known' | 'unknown';
     };
 }
 
@@ -132,9 +137,7 @@ export interface LLMProviderConfig {
     temperature?: number;
 }
 
-// CORE PUGACHEV COBRA TYPES
-// The ridiculous solution mechanism that makes validation bounded and solvable
-
+// ORIGINAL PUGACHEV COBRA TYPES (Whole-problem level)
 export interface RidiculousSolution {
     originalProblem: string;
     ridiculousBreakdown: ValidationTask[];
@@ -162,6 +165,82 @@ export interface PugachevCobraResult {
         fabricatedReality: RidiculousSolution;
         actualInput: TaskResult[];
         perceptionBoundaries: ValidationBoundaries;
+    };
+}
+
+// REFINED PUGACHEV COBRA TYPES (Subtask-level)
+// Based on "Reality happens" principle and subtask decomposition
+
+export interface SubtaskDecomposition {
+    originalProblem: string;
+    subtasks: ValidationTask[];
+    decompositionRationale: string;
+    totalSubtasks: number;
+    estimatedSolvability: number; // Always 1.0 because "reality happens"
+}
+
+export interface KnownSubtask extends ValidationTask {
+    solutionType: 'established-pattern' | 'well-known-algorithm' | 'standard-practice';
+    confidence: number;
+    reasoning: string;
+}
+
+export interface UnknownSubtask extends ValidationTask {
+    uncertaintyType: 'factual-verification' | 'domain-knowledge' | 'context-dependent' | 'high-complexity' | 'standard-uncertainty';
+    boundaryNeeded: boolean;
+    reasoning: string;
+}
+
+export interface RidiculousSubtaskSolution {
+    subtaskId: string;
+    originalSubtask: UnknownSubtask;
+    ridiculousApproach: string[];
+    antiPatterns: string[];
+    overconfidenceLevel: number;
+    absurdityRationale: string;
+    contrastTarget: string;
+}
+
+export interface SubtaskBoundary {
+    canMean: string[];
+    cannotMean: string[];
+    boundaryConfidence: number;
+    contrastRatio: number;
+    validationSpace: 'bounded' | 'unbounded';
+    ridiculousContrast: string[];
+}
+
+export interface RefinedValidationBoundaries {
+    knownSolutions: Record<string, {
+        solution: string;
+        confidence: number;
+        reasoning: string;
+        needsValidation: boolean;
+    }>;
+    unknownBoundaries: Record<string, SubtaskBoundary>;
+    overallSolvability: number; // Always 1.0 - "reality happens"
+    boundaryConfidence: number;
+    totalSubtasks: number;
+}
+
+export interface RefinedPugachevCobraResult {
+    originalProblem: string;
+    subtaskDecomposition: SubtaskDecomposition;
+    knownSubtasks: KnownSubtask[];
+    unknownSubtasks: UnknownSubtask[];
+    ridiculousSubtaskSolutions: RidiculousSubtaskSolution[];
+    refinedBoundaries: RefinedValidationBoundaries;
+    finalValidation: {
+        knownPartsValid: boolean;
+        unknownPartsWithinBounds: boolean;
+        overallAssessment: 'valid' | 'needs-refinement' | 'boundary-violation';
+        confidence: number;
+    };
+    realityProof: {
+        solvabilityGuarantee: true; // Always true - "reality happens"
+        decompositionComplete: boolean;
+        boundariesEstablished: boolean;
+        reasoning: "If reality exists and functions, all constituent problems have solutions";
     };
 }
 
@@ -417,4 +496,74 @@ export interface FinalRecommendation {
     reason: string;
     confidence: number;
     suggestedModifications?: string[];
+}
+
+// INTENT VALIDATION TYPES - The "09.11.2025 Insight"
+// Based on the profound realization that coherent knowledge can still be wrong
+// if it misses actual intent. Knowledge is only useful in relation to something else.
+
+export interface IntentValidationResult {
+    isValid: boolean;
+    confidence: number;
+    inferredIntent: IntentInference;
+    whyQuestions: WhyQuestion[];
+    counterfactuals: CounterfactualScenario[];
+    intentMatch: {
+        score: number;
+        reasons: string[];
+        misalignments: string[];
+    };
+    explanation: string;
+    metadata: {
+        processingTime: number;
+        questionsGenerated: number;
+        counterfactualsExplored: number;
+        intentCertainty: number;
+    };
+}
+
+export interface WhyQuestion {
+    question: string;
+    type: 'motivation' | 'goal_seeking' | 'expression_choice' | 'knowledge_gap' | 'meta_motivation';
+    context: string;
+    depth: number;
+    exploration: string;
+}
+
+export interface CounterfactualScenario {
+    scenario: string;
+    probability: number;
+    description: string;
+    impact: 'low' | 'medium' | 'high' | 'very_high';
+    indicators: string[];
+}
+
+export interface IntentInference {
+    primaryIntent: {
+        description: string;
+        confidence: number;
+        type: string;
+    };
+    alternativeIntents: Array<{
+        description: string;
+        probability: number;
+    }>;
+    certainty: number;
+    contextualFactors: {
+        linguistic: any;
+        temporal: any;
+        domain: any;
+    };
+    riskFactors: Array<{
+        description: string;
+        severity: number;
+    }>;
+}
+
+export interface IntentValidationConfig {
+    intentMatchThreshold: number;
+    maxWhyQuestions: number;
+    maxCounterfactuals: number;
+    temporalAmbiguityDetection: boolean;
+    recursiveWhyDepth: number;
 }
