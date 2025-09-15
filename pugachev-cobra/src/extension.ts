@@ -215,10 +215,11 @@ async function displayRefinedValidationResults(
         qualityMetrics: any;
         processingStrategy: any;
         refinedPugachevCobraResult: any;
+        intentValidationResult: any;
     },
     document: vscode.TextDocument
 ): Promise<void> {
-    const { finalResult, decisions, qualityMetrics, processingStrategy, refinedPugachevCobraResult } = result;
+    const { finalResult, decisions, qualityMetrics, processingStrategy, refinedPugachevCobraResult, intentValidationResult } = result;
 
     // Create summary message with refined information
     const issueCount = finalResult.reduce((sum, r) => sum + (r.issues?.length || 0), 0);
@@ -228,8 +229,15 @@ async function displayRefinedValidationResults(
     const unknownSubtasks = refinedPugachevCobraResult?.unknownSubtasks?.length || 0;
     const totalSubtasks = knownSubtasks + unknownSubtasks;
     
-    const summary = `🎯 Reality-Based Validation Complete!
+    const summary = `🎯 Triple Validation Complete! (Intent + Reality + Boundaries)
     
+🧠 INTENT VALIDATION - "The 09.11.2025 Insight":
+• Intent Match: ${intentValidationResult?.isValid ? '✅ VALID' : '❌ MISALIGNED'}
+• Primary Intent: ${intentValidationResult?.inferredIntent?.primaryIntent?.description || 'Unknown'}
+• Intent Confidence: ${((intentValidationResult?.inferredIntent?.certainty || 0) * 100).toFixed(1)}%
+• Why Questions: ${intentValidationResult?.whyQuestions?.length || 0}
+• Counterfactuals: ${intentValidationResult?.counterfactuals?.length || 0}
+
 📊 Results Summary:
 • Overall Quality: ${(qualityMetrics.overallScore * 100).toFixed(1)}%
 • Confidence: ${(averageConfidence * 100).toFixed(1)}%
@@ -247,24 +255,125 @@ ${Object.entries(qualityMetrics.dimensionScores)
   .map(([dim, score]) => `• ${dim}: ${((score as number) * 100).toFixed(1)}%`)
   .join('\n')}
 
-🧠 Refined Validation: ${refinedPugachevCobraResult?.finalValidation?.overallAssessment?.toUpperCase() || 'PROCESSED'}`;
+🧠 Final Assessment: ${
+  intentValidationResult?.isValid && refinedPugachevCobraResult?.finalValidation?.overallAssessment === 'valid' 
+    ? '✅ FULLY VALID' 
+    : '⚠️ NEEDS REVIEW'
+}`;
 
     // Show results in information message
     const action = await vscode.window.showInformationMessage(
         summary,
-        'View Subtask Details',
+        'View Intent Analysis',
+        'View Subtask Details', 
         'Show Reality Proof',
         'Show Issues',
         'OK'
     );
 
-    if (action === 'View Subtask Details') {
+    if (action === 'View Intent Analysis') {
+        await showIntentAnalysis(result);
+    } else if (action === 'View Subtask Details') {
         await showSubtaskDetails(result);
     } else if (action === 'Show Reality Proof') {
         await showRealityProof(result);
     } else if (action === 'Show Issues') {
         await showIssuesPanel(finalResult, document);
     }
+}
+
+/**
+ * Shows detailed Intent Validation analysis - The "09.11.2025 Insight" 
+ */
+async function showIntentAnalysis(result: any): Promise<void> {
+    const outputChannel = vscode.window.createOutputChannel('Pugachev Cobra - Intent Analysis');
+    
+    outputChannel.appendLine('🧠 INTENT VALIDATION ENGINE - THE "09.11.2025 INSIGHT"');
+    outputChannel.appendLine('=' .repeat(65));
+    outputChannel.appendLine('');
+    
+    outputChannel.appendLine('📖 THE INSIGHT:');
+    outputChannel.appendLine('• Knowledge is only useful in relation to something else');
+    outputChannel.appendLine('• Coherent information can still be wrong if it misses intent');
+    outputChannel.appendLine('• Like the court date: 09.11.2025 → September 9th vs November 9th');
+    outputChannel.appendLine('• Everything was logical, but the fundamental interpretation was wrong');
+    outputChannel.appendLine('');
+    
+    const intent = result.intentValidationResult;
+    if (!intent) {
+        outputChannel.appendLine('❌ No intent validation data available');
+        outputChannel.show();
+        return;
+    }
+    
+    outputChannel.appendLine('🎯 INFERRED INTENT:');
+    outputChannel.appendLine(`• Primary Intent: ${intent.inferredIntent?.primaryIntent?.description || 'Unknown'}`);
+    outputChannel.appendLine(`• Intent Type: ${intent.inferredIntent?.primaryIntent?.type || 'Unknown'}`);
+    outputChannel.appendLine(`• Certainty Level: ${((intent.inferredIntent?.certainty || 0) * 100).toFixed(1)}%`);
+    outputChannel.appendLine('');
+    
+    outputChannel.appendLine('🤔 "WHY" QUESTIONS GENERATED:');
+    if (intent.whyQuestions && intent.whyQuestions.length > 0) {
+        intent.whyQuestions.forEach((q: any, i: number) => {
+            outputChannel.appendLine(`${i + 1}. [${q.type.toUpperCase()}] ${q.question}`);
+            outputChannel.appendLine(`   Exploration: ${q.exploration}`);
+            outputChannel.appendLine('');
+        });
+    } else {
+        outputChannel.appendLine('   No "why" questions available');
+    }
+    
+    outputChannel.appendLine('🔄 COUNTERFACTUAL SCENARIOS:');
+    if (intent.counterfactuals && intent.counterfactuals.length > 0) {
+        intent.counterfactuals.forEach((cf: any, i: number) => {
+            outputChannel.appendLine(`${i + 1}. ${cf.scenario} (${cf.impact.toUpperCase()} impact)`);
+            outputChannel.appendLine(`   Description: ${cf.description}`);
+            outputChannel.appendLine(`   Probability: ${(cf.probability * 100).toFixed(1)}%`);
+            outputChannel.appendLine(`   Indicators: ${cf.indicators.join(', ')}`);
+            outputChannel.appendLine('');
+        });
+    } else {
+        outputChannel.appendLine('   No counterfactuals available');
+    }
+    
+    outputChannel.appendLine('⚖️ INTENT MATCH ANALYSIS:');
+    outputChannel.appendLine(`• Match Score: ${(intent.intentMatch?.score || 0).toFixed(2)}`);
+    outputChannel.appendLine(`• Is Valid: ${intent.isValid ? '✅ YES' : '❌ NO'}`);
+    outputChannel.appendLine(`• Validation Confidence: ${(intent.confidence * 100).toFixed(1)}%`);
+    
+    if (intent.intentMatch?.reasons && intent.intentMatch.reasons.length > 0) {
+        outputChannel.appendLine('');
+        outputChannel.appendLine('✅ SUPPORTING REASONS:');
+        intent.intentMatch.reasons.forEach((reason: string, i: number) => {
+            outputChannel.appendLine(`   ${i + 1}. ${reason}`);
+        });
+    }
+    
+    if (intent.intentMatch?.misalignments && intent.intentMatch.misalignments.length > 0) {
+        outputChannel.appendLine('');
+        outputChannel.appendLine('⚠️ INTENT MISALIGNMENTS:');
+        intent.intentMatch.misalignments.forEach((misalignment: string, i: number) => {
+            outputChannel.appendLine(`   ${i + 1}. ${misalignment}`);
+        });
+    }
+    
+    outputChannel.appendLine('');
+    outputChannel.appendLine('🎯 ALTERNATIVE INTENTS CONSIDERED:');
+    if (intent.inferredIntent?.alternativeIntents && intent.inferredIntent.alternativeIntents.length > 0) {
+        intent.inferredIntent.alternativeIntents.forEach((alt: any, i: number) => {
+            outputChannel.appendLine(`${i + 1}. ${alt.description} (${(alt.probability * 100).toFixed(1)}% probability)`);
+        });
+    } else {
+        outputChannel.appendLine('   No alternative intents identified');
+    }
+    
+    outputChannel.appendLine('');
+    outputChannel.appendLine('🧠 CONCLUSION:');
+    outputChannel.appendLine(`This revolutionary approach validates responses against INFERRED INTENT,`);
+    outputChannel.appendLine(`not just factual correctness, preventing the "coherent but wrong" problem`);
+    outputChannel.appendLine(`that led to the 09.11.2025 court date misunderstanding.`);
+    
+    outputChannel.show();
 }
 
 /**
