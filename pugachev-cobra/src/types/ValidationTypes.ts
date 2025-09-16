@@ -39,6 +39,8 @@ export interface SystematicBias {
         maxIterations: number;
     };
     contextAdaptations: Record<string, any>;
+    selectionCriteria?: Record<string, any>;
+    contextSpecific?: Record<string, any>;
 }
 
 export interface ValidationTask {
@@ -87,6 +89,7 @@ export interface ValidationResult {
     processingTimeMs: number;
     consciousnessValidation: ConsciousnessValidation;
     recommendations: string[];
+    processingMetrics?: ProcessingMetrics;
 }
 
 export interface ConsciousnessLevel {
@@ -566,4 +569,42 @@ export interface IntentValidationConfig {
     maxCounterfactuals: number;
     temporalAmbiguityDetection: boolean;
     recursiveWhyDepth: number;
+}
+
+// Missing types needed by ConsciousnessValidator and other components
+
+export interface ProcessingState {
+    processedTasks: TaskResult[];
+    currentPhase: string;
+    elapsedTime: number;
+    memoryUsage: number;
+    resourcesAllocated: Record<string, any>;
+    intermediateResults: any[];
+}
+
+export interface ProcessingMetrics {
+    totalProcessingTime: number;
+    taskBreakdown: Record<string, number>;
+    resourceUtilization: {
+        memory: number;
+        cpu: number;
+        network?: number;
+    };
+    qualityProgression: number[];
+    iterationCount: number;
+    cacheHitRatio?: number;
+}
+
+export interface ConsciousnessAssessment {
+    level: ConsciousnessLevel;
+    validation: ConsciousnessValidation;
+    processingState: ProcessingState;
+    agencyDemonstration: {
+        hasReasonedChoices: boolean;
+        showsIntentionality: boolean;
+        demonstratesNamingControl: boolean;
+        socialCoordinationCapability: boolean;
+    };
+    assessmentTimestamp: number;
+    confidenceThreshold: number;
 }
