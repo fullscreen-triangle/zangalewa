@@ -1,0 +1,273 @@
+{
+  "name": "pugachev-copilot",
+  "displayName": "Pugachev Copilot: Intelligent Git & Code Sanity Validation",
+  "description": "AI-powered Git integration with triple validation: ridiculous code boundaries, intent inference, and GitHub pattern matching for code sanity",
+  "version": "0.1.0",
+  "publisher": "zangalewa",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other",
+    "Source Control",
+    "Machine Learning",
+    "Snippets"
+  ],
+  "keywords": [
+    "git",
+    "copilot",
+    "code-validation",
+    "intent-inference",
+    "commit-messages",
+    "code-sanity",
+    "pattern-matching",
+    "triple-validation"
+  ],
+  "activationEvents": [
+    "onCommand:pugachev-copilot.analyzeChanges",
+    "onCommand:pugachev-copilot.generateCommitMessage", 
+    "onCommand:pugachev-copilot.validateCodeIntent",
+    "onCommand:pugachev-copilot.findSimilarPatterns",
+    "onCommand:pugachev-copilot.runTripleValidation",
+    "onLanguage:typescript",
+    "onLanguage:javascript",
+    "onLanguage:python",
+    "onLanguage:rust",
+    "onLanguage:java",
+    "onLanguage:csharp",
+    "workspaceContains:.git"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "pugachev-copilot.analyzeChanges",
+        "title": "Analyze Code Changes with Intent Inference",
+        "category": "Pugachev Copilot",
+        "icon": "$(git-compare)"
+      },
+      {
+        "command": "pugachev-copilot.generateCommitMessage",
+        "title": "Generate Intelligent Commit Message",
+        "category": "Pugachev Copilot",
+        "icon": "$(git-commit)"
+      },
+      {
+        "command": "pugachev-copilot.validateCodeIntent",
+        "title": "Validate Code Intent with Triple Validation",
+        "category": "Pugachev Copilot",
+        "icon": "$(shield)"
+      },
+      {
+        "command": "pugachev-copilot.findSimilarPatterns",
+        "title": "Find Similar Patterns on GitHub",
+        "category": "Pugachev Copilot",
+        "icon": "$(search)"
+      },
+      {
+        "command": "pugachev-copilot.runTripleValidation",
+        "title": "Run Complete Triple Validation",
+        "category": "Pugachev Copilot",
+        "icon": "$(verified)"
+      },
+      {
+        "command": "pugachev-copilot.showKnowledgeGraph",
+        "title": "Show Code Pattern Knowledge Graph",
+        "category": "Pugachev Copilot",
+        "icon": "$(graph)"
+      },
+      {
+        "command": "pugachev-copilot.configureValidation",
+        "title": "Configure Validation Settings",
+        "category": "Pugachev Copilot",
+        "icon": "$(settings-gear)"
+      }
+    ],
+    "menus": {
+      "scm/title": [
+        {
+          "command": "pugachev-copilot.generateCommitMessage",
+          "group": "pugachev-copilot",
+          "when": "scmProvider == git"
+        },
+        {
+          "command": "pugachev-copilot.analyzeChanges",
+          "group": "pugachev-copilot",
+          "when": "scmProvider == git"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "pugachev-copilot.validateCodeIntent",
+          "group": "pugachev-copilot",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "pugachev-copilot.findSimilarPatterns",
+          "group": "pugachev-copilot",
+          "when": "editorHasSelection"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "pugachev-copilot.analyzeChanges",
+          "when": "gitOpenRepositoryCount != 0"
+        },
+        {
+          "command": "pugachev-copilot.generateCommitMessage",
+          "when": "gitOpenRepositoryCount != 0"
+        },
+        {
+          "command": "pugachev-copilot.validateCodeIntent"
+        },
+        {
+          "command": "pugachev-copilot.findSimilarPatterns"
+        },
+        {
+          "command": "pugachev-copilot.runTripleValidation"
+        }
+      ]
+    },
+    "configuration": {
+      "type": "object",
+      "title": "Pugachev Copilot Configuration",
+      "properties": {
+        "pugachev-copilot.validation.intentThreshold": {
+          "type": "number",
+          "default": 0.7,
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Confidence threshold for intent validation"
+        },
+        "pugachev-copilot.validation.enableRidiculousCodeGeneration": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable ridiculous code generation for boundary validation"
+        },
+        "pugachev-copilot.validation.maxCounterfactuals": {
+          "type": "number",
+          "default": 5,
+          "minimum": 1,
+          "maximum": 20,
+          "description": "Maximum number of counterfactual scenarios to generate"
+        },
+        "pugachev-copilot.git.enhancedCommitMessages": {
+          "type": "boolean",
+          "default": true,
+          "description": "Generate enhanced commit messages with intent analysis"
+        },
+        "pugachev-copilot.git.includePatternMatching": {
+          "type": "boolean",
+          "default": true,
+          "description": "Include GitHub pattern matching in commit messages"
+        },
+        "pugachev-copilot.copilot.integration": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable GitHub Copilot integration for pattern matching"
+        },
+        "pugachev-copilot.copilot.searchDepth": {
+          "type": "number",
+          "default": 10,
+          "minimum": 5,
+          "maximum": 50,
+          "description": "Number of similar patterns to search for on GitHub"
+        },
+        "pugachev-copilot.knowledgeGraph.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable knowledge graph construction for code patterns"
+        },
+        "pugachev-copilot.knowledgeGraph.maxNodes": {
+          "type": "number",
+          "default": 100,
+          "minimum": 20,
+          "maximum": 500,
+          "description": "Maximum nodes in the knowledge graph"
+        },
+        "pugachev-copilot.llmProvider": {
+          "type": "string",
+          "enum": ["openai", "anthropic", "huggingface", "local"],
+          "default": "openai",
+          "description": "LLM provider for intent inference and analysis"
+        },
+        "pugachev-copilot.apiKeys": {
+          "type": "object",
+          "default": {},
+          "description": "API keys for LLM providers (stored securely)",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "views": {
+      "scm": [
+        {
+          "id": "pugachev-copilot.changeAnalysis",
+          "name": "Code Change Analysis",
+          "when": "scmProvider == git"
+        },
+        {
+          "id": "pugachev-copilot.patternMatching",
+          "name": "Similar Patterns",
+          "when": "scmProvider == git"
+        }
+      ],
+      "explorer": [
+        {
+          "id": "pugachev-copilot.knowledgeGraph",
+          "name": "Code Pattern Graph",
+          "when": "pugachev-copilot.knowledgeGraph.enabled"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "pugachev-copilot",
+          "title": "Pugachev Copilot",
+          "icon": "$(shield)"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package",
+    "deploy": "vsce publish"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@types/node": "16.x",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "eslint": "^8.28.0",
+    "typescript": "^4.9.4",
+    "@vscode/test-electron": "^2.2.0",
+    "@vscode/vsce": "^2.15.0"
+  },
+  "dependencies": {
+    "openai": "^4.0.0",
+    "@anthropic-ai/sdk": "^0.9.0",
+    "axios": "^1.4.0",
+    "simple-git": "^3.19.0",
+    "@octokit/rest": "^19.0.0",
+    "diff": "^5.1.0",
+    "tree-sitter": "^0.20.0",
+    "tree-sitter-typescript": "^0.20.0",
+    "tree-sitter-javascript": "^0.20.0",
+    "tree-sitter-python": "^0.20.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fullscreen-triangle/zangalewa"
+  },
+  "license": "MIT",
+  "icon": "assets/copilot-icon.png"
+}

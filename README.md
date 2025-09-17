@@ -5,7 +5,7 @@
 <p align="center"><strong>AI-Powered Task Runner and Code Analysis Framework</strong></p>
 
 <p align="center">
-  <img src="zangalewa.png" alt="Zangalewa Logo">
+  <img src="zangalewa.png" width="400" alt="Zangalewa Logo">
 </p>
 
 <div align="center">
