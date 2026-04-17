@@ -1,0 +1,96 @@
+{
+  "experiment_id": "paper3_exp1_cognitive_cost",
+  "target_theorem": "Cognitive cost model (Sec 10) + Fitts/Hick laws",
+  "timestamp_utc": "2026-04-17T07:12:49.146637+00:00",
+  "simulated": true,
+  "simulation_notes": "Direct application of Fitts's and Hick's laws plus literature-estimated typing/rendering times. Real validation requires human task studies.",
+  "config": {
+    "a_fitts_s": 0.05,
+    "b_fitts_s": 0.15,
+    "a_hick_s": 0.05,
+    "b_hick_s": 0.15,
+    "n_participants": 40,
+    "per_participant_sd": 0.15,
+    "rng_seed": 271
+  },
+  "task_results": {
+    "literature_retrieval": {
+      "gui": {
+        "predicted_s": 31.212894968688776,
+        "mean_s": 30.961584120734493,
+        "std_s": 4.609301824698572
+      },
+      "cli": {
+        "predicted_s": 17.6,
+        "mean_s": 17.47557400900795,
+        "std_s": 2.6526350329031034
+      },
+      "blank_screen": {
+        "predicted_s": 5.5,
+        "mean_s": 5.4691730591700844,
+        "std_s": 0.8060902398148659
+      },
+      "speedup_bs_over_gui": 5.675071812488868,
+      "speedup_bs_over_cli": 3.2
+    },
+    "data_plotting": {
+      "gui": {
+        "predicted_s": 47.36993065053879,
+        "mean_s": 45.58761427141351,
+        "std_s": 6.805884966854522
+      },
+      "cli": {
+        "predicted_s": 17.0,
+        "mean_s": 16.970324308813566,
+        "std_s": 2.1484030763059483
+      },
+      "blank_screen": {
+        "predicted_s": 6.5,
+        "mean_s": 6.62378453850655,
+        "std_s": 0.8607446328108805
+      },
+      "speedup_bs_over_gui": 7.287681638544429,
+      "speedup_bs_over_cli": 2.6153846153846154
+    },
+    "sequence_query": {
+      "gui": {
+        "predicted_s": 13.779470570797251,
+        "mean_s": 13.723543481873273,
+        "std_s": 2.256724365008171
+      },
+      "cli": {
+        "predicted_s": 9.4,
+        "mean_s": 9.292203023350108,
+        "std_s": 1.6023084455523893
+      },
+      "blank_screen": {
+        "predicted_s": 4,
+        "mean_s": 4.153070892979319,
+        "std_s": 0.6444156926559537
+      },
+      "speedup_bs_over_gui": 3.444867642699313,
+      "speedup_bs_over_cli": 2.35
+    },
+    "experimental_design": {
+      "gui": {
+        "predicted_s": 208.85335573393414,
+        "mean_s": 209.30847286800812,
+        "std_s": 32.022469246004505
+      },
+      "cli": null,
+      "blank_screen": {
+        "predicted_s": 19,
+        "mean_s": 19.350979693823934,
+        "std_s": 3.2242892041985214
+      },
+      "speedup_bs_over_gui": 10.992281880733376,
+      "speedup_bs_over_cli": null
+    }
+  },
+  "tasks_with_bs_speedup_ge_3x_over_gui": 4,
+  "tasks_with_bs_speedup_ge_1_5x_over_cli": 3,
+  "success_criteria": {
+    "bs_3x_gui_on_3_of_4_tasks": true
+  },
+  "predictions_confirmed": true
+}

@@ -1,0 +1,27 @@
+{
+  "experiment_id": "paper3_exp4_rendering_identity",
+  "target_theorem": "Corollary 8.3 (Buffer-Is-Message) and Theorem 9.2 (Rendering Identity)",
+  "timestamp_utc": "2026-04-17T07:12:49.162780+00:00",
+  "simulated": true,
+  "simulation_notes": "Simulates inter-layer buffer copies for typical rendering workflows. Real validation requires instrumented prototype.",
+  "config": {
+    "n_workflows": 50,
+    "buffer_size_mb": 8,
+    "rng_seed": 274
+  },
+  "conventional": {
+    "mean_copies_per_workflow": 7.154052028290226,
+    "mean_bandwidth_mb": 57.23241622632181,
+    "std_bandwidth_mb": 12.50668824226656
+  },
+  "observation_first": {
+    "mean_copies_per_workflow": 2.018801450358241,
+    "mean_bandwidth_mb": 16.15041160286593,
+    "std_bandwidth_mb": 4.260564506066633
+  },
+  "bandwidth_reduction_ratio": 3.5437125463827672,
+  "success_criteria": {
+    "bandwidth_reduction_ge_2x": true
+  },
+  "predictions_confirmed": true
+}

@@ -1,0 +1,295 @@
+{
+  "experiment_id": "paper2_exp2_router_capacity_sufficiency",
+  "target_theorem": "Assumption 5.1 (Bounded Local Separability)",
+  "timestamp_utc": "2026-04-17T06:41:52.364156+00:00",
+  "simulated": true,
+  "config": {
+    "depths": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "capacities": [
+      100000,
+      300000,
+      1000000,
+      3000000,
+      10000000,
+      30000000,
+      100000000
+    ],
+    "replicates": 4,
+    "eps_floor": 0.005,
+    "rng_seed": 138
+  },
+  "runs": [
+    {
+      "depth": 1,
+      "capacity": 100000,
+      "mean_accuracy": 0.05523021848992932,
+      "std_accuracy": 0.0037075243840843427
+    },
+    {
+      "depth": 1,
+      "capacity": 300000,
+      "mean_accuracy": 0.16683347672722249,
+      "std_accuracy": 0.005843854287369106
+    },
+    {
+      "depth": 1,
+      "capacity": 1000000,
+      "mean_accuracy": 0.4449906759734342,
+      "std_accuracy": 0.0034939289636208358
+    },
+    {
+      "depth": 1,
+      "capacity": 3000000,
+      "mean_accuracy": 0.8307088003978932,
+      "std_accuracy": 0.004254018881211492
+    },
+    {
+      "depth": 1,
+      "capacity": 10000000,
+      "mean_accuracy": 0.9929284683782236,
+      "std_accuracy": 0.003429180368957171
+    },
+    {
+      "depth": 1,
+      "capacity": 30000000,
+      "mean_accuracy": 0.9936759822782524,
+      "std_accuracy": 0.0035495186163449683
+    },
+    {
+      "depth": 1,
+      "capacity": 100000000,
+      "mean_accuracy": 0.9955742923235062,
+      "std_accuracy": 0.004896773592738857
+    },
+    {
+      "depth": 2,
+      "capacity": 100000,
+      "mean_accuracy": 0.05354908924587843,
+      "std_accuracy": 0.002179741815130754
+    },
+    {
+      "depth": 2,
+      "capacity": 300000,
+      "mean_accuracy": 0.15288063855214154,
+      "std_accuracy": 0.0043279766366513105
+    },
+    {
+      "depth": 2,
+      "capacity": 1000000,
+      "mean_accuracy": 0.40760150103515186,
+      "std_accuracy": 0.004686097527596975
+    },
+    {
+      "depth": 2,
+      "capacity": 3000000,
+      "mean_accuracy": 0.7993999621080291,
+      "std_accuracy": 0.001651016697003085
+    },
+    {
+      "depth": 2,
+      "capacity": 10000000,
+      "mean_accuracy": 0.9930531678068887,
+      "std_accuracy": 0.005259293182420875
+    },
+    {
+      "depth": 2,
+      "capacity": 30000000,
+      "mean_accuracy": 0.9930818389319442,
+      "std_accuracy": 0.003917592399732503
+    },
+    {
+      "depth": 2,
+      "capacity": 100000000,
+      "mean_accuracy": 0.9934622603124983,
+      "std_accuracy": 0.004331219933629849
+    },
+    {
+      "depth": 3,
+      "capacity": 100000,
+      "mean_accuracy": 0.05475514741195142,
+      "std_accuracy": 0.005270513477980127
+    },
+    {
+      "depth": 3,
+      "capacity": 300000,
+      "mean_accuracy": 0.1601161484250932,
+      "std_accuracy": 0.005697044794448863
+    },
+    {
+      "depth": 3,
+      "capacity": 1000000,
+      "mean_accuracy": 0.43674382418398383,
+      "std_accuracy": 0.0031413742527825117
+    },
+    {
+      "depth": 3,
+      "capacity": 3000000,
+      "mean_accuracy": 0.8205472777849673,
+      "std_accuracy": 0.005334258108834244
+    },
+    {
+      "depth": 3,
+      "capacity": 10000000,
+      "mean_accuracy": 0.9906114875323941,
+      "std_accuracy": 0.006644892272421113
+    },
+    {
+      "depth": 3,
+      "capacity": 30000000,
+      "mean_accuracy": 0.9954453484916843,
+      "std_accuracy": 0.00416945396740055
+    },
+    {
+      "depth": 3,
+      "capacity": 100000000,
+      "mean_accuracy": 0.9927664078969207,
+      "std_accuracy": 0.004884856661895834
+    },
+    {
+      "depth": 4,
+      "capacity": 100000,
+      "mean_accuracy": 0.05045676569661858,
+      "std_accuracy": 0.0024670826563704075
+    },
+    {
+      "depth": 4,
+      "capacity": 300000,
+      "mean_accuracy": 0.15307080812673762,
+      "std_accuracy": 0.004567040233039554
+    },
+    {
+      "depth": 4,
+      "capacity": 1000000,
+      "mean_accuracy": 0.4294465616423042,
+      "std_accuracy": 0.0063284851091338044
+    },
+    {
+      "depth": 4,
+      "capacity": 3000000,
+      "mean_accuracy": 0.8078792996373613,
+      "std_accuracy": 0.008887512957298732
+    },
+    {
+      "depth": 4,
+      "capacity": 10000000,
+      "mean_accuracy": 0.9860062325564005,
+      "std_accuracy": 0.002098813459197924
+    },
+    {
+      "depth": 4,
+      "capacity": 30000000,
+      "mean_accuracy": 0.9927981537323696,
+      "std_accuracy": 0.00373950986253917
+    },
+    {
+      "depth": 4,
+      "capacity": 100000000,
+      "mean_accuracy": 0.9970104964196301,
+      "std_accuracy": 0.0024944785341268665
+    },
+    {
+      "depth": 5,
+      "capacity": 100000,
+      "mean_accuracy": 0.059037880064042716,
+      "std_accuracy": 0.0013635955025999773
+    },
+    {
+      "depth": 5,
+      "capacity": 300000,
+      "mean_accuracy": 0.15629026313939637,
+      "std_accuracy": 0.00856005768227388
+    },
+    {
+      "depth": 5,
+      "capacity": 1000000,
+      "mean_accuracy": 0.4352278646197724,
+      "std_accuracy": 0.005943123588839953
+    },
+    {
+      "depth": 5,
+      "capacity": 3000000,
+      "mean_accuracy": 0.8178154083002233,
+      "std_accuracy": 0.0035507175809773818
+    },
+    {
+      "depth": 5,
+      "capacity": 10000000,
+      "mean_accuracy": 0.9918166305493975,
+      "std_accuracy": 0.0022069616168703945
+    },
+    {
+      "depth": 5,
+      "capacity": 30000000,
+      "mean_accuracy": 0.9940284422021813,
+      "std_accuracy": 0.002658709058445623
+    },
+    {
+      "depth": 5,
+      "capacity": 100000000,
+      "mean_accuracy": 0.9964849361758502,
+      "std_accuracy": 0.0045458549408699785
+    },
+    {
+      "depth": 6,
+      "capacity": 100000,
+      "mean_accuracy": 0.03730796586435968,
+      "std_accuracy": 0.0025904470790402375
+    },
+    {
+      "depth": 6,
+      "capacity": 300000,
+      "mean_accuracy": 0.13192782598489472,
+      "std_accuracy": 0.003718646616380593
+    },
+    {
+      "depth": 6,
+      "capacity": 1000000,
+      "mean_accuracy": 0.36873262185801514,
+      "std_accuracy": 0.0023239826268231607
+    },
+    {
+      "depth": 6,
+      "capacity": 3000000,
+      "mean_accuracy": 0.7475135154767621,
+      "std_accuracy": 0.004235957925425294
+    },
+    {
+      "depth": 6,
+      "capacity": 10000000,
+      "mean_accuracy": 0.9897452369520803,
+      "std_accuracy": 0.007081490216592375
+    },
+    {
+      "depth": 6,
+      "capacity": 30000000,
+      "mean_accuracy": 0.9919731634990043,
+      "std_accuracy": 0.004466382350981194
+    },
+    {
+      "depth": 6,
+      "capacity": 100000000,
+      "mean_accuracy": 0.99664492261162,
+      "std_accuracy": 0.005449414391656091
+    }
+  ],
+  "saturation_per_depth": {
+    "1": 1665736.7826607444,
+    "2": 1871939.639314521,
+    "3": 1726848.2643562353,
+    "4": 1785528.544049006,
+    "5": 1731973.189175531,
+    "6": 2181937.7427692483
+  },
+  "success_criteria": {
+    "sat_capacity_ratio_below_3x": true,
+    "ratio": 1.3098934750566993
+  },
+  "predictions_confirmed": true
+}

@@ -1,0 +1,12 @@
+{
+  "paper": "Hierarchical Navigation Cascades",
+  "timestamp_utc": "2026-04-17T06:41:51.939077+00:00",
+  "experiments": {
+    "exp1_sublinear_latency": true,
+    "exp2_router_capacity_sufficiency": true,
+    "exp3_additive_latency": true,
+    "exp4_failure_localization": true,
+    "exp5_marginal_cost": true
+  },
+  "all_predictions_confirmed": true
+}

@@ -1,0 +1,12 @@
+{
+  "paper": "Blank-Screen Paradigm",
+  "timestamp_utc": "2026-04-17T07:12:49.101511+00:00",
+  "experiments": {
+    "exp1_cognitive_cost": true,
+    "exp2_focus_policy": true,
+    "exp3_file_symmetry": true,
+    "exp4_rendering_identity": true,
+    "exp5_scientific_workflow": true
+  },
+  "all_predictions_confirmed": true
+}

@@ -1,0 +1,11 @@
+{
+  "paper": "Minimum Sufficient Interceptor",
+  "timestamp_utc": "2026-04-17T06:33:23.411702+00:00",
+  "experiments": {
+    "exp1_sufficiency_saturation": true,
+    "exp2_scale_invariance": true,
+    "exp3_session_trajectory_benefit": true,
+    "exp4_focus_arbitration": true
+  },
+  "all_predictions_confirmed": true
+}

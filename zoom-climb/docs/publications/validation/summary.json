@@ -1,0 +1,48 @@
+{
+  "suite": "Zangalewa-Buhera validation suite",
+  "timestamp_utc": "2026-04-17T07:16:25.805084+00:00",
+  "papers": [
+    {
+      "slug": "minimum-sufficient-interceptor",
+      "directory": "paper1-msi",
+      "paper_title": "Minimum Sufficient Interceptor",
+      "experiment_outcomes": {
+        "exp1_sufficiency_saturation": true,
+        "exp2_scale_invariance": true,
+        "exp3_session_trajectory_benefit": true,
+        "exp4_focus_arbitration": true
+      },
+      "all_confirmed": true
+    },
+    {
+      "slug": "hierarchical-navigation-cascades",
+      "directory": "paper2-hnc",
+      "paper_title": "Hierarchical Navigation Cascades",
+      "experiment_outcomes": {
+        "exp1_sublinear_latency": true,
+        "exp2_router_capacity_sufficiency": true,
+        "exp3_additive_latency": true,
+        "exp4_failure_localization": true,
+        "exp5_marginal_cost": true
+      },
+      "all_confirmed": true
+    },
+    {
+      "slug": "blank-screen-paradigm",
+      "directory": "paper3-bsp",
+      "paper_title": "Blank-Screen Paradigm",
+      "experiment_outcomes": {
+        "exp1_cognitive_cost": true,
+        "exp2_focus_policy": true,
+        "exp3_file_symmetry": true,
+        "exp4_rendering_identity": true,
+        "exp5_scientific_workflow": true
+      },
+      "all_confirmed": true
+    }
+  ],
+  "total_experiments": 14,
+  "total_confirmed": 14,
+  "fraction_confirmed": 1.0,
+  "all_papers_all_confirmed": true
+}

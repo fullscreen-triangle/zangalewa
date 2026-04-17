@@ -1,0 +1,82 @@
+{
+  "experiment_id": "paper2_exp5_marginal_cost",
+  "target_theorem": "Proposition 9.1 (Marginal Capability Cost)",
+  "timestamp_utc": "2026-04-17T06:41:58.677524+00:00",
+  "simulated": true,
+  "config": {
+    "sizes_N": [
+      10,
+      30,
+      100,
+      300,
+      1000,
+      3000,
+      10000,
+      30000
+    ],
+    "branching_factor_k": 3,
+    "specialist_train_cost": 100.0,
+    "router_retrain_cost": 12.0,
+    "replicates": 20,
+    "rng_seed": 141
+  },
+  "runs": [
+    {
+      "N": 10,
+      "depth": 3,
+      "mean_cost": 135.85683895409264,
+      "std_cost": 1.8141728114092415
+    },
+    {
+      "N": 30,
+      "depth": 4,
+      "mean_cost": 147.67326186668546,
+      "std_cost": 1.9797701045847085
+    },
+    {
+      "N": 100,
+      "depth": 5,
+      "mean_cost": 160.28358022779565,
+      "std_cost": 1.8761907854564939
+    },
+    {
+      "N": 300,
+      "depth": 6,
+      "mean_cost": 171.40723994991802,
+      "std_cost": 2.09975045013834
+    },
+    {
+      "N": 1000,
+      "depth": 7,
+      "mean_cost": 183.7209065318885,
+      "std_cost": 1.8140611676414176
+    },
+    {
+      "N": 3000,
+      "depth": 8,
+      "mean_cost": 195.3066770560877,
+      "std_cost": 2.682155016043707
+    },
+    {
+      "N": 10000,
+      "depth": 9,
+      "mean_cost": 208.06124706317013,
+      "std_cost": 2.4492695330462655
+    },
+    {
+      "N": 30000,
+      "depth": 10,
+      "mean_cost": 219.80367655487402,
+      "std_cost": 1.8622749433660022
+    }
+  ],
+  "regression": {
+    "slope_per_log_N": 11.463754438546415,
+    "intercept": 111.9650001477935,
+    "r_squared": 0.9999404288583509
+  },
+  "success_criteria": {
+    "log_linear_fit_r_squared_ge_0.9": true
+  },
+  "predictions_confirmed": true
+}

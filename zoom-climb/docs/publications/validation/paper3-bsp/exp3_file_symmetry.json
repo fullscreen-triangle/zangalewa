@@ -1,0 +1,93 @@
+{
+  "experiment_id": "paper3_exp3_file_symmetry",
+  "target_theorem": "Theorem 11.2 (File-Operation Symmetry)",
+  "timestamp_utc": "2026-04-17T07:12:49.160705+00:00",
+  "simulated": true,
+  "simulation_notes": "Simulates 30 participants saving/retrieving 20 files each after 7-day delay. Real validation requires longitudinal user study.",
+  "config": {
+    "n_participants": 30,
+    "files_per_participant": 20,
+    "delay_days": 7,
+    "rng_seed": 273
+  },
+  "blank_screen": {
+    "mean_retrieval_success": 0.865,
+    "std": 0.10340051579497397
+  },
+  "conventional_filesystem": {
+    "mean_retrieval_success": 0.6333333333333333,
+    "std": 0.12202003478482083
+  },
+  "improvement_absolute": 0.2316666666666667,
+  "per_participant_data": {
+    "blank_screen": [
+      0.9,
+      0.8,
+      0.85,
+      0.85,
+      0.9,
+      0.9,
+      0.65,
+      1.0,
+      0.75,
+      1.0,
+      0.95,
+      0.85,
+      0.75,
+      0.95,
+      0.75,
+      0.9,
+      0.95,
+      0.7,
+      0.85,
+      0.9,
+      0.95,
+      0.95,
+      0.9,
+      1.0,
+      0.85,
+      0.95,
+      0.8,
+      0.8,
+      0.6,
+      1.0
+    ],
+    "filesystem": [
+      0.5,
+      0.6,
+      0.45,
+      0.5,
+      0.5,
+      0.55,
+      0.5,
+      0.75,
+      0.65,
+      0.7,
+      0.7,
+      0.45,
+      0.9,
+      0.6,
+      0.8,
+      0.5,
+      0.75,
+      0.75,
+      0.55,
+      0.5,
+      0.6,
+      0.6,
+      0.6,
+      0.65,
+      0.75,
+      0.55,
+      0.7,
+      0.85,
+      0.8,
+      0.7
+    ]
+  },
+  "success_criteria": {
+    "bs_retrieval_success_ge_0.85": true,
+    "bs_outperforms_filesystem": true
+  },
+  "predictions_confirmed": true
+}

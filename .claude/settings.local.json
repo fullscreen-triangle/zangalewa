@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"import numpy; print\\('numpy', numpy.__version__\\)\")",
+      "Bash(python -c \"import scipy; print\\('scipy', scipy.__version__\\)\")",
+      "Bash(python -c \"import matplotlib; print\\('matplotlib', matplotlib.__version__\\)\")",
+      "Bash(python run_experiments.py)",
+      "Bash(python -c \"import json; d=json.load\\(open\\('zoom-climb/docs/publications/validation/paper1-msi/_paper1_summary.json'\\)\\); print\\(json.dumps\\(d['experiments'], indent=2\\)\\)\")",
+      "Bash(python zoom-climb/docs/publications/validation/paper1-msi/run_experiments.py)",
+      "Bash(python zoom-climb/docs/publications/validation/paper2-hnc/run_experiments.py)",
+      "Bash(python zoom-climb/docs/publications/validation/paper3-bsp/run_experiments.py)"
+    ]
+  }
+}

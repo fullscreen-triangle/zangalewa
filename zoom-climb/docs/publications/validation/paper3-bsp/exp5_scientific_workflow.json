@@ -1,0 +1,31 @@
+{
+  "experiment_id": "paper3_exp5_scientific_workflow",
+  "target_theorem": "Sec 10 (Scientific Research as Canonical Workload)",
+  "timestamp_utc": "2026-04-17T07:12:49.164755+00:00",
+  "simulated": true,
+  "simulation_notes": "Simulates 30 scientists performing knockout-experiment design under two workflows. Real validation requires recruited scientist participants with domain-expert quality raters.",
+  "config": {
+    "n_scientists": 30,
+    "task": "knockout_experiment_design",
+    "rng_seed": 275
+  },
+  "conventional_workflow": {
+    "mean_time_min": 69.53776098437162,
+    "std_time_min": 16.24148386352908,
+    "mean_quality_1_10": 7.514015354674754,
+    "std_quality": 1.1545452855701934
+  },
+  "blank_screen_workflow": {
+    "mean_time_min": 29.885945972469965,
+    "std_time_min": 7.667464035573421,
+    "mean_quality_1_10": 7.568802003476154,
+    "std_quality": 0.6505427272054947
+  },
+  "time_ratio_bs_over_conv": 0.429780101478774,
+  "quality_delta_bs_minus_conv": 0.05478664880140016,
+  "success_criteria": {
+    "time_ratio_le_0.6": true,
+    "quality_non_inferior_delta_ge_minus_0.5": true
+  },
+  "predictions_confirmed": true
+}

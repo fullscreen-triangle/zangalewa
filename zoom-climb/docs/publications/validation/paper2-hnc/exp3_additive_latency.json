@@ -1,0 +1,28 @@
+{
+  "experiment_id": "paper2_exp3_additive_latency",
+  "target_theorem": "Theorem 6.1 (Additive Multi-Scale Latency)",
+  "timestamp_utc": "2026-04-17T06:41:52.397540+00:00",
+  "simulated": true,
+  "config": {
+    "stage_sizes": [
+      27,
+      9,
+      9
+    ],
+    "branching_factor_k": 3,
+    "replicates": 500,
+    "rng_seed": 139
+  },
+  "per_stage_mean_latency_ms": [
+    32.01299022411002,
+    24.022495688077026,
+    24.00003671165762
+  ],
+  "sum_of_per_stage_means_ms": 80.03552262384467,
+  "measured_total_mean_ms": 81.51078008076762,
+  "relative_error": 0.018098924528278833,
+  "success_criteria": {
+    "additive_within_5pct": true
+  },
+  "predictions_confirmed": true
+}
