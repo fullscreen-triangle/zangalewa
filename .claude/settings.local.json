@@ -8,7 +8,8 @@
       "Bash(python -c \"import json; d=json.load\\(open\\('zoom-climb/docs/publications/validation/paper1-msi/_paper1_summary.json'\\)\\); print\\(json.dumps\\(d['experiments'], indent=2\\)\\)\")",
       "Bash(python zoom-climb/docs/publications/validation/paper1-msi/run_experiments.py)",
       "Bash(python zoom-climb/docs/publications/validation/paper2-hnc/run_experiments.py)",
-      "Bash(python zoom-climb/docs/publications/validation/paper3-bsp/run_experiments.py)"
+      "Bash(python zoom-climb/docs/publications/validation/paper3-bsp/run_experiments.py)",
+      "Bash(python zoom-climb/docs/publications/validation/generate_panels.py)"
     ]
   }
 }
