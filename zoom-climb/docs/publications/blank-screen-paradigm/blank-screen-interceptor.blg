@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99e
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: blank-screen-interceptor.aux
+Reallocating 'name_of_file' (item size: 1) to 9 items.
+The style file: plainnat.bst
+Reallocating 'name_of_file' (item size: 1) to 11 items.
+Database file #1: references.bib
+Warning--empty journal in norman1986cognitive
+You've used 32 entries,
+            2773 wiz_defined-function locations,
+            789 strings with 9186 characters,
+and the built_in function-call counts, 13408 in all, are:
+= -- 1225
+> -- 564
+< -- 31
++ -- 203
+- -- 171
+* -- 984
+:= -- 2047
+add.period$ -- 96
+call.type$ -- 32
+change.case$ -- 149
+chr.to.int$ -- 32
+cite$ -- 65
+duplicate$ -- 681
+empty$ -- 1238
+format.name$ -- 213
+if$ -- 2821
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 38
+newline$ -- 168
+num.names$ -- 128
+pop$ -- 312
+preamble$ -- 1
+purify$ -- 120
+quote$ -- 0
+skip$ -- 488
+stack$ -- 0
+substring$ -- 646
+swap$ -- 65
+text.length$ -- 4
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 317
+warning$ -- 1
+while$ -- 148
+width$ -- 0
+write$ -- 418
+(There was 1 warning)

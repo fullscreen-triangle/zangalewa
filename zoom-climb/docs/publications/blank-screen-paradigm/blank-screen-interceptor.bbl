@@ -1,0 +1,197 @@
+\begin{thebibliography}{32}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Apple~Computer(1985)]{apple1985macintosh}
+Inc. Apple~Computer.
+\newblock \emph{Inside {Macintosh}}.
+\newblock Addison-Wesley, 1985.
+
+\bibitem[Bekenstein(1973)]{bekenstein1973black}
+Jacob~D. Bekenstein.
+\newblock Black holes and entropy.
+\newblock \emph{Physical Review D}, 7\penalty0 (8):\penalty0 2333--2346, 1973.
+
+\bibitem[Bennett(1982)]{bennett1982thermodynamics}
+Charles~H. Bennett.
+\newblock The thermodynamics of computation --- a review.
+\newblock \emph{International Journal of Theoretical Physics}, 21\penalty0
+  (12):\penalty0 905--940, 1982.
+
+\bibitem[Birrell and Nelson(1984)]{birrell1984implementing}
+Andrew~D. Birrell and Bruce~Jay Nelson.
+\newblock Implementing remote procedure calls.
+\newblock \emph{ACM Transactions on Computer Systems}, 2\penalty0 (1):\penalty0
+  39--59, 1984.
+
+\bibitem[Boltzmann(1872)]{boltzmann1872further}
+Ludwig Boltzmann.
+\newblock Weitere studien {\"u}ber das w{\"a}rmegleichgewicht unter
+  gasmolek{\"u}len.
+\newblock \emph{Sitzungsberichte der Kaiserlichen Akademie der Wissenschaften},
+  66:\penalty0 275--370, 1872.
+
+\bibitem[Card et~al.(1983)Card, Moran, and Newell]{card1983psychology}
+Stuart~K. Card, Thomas~P. Moran, and Allen Newell.
+\newblock \emph{The Psychology of Human-Computer Interaction}.
+\newblock Lawrence Erlbaum Associates, 1983.
+
+\bibitem[Chaitin(1975)]{chaitin1975randomness}
+Gregory~J. Chaitin.
+\newblock Randomness and mathematical proof.
+\newblock \emph{Scientific American}, 232\penalty0 (5):\penalty0 47--52, 1975.
+
+\bibitem[Cover and Thomas(2006)]{cover2006elements}
+Thomas~M. Cover and Joy~A. Thomas.
+\newblock \emph{Elements of Information Theory}.
+\newblock Wiley, 2nd edition, 2006.
+
+\bibitem[Engelbart(1962)]{engelbart1962augmenting}
+Douglas~C. Engelbart.
+\newblock Augmenting human intellect: A conceptual framework.
+\newblock Technical report, Stanford Research Institute, 1962.
+
+\bibitem[Fitts(1954)]{fitts1954information}
+Paul~M. Fitts.
+\newblock The information capacity of the human motor system in controlling the
+  amplitude of movement.
+\newblock \emph{Journal of Experimental Psychology}, 47\penalty0 (6):\penalty0
+  381--391, 1954.
+
+\bibitem[Hawking(1975)]{hawking1975particle}
+Stephen~W. Hawking.
+\newblock Particle creation by black holes.
+\newblock \emph{Communications in Mathematical Physics}, 43\penalty0
+  (3):\penalty0 199--220, 1975.
+
+\bibitem[Hick(1952)]{hick1952rate}
+W.~E. Hick.
+\newblock On the rate of gain of information.
+\newblock \emph{Quarterly Journal of Experimental Psychology}, 4\penalty0
+  (1):\penalty0 11--26, 1952.
+
+\bibitem[Hutchins et~al.(1985)Hutchins, Hollan, and Norman]{hutchins1985direct}
+Edwin~L. Hutchins, James~D. Hollan, and Donald~A. Norman.
+\newblock Direct manipulation interfaces.
+\newblock \emph{Human-Computer Interaction}, 1\penalty0 (4):\penalty0 311--338,
+  1985.
+
+\bibitem[Kay and Goldberg(1977)]{kay1977personal}
+Alan Kay and Adele Goldberg.
+\newblock Personal dynamic media.
+\newblock \emph{IEEE Computer}, 10\penalty0 (3):\penalty0 31--41, 1977.
+
+\bibitem[Kluyver et~al.(2016)Kluyver, Ragan-Kelley, P{\'e}rez, Granger,
+  Bussonnier, Frederic, Kelley, Hamrick, Grout, Corlay,
+  et~al.]{kluyver2016jupyter}
+Thomas Kluyver, Benjamin Ragan-Kelley, Fernando P{\'e}rez, Brian~E. Granger,
+  Matthias Bussonnier, Jonathan Frederic, Kyle Kelley, Jessica~B. Hamrick,
+  Jason Grout, Sylvain Corlay, et~al.
+\newblock Jupyter notebooks --- a publishing format for reproducible
+  computational workflows.
+\newblock In \emph{Positioning and Power in Academic Publishing: Players,
+  Agents and Agendas}, pages 87--90, 2016.
+
+\bibitem[Koopman(1931)]{koopman1931hamiltonian}
+Bernard~O. Koopman.
+\newblock Hamiltonian systems and transformation in {H}ilbert space.
+\newblock \emph{Proceedings of the National Academy of Sciences}, 17\penalty0
+  (5):\penalty0 315--318, 1931.
+
+\bibitem[Landauer(1961)]{landauer1961irreversibility}
+Rolf Landauer.
+\newblock Irreversibility and heat generation in the computing process.
+\newblock \emph{IBM Journal of Research and Development}, 5\penalty0
+  (3):\penalty0 183--191, 1961.
+
+\bibitem[Licklider(1960)]{licklider1960symbiosis}
+J.~C.~R. Licklider.
+\newblock Man-computer symbiosis.
+\newblock \emph{IRE Transactions on Human Factors in Electronics},
+  HFE-1:\penalty0 4--11, 1960.
+
+\bibitem[McTear(2020)]{mctear2020conversational}
+Michael McTear.
+\newblock \emph{Conversational {AI}: Dialogue Systems, Conversational Agents,
+  and Chatbots}.
+\newblock Morgan \& Claypool, 2020.
+
+\bibitem[Mezi{\'c}(2005)]{mezic2005spectral}
+Igor Mezi{\'c}.
+\newblock Spectral properties of dynamical systems, model reduction and
+  decompositions.
+\newblock \emph{Nonlinear Dynamics}, 41\penalty0 (1--3):\penalty0 309--325,
+  2005.
+
+\bibitem[Norman(1986)]{norman1986cognitive}
+Donald~A. Norman.
+\newblock Cognitive engineering.
+\newblock pages 31--61, 1986.
+
+\bibitem[Ritchie and Thompson(1978)]{ritchie1978unix}
+Dennis~M. Ritchie and Ken Thompson.
+\newblock The {UNIX} time-sharing system.
+\newblock \emph{Bell System Technical Journal}, 57\penalty0 (6):\penalty0
+  1905--1929, 1978.
+
+\bibitem[Shannon(1948)]{shannon1948mathematical}
+Claude~E. Shannon.
+\newblock A mathematical theory of communication.
+\newblock \emph{Bell System Technical Journal}, 27\penalty0 (3):\penalty0
+  379--423, 1948.
+
+\bibitem[Shneiderman(1983)]{shneiderman1983direct}
+Ben Shneiderman.
+\newblock Direct manipulation: A step beyond programming languages.
+\newblock \emph{IEEE Computer}, 16\penalty0 (8):\penalty0 57--69, 1983.
+
+\bibitem[Silberschatz et~al.(2018)Silberschatz, Galvin, and
+  Gagne]{silberschatz2018operating}
+Abraham Silberschatz, Peter~B. Galvin, and Greg Gagne.
+\newblock \emph{Operating System Concepts}.
+\newblock Wiley, 10th edition, 2018.
+
+\bibitem[Smith et~al.(1982)Smith, Irby, Kimball, Verplank, and
+  Harslem]{smith1982star}
+David~Canfield Smith, Charles Irby, Ralph Kimball, Bill Verplank, and Eric
+  Harslem.
+\newblock Designing the {Star} user interface.
+\newblock \emph{Byte}, 7\penalty0 (4):\penalty0 242--282, 1982.
+
+\bibitem[Sutherland(1963)]{sutherland1963sketchpad}
+Ivan~E. Sutherland.
+\newblock {Sketchpad}: A man-machine graphical communication system.
+\newblock In \emph{AFIPS Spring Joint Computer Conference}, pages 329--346,
+  1963.
+
+\bibitem[Szil{\'a}rd(1929)]{szilard1929entropieverminderung}
+Le{\'o} Szil{\'a}rd.
+\newblock {\"U}ber die entropieverminderung in einem thermodynamischen system
+  bei eingriffen intelligenter wesen.
+\newblock \emph{Zeitschrift f{\"u}r Physik}, 53:\penalty0 840--856, 1929.
+
+\bibitem[Tanenbaum and Bos(2014)]{tanenbaum2014modern}
+Andrew~S. Tanenbaum and Herbert Bos.
+\newblock \emph{Modern Operating Systems}.
+\newblock Pearson, 4th edition, 2014.
+
+\bibitem[Tulving(1972)]{tulving1972episodic}
+Endel Tulving.
+\newblock \emph{Episodic and Semantic Memory}.
+\newblock Academic Press, 1972.
+
+\bibitem[Weiser(1991)]{weiser1991computer}
+Mark Weiser.
+\newblock The computer for the 21st century.
+\newblock \emph{Scientific American}, 265\penalty0 (3):\penalty0 94--104, 1991.
+
+\bibitem[Wheeler(1990)]{wheeler1990information}
+John~A. Wheeler.
+\newblock Information, physics, quantum: The search for links.
+\newblock In \emph{Proceedings of the Third International Symposium on
+  Foundations of Quantum Mechanics}, pages 354--368, 1990.
+
+\end{thebibliography}

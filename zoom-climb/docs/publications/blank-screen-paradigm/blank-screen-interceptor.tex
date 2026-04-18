@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper]{article}
+\documentclass[11pt,twocolumn,a4paper]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -51,11 +51,14 @@
 \newcommand{\Zc}{\mathcal{Z}}
 \newcommand{\Rc}{\mathcal{R}}
 
-\title{The Blank-Screen Paradigm:\\
+\title{Non Structural Persistent Operating System Interceptor:\\
 Observation-First Computing for a Single-Surface Interface}
 
-\author{Kundai Farai Sachikonye\\
-\texttt{kundai.sachikonye@wzw.tum.de}}
+\author{
+Kundai Farai Sachikonye\\
+AIMe Registry for Artificial Intelligence\\
+\texttt{kundai.sachikonye@wzw.tum.de}
+}
 
 \date{\today}
 
@@ -549,6 +552,17 @@ The user's visual system, receiving light emitted by the display, is the termina
 
 These corollaries reframe the relationship between user and system. The user is not a ``client'' requesting computation and then viewing the results. The user is a participant in a distributed observation: they initiate it by typing, the system refines it, and their retina completes it.
 
+\begin{figure*}[!htbp]
+    \centering
+    \includegraphics[width=\textwidth]{figures/panel4_rendering_identity.png}
+    \caption{\textbf{Observation-first rendering reduces inter-layer buffer copies and bandwidth by $3.5\times$ relative to conventional rendering ($50$ simulated workflows, $8$\,MB buffer; Corollary~\ref{cor:buffer-is-message}, Theorem~\ref{thm:rendering-identity}).}
+    (\textbf{A})~Histogram of buffer copies per workflow: conventional (red) centres near $7.2$ copies with a long right tail; observation-first (green) centres near $2.0$ copies with almost no tail. Distributions are cleanly separated.
+    (\textbf{B})~Total bandwidth per workflow (mean $\pm$ std) at an $8$\,MB buffer: conventional $57.2\pm 12.5$\,MB versus observation-first $16.2\pm 4.3$\,MB --- a $3.54\times$ reduction, well beyond the $2\times$ success threshold.
+    (\textbf{C})~Per-workflow scatter of (conventional copies, observation-first copies). All points sit strictly below the $y=x$ diagonal (dashed grey), confirming that the reduction is workflow-by-workflow rather than an averaging artefact.
+    (\textbf{D})~Three-dimensional scatter of (workflow index, conv. copies, obs. copies) coloured by the per-workflow reduction ratio $\text{conv}/\text{obs}$. The colour gradient exposes individual workflows for which the savings exceed $5\times$, with no regressions.}
+    \label{fig:panel4_rendering_identity}
+\end{figure*}
+
 \section{File Operations as Coordinate Arithmetic}
 \label{sec:files}
 
@@ -601,6 +615,17 @@ The coordinate extraction is the same. The name, path, format decisions that bed
 \label{cor:no-fs}
 Under the coordinate-indexed file model, the user has no filesystem interface to navigate. Storage is accessed exclusively through coordinate-addressing utterances.
 \end{corollary}
+
+\begin{figure*}[!htbp]
+    \centering
+    \includegraphics[width=\textwidth]{figures/panel3_file_symmetry.png}
+    \caption{\textbf{Blank-screen retrieval outperforms the conventional filesystem on a 7-day-delayed recall task ($30$ participants, $20$ files each, $7$-day delay; Theorem~\ref{thm:file-symmetry}).}
+    (\textbf{A})~Boxplot of per-participant retrieval success under the two paradigms. Blank-screen medians sit around $0.90$ with interquartile range $[0.80, 0.95]$; filesystem medians sit around $0.60$ with IQR $[0.50, 0.75]$. Overall means: BS $0.865$, FS $0.633$, absolute improvement $0.232$, both success criteria (BS $\geq 0.85$ and BS $>$ FS) satisfied.
+    (\textbf{B})~Histograms of per-participant success overlaid for the two paradigms. The BS histogram is left-shifted toward $1.0$; the FS histogram spreads across $[0.45, 0.90]$. No participant was better served by the filesystem.
+    (\textbf{C})~Empirical CDFs: the BS curve stochastically dominates the FS curve at every threshold. At the $0.80$ success criterion, $>80\%$ of BS participants clear the bar versus $<30\%$ of FS participants.
+    (\textbf{D})~Three-dimensional scatter of (participant index, BS success, FS success) coloured by BS--FS difference. The cloud lies almost entirely above the $y=z$ diagonal, visualising that file-operation symmetry holds person-by-person, not just on average.}
+    \label{fig:panel3_file_symmetry}
+\end{figure*}
 
 \subsection{Remarks}
 
@@ -717,6 +742,17 @@ Experimental design & 300+ & N/A & 15--30 \\
 
 Table~\ref{tab:times} presents estimates for our four case studies. The blank-screen advantage grows with task complexity because the interaction cost floor is approximately constant.
 
+\begin{figure*}[!htbp]
+    \centering
+    \includegraphics[width=\textwidth]{figures/panel1_cognitive_cost.png}
+    \caption{\textbf{Cognitive cost of four scientific tasks across three interaction paradigms (GUI, CLI, blank-screen; $40$ participants; Fitts's and Hick's law parameters $a=0.05$\,s, $b=0.15$\,s; Sec.~\ref{sec:cognitive-cost}).}
+    (\textbf{A})~Per-task mean completion time $\pm 1\sigma$ (GUI = red, CLI = amber, BS = green). Literature retrieval: $31.0$/$17.5$/$5.5$\,s. Data plotting: $45.6$/$17.0$/$6.6$\,s. Sequence query: $13.7$/$9.3$/$4.2$\,s. Experimental design: $209.3$/$-$/$19.4$\,s (CLI not applicable). Blank-screen is fastest on every task.
+    (\textbf{B})~Speedup of blank-screen over GUI (red) and over CLI (amber). BS-over-GUI: $5.7\times,\ 7.3\times,\ 3.4\times,\ 11.0\times$; BS-over-CLI: $3.2\times,\ 2.6\times,\ 2.4\times$. Dashed guides mark $3\times$ and $1.5\times$; three of four tasks clear the $3\times$-over-GUI threshold required by the success criterion.
+    (\textbf{C})~Violin distribution of the per-participant ratio $\text{GUI time}/\text{BS time}$ per task. All four violins sit strictly above $1$, with medians between $3$ and $11$ and narrow spread, indicating that the advantage holds per-individual rather than emerging from averages.
+    (\textbf{D})~Three-dimensional scatter of (task, paradigm, time): GUI points float far above, CLI points sit at intermediate altitude, BS points hug the floor. The vertical separation between paradigms is the geometric statement of the cognitive-cost prediction.}
+    \label{fig:panel1_cognitive_cost}
+\end{figure*}
+
 \section{Experimental Validation}
 \label{sec:validation}
 
@@ -742,6 +778,8 @@ Table~\ref{tab:times} presents estimates for our four case studies. The blank-sc
 \paragraph{Success Criteria}
 Blank-screen is strictly faster on at least 3 of 4 tasks with statistical significance ($p < 0.05$).
 
+
+
 \subsection{Experiment 2: Focus Arbitration Policy Comparison}
 
 \paragraph{Objective} Determine which handback policy (Section~\ref{sec:single-surface}) produces the best user experience.
@@ -758,6 +796,17 @@ Utterance-driven policy produces highest satisfaction; explicit-only produces lo
 
 \paragraph{Success Criteria}
 Best policy achieves $\geq 4$/$5$ average satisfaction across participants.
+
+\begin{figure*}[!htbp]
+    \centering
+    \includegraphics[width=\textwidth]{figures/panel2_focus_policy.png}
+    \caption{\textbf{Utterance-driven focus arbitration maximises user satisfaction and minimises unintended-state transitions ($20$ participants; four policies; Sec.~\ref{sec:focus-policy}).}
+    (\textbf{A})~Mean satisfaction (1--5 Likert) per policy with $\pm 1\sigma$ error bars and the $4.0$ success threshold dashed. Values: explicit-only $2.75$, activity-driven $3.39$, artifact-signalled $3.91$, utterance-driven $\mathbf{4.40}$. Only utterance-driven crosses the threshold.
+    (\textbf{B})~Mean rate of transitions into an unintended focus state per policy. Values decrease monotonically across the same ordering: $0.211,\ 0.104,\ 0.055,\ 0.051$. The best policy is both most satisfying \emph{and} least error-prone.
+    (\textbf{C})~Per-participant satisfaction violins. Utterance-driven has the highest median and the tightest upper shoulder; explicit-only has the widest, lowest distribution, with a long tail of dissatisfied participants.
+    (\textbf{D})~Three-dimensional scatter of (policy index, unintended-state rate, satisfaction) per participant. Points cluster along an anti-diagonal: satisfaction rises as unintended-state rate falls. Utterance-driven dominates the upper-left corner along this trade-off front.}
+    \label{fig:panel2_focus_policy}
+\end{figure*}
 
 \subsection{Experiment 3: File-Operation Symmetry Verification}
 
@@ -809,6 +858,17 @@ Blank-screen workflow produces comparable or higher quality output in $\leq 1/2$
 
 \paragraph{Success Criteria}
 Time ratio $\leq 0.6$ with quality non-inferiority.
+
+\begin{figure*}[!htbp]
+    \centering
+    \includegraphics[width=\textwidth]{figures/panel5_scientific_workflow.png}
+    \caption{\textbf{Blank-screen completes a canonical scientific workload (knockout-experiment design) in less than half the time with non-inferior output quality ($30$ scientists; Sec.~\ref{sec:scientific-workload}).}
+    (\textbf{A})~Violin distributions of time-to-complete (minutes) per paradigm: conventional $69.5\pm 16.2$ versus blank-screen $29.9\pm 7.7$. Time ratio $\text{BS}/\text{conv}=0.43$, passing the $\leq 0.6$ success threshold with margin.
+    (\textbf{B})~Violin distributions of rubric-scored output quality (1--10): conventional $7.51\pm 1.15$ versus blank-screen $7.57\pm 0.65$. Mean quality is statistically non-inferior ($\Delta=+0.06$, well within the $\geq -0.5$ tolerance), and BS quality is more consistent across participants.
+    (\textbf{C})~Scatter of (time, quality) per scientist. The blank-screen cluster (green) sits in the desirable lower-right region (less time, equal-or-higher quality); the conventional cluster (red) sits to its right with wider vertical spread. No quality/speed trade-off is visible.
+    (\textbf{D})~Three-dimensional scatter of (scientist index, time, quality) coloured by paradigm. For every scientist, the green (BS) point sits left of the red (conventional) point at matched or better altitude, showing that the paradigm-level advantage reproduces at the individual level.}
+    \label{fig:panel5_scientific_workflow}
+\end{figure*}
 
 \section{Related Work}
 \label{sec:related}

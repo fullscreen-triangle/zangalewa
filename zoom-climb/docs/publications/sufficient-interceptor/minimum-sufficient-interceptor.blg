@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99e
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: minimum-sufficient-interceptor.aux
+Reallocating 'name_of_file' (item size: 1) to 9 items.
+The style file: plainnat.bst
+Reallocating 'name_of_file' (item size: 1) to 11 items.
+Database file #1: references.bib
+Warning--there's a number but no volume in winograd1971shrdlu
+You've used 26 entries,
+            2773 wiz_defined-function locations,
+            729 strings with 9933 characters,
+and the built_in function-call counts, 13669 in all, are:
+= -- 1089
+> -- 1087
+< -- 13
++ -- 368
+- -- 342
+* -- 1171
+:= -- 2166
+add.period$ -- 78
+call.type$ -- 26
+change.case$ -- 190
+chr.to.int$ -- 26
+cite$ -- 53
+duplicate$ -- 575
+empty$ -- 1004
+format.name$ -- 372
+if$ -- 2793
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 25
+newline$ -- 138
+num.names$ -- 104
+pop$ -- 415
+preamble$ -- 1
+purify$ -- 163
+quote$ -- 0
+skip$ -- 444
+stack$ -- 0
+substring$ -- 256
+swap$ -- 50
+text.length$ -- 4
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 286
+warning$ -- 1
+while$ -- 95
+width$ -- 0
+write$ -- 332
+(There was 1 warning)

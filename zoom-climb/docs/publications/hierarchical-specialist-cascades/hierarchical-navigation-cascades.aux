@@ -1,0 +1,194 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{kaplan2020scaling,hoffmann2022training}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\newlabel{sec:intro}{{1}{1}{Introduction}{section.1}{}}
+\newlabel{sec:intro@cref}{{[section][1][]1}{[1][1][]1}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}The Scaling Paradox}{1}{subsection.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}The Cascade Alternative}{2}{subsection.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Why This Is Not Obvious}{2}{subsection.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4}Contributions}{2}{subsection.1.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.5}Organization}{2}{subsection.1.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Preliminaries}{2}{section.2}\protected@file@percent }
+\newlabel{sec:preliminaries}{{2}{2}{Preliminaries}{section.2}{}}
+\newlabel{sec:preliminaries@cref}{{[section][2][]2}{[1][2][]2}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Questions and Answers}{2}{subsection.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Models as Answering Systems}{3}{subsection.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}$k$-Ary Trees}{3}{subsection.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}The Question Routing Problem}{3}{section.3}\protected@file@percent }
+\newlabel{sec:problem}{{3}{3}{The Question Routing Problem}{section.3}{}}
+\newlabel{sec:problem@cref}{{[section][3][]3}{[1][3][]3}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Problem Statement}{3}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Naive Routing}{3}{subsection.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces A ternary specialist tree of depth 3 with 27 leaf specialists. Each internal node $R_i$ is a routing classifier selecting among its three children. Path length from root to any leaf is $\log _3 27 = 3$.}}{3}{figure.1}\protected@file@percent }
+\newlabel{fig:tree}{{1}{3}{A ternary specialist tree of depth 3 with 27 leaf specialists. Each internal node $R_i$ is a routing classifier selecting among its three children. Path length from root to any leaf is $\log _3 27 = 3$}{figure.1}{}}
+\newlabel{fig:tree@cref}{{[figure][1][]1}{[1][3][]3}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Hierarchical Routing}{3}{subsection.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Specialist Partition Trees}{3}{section.4}\protected@file@percent }
+\newlabel{sec:tree}{{4}{3}{Specialist Partition Trees}{section.4}{}}
+\newlabel{sec:tree@cref}{{[section][4][]4}{[1][3][]3}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Construction}{3}{subsection.4.1}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Build Specialist Tree}}{4}{algorithm.1}\protected@file@percent }
+\newlabel{alg:build}{{1}{4}{Construction}{algorithm.1}{}}
+\newlabel{alg:build@cref}{{[algorithm][1][]1}{[1][3][]4}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Design Invariants}{4}{subsection.4.2}\protected@file@percent }
+\newlabel{def:invariants}{{4.1}{4}{Tree Invariants}{theorem.4.1}{}}
+\newlabel{def:invariants@cref}{{[theorem][1][4]4.1}{[1][4][]4}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Alternatives to Fixed Branching Factor}{4}{subsection.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Routing Complexity}{4}{section.5}\protected@file@percent }
+\newlabel{sec:routing-complexity}{{5}{4}{Routing Complexity}{section.5}{}}
+\newlabel{sec:routing-complexity@cref}{{[section][5][]5}{[1][4][]4}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Per-Level Routing as Classification}{4}{subsection.5.1}\protected@file@percent }
+\newlabel{assum:sep}{{5.1}{4}{Bounded Local Separability}{theorem.5.1}{}}
+\newlabel{assum:sep@cref}{{[theorem][1][5]5.1}{[1][4][]4}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Main Theorem}{4}{subsection.5.2}\protected@file@percent }
+\newlabel{thm:route-complexity}{{5.2}{4}{Routing Complexity}{theorem.5.2}{}}
+\newlabel{thm:route-complexity@cref}{{[theorem][2][5]5.2}{[1][4][]4}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {Sub-linear inference latency of the cascade versus a monolithic baseline of matched aggregate capacity (branching factor $k=3$, router and specialist latency $8$\,ms each, $10$M-parameter specialists, $N\in \{10,\dots  ,10{,}000\}$; Theorem~\ref {thm:route-complexity}, Corollary~\ref {cor:sublinear}).} (\textbf  {A})~Mean end-to-end latency on log--log axes: cascade (green circles) grows from $31.9$\,ms at $N=10$ to $80.0$\,ms at $N=10{,}000$, while the monolith (red squares) grows from $116$\,ms to $25{,}419$\,ms --- three orders of magnitude apart by $N=10^4$. Error bars are $\pm 1\sigma $ over $50$ replicates. (\textbf  {B})~Monolith/cascade speedup versus $N$: $14.6\times $ at $N=100$, $65.9\times $ at $N=1000$, $317.7\times $ at $N=10{,}000$, confirming that the cascade advantage widens as $N$ grows. (\textbf  {C})~Residuals of the cascade latency around the log-linear fit $\hat  {L}=16.15+7.63\log _3 N$. All residuals fall within $\pm 0.6$\,ms and the regression attains $R^2=0.9998$, empirically confirming the $\Theta (\log _k N)$ scaling prediction. (\textbf  {D})~Three-dimensional ribbon of $\log _{10}$-latency over $(\log _{10} N,\text  {method})$: the near-flat cascade ribbon and the steeply rising monolith ribbon make visible the asymptotic separation between the two architectures.}}{5}{figure.2}\protected@file@percent }
+\newlabel{fig:panel1_sublinear_latency}{{2}{5}{\textbf {Sub-linear inference latency of the cascade versus a monolithic baseline of matched aggregate capacity (branching factor $k=3$, router and specialist latency $8$\,ms each, $10$M-parameter specialists, $N\in \{10,\dots ,10{,}000\}$; Theorem~\ref {thm:route-complexity}, Corollary~\ref {cor:sublinear}).} (\textbf {A})~Mean end-to-end latency on log--log axes: cascade (green circles) grows from $31.9$\,ms at $N=10$ to $80.0$\,ms at $N=10{,}000$, while the monolith (red squares) grows from $116$\,ms to $25{,}419$\,ms --- three orders of magnitude apart by $N=10^4$. Error bars are $\pm 1\sigma $ over $50$ replicates. (\textbf {B})~Monolith/cascade speedup versus $N$: $14.6\times $ at $N=100$, $65.9\times $ at $N=1000$, $317.7\times $ at $N=10{,}000$, confirming that the cascade advantage widens as $N$ grows. (\textbf {C})~Residuals of the cascade latency around the log-linear fit $\hat {L}=16.15+7.63\log _3 N$. All residuals fall within $\pm 0.6$\,ms and the regression attains $R^2=0.9998$, empirically confirming the $\Theta (\log _k N)$ scaling prediction. (\textbf {D})~Three-dimensional ribbon of $\log _{10}$-latency over $(\log _{10} N,\text {method})$: the near-flat cascade ribbon and the steeply rising monolith ribbon make visible the asymptotic separation between the two architectures}{figure.2}{}}
+\newlabel{fig:panel1_sublinear_latency@cref}{{[figure][2][]2}{[1][4][]5}{}{}{}}
+\newlabel{cor:sublinear}{{5.3}{5}{Sub-Linear Routing}{theorem.5.3}{}}
+\newlabel{cor:sublinear@cref}{{[theorem][3][5]5.3}{[1][5][]5}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Aggregate System Capability}{5}{subsection.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Router Error Propagation}{5}{subsection.5.4}\protected@file@percent }
+\newlabel{prop:path-error}{{5.5}{5}{Path Error Bound}{theorem.5.5}{}}
+\newlabel{prop:path-error@cref}{{[theorem][5][5]5.5}{[1][5][]5}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Self-Similarity and Scale Invariance}{6}{section.6}\protected@file@percent }
+\newlabel{sec:self-similar}{{6}{6}{Self-Similarity and Scale Invariance}{section.6}{}}
+\newlabel{sec:self-similar@cref}{{[section][6][]6}{[1][6][]6}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Scale-Invariance of the Routing Primitive}{6}{subsection.6.1}\protected@file@percent }
+\newlabel{prop:selfsim}{{6.1}{6}{Sub-Tree Self-Similarity}{theorem.6.1}{}}
+\newlabel{prop:selfsim@cref}{{[theorem][1][6]6.1}{[1][6][]6}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Specialists as Routers at Lower Scales}{6}{subsection.6.2}\protected@file@percent }
+\newlabel{thm:scale-inv}{{6.3}{6}{Scale-Invariance of Architecture}{theorem.6.3}{}}
+\newlabel{thm:scale-inv@cref}{{[theorem][3][6]6.3}{[1][6][]6}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Multi-Scale Stacks}{6}{section.7}\protected@file@percent }
+\newlabel{sec:multi-scale}{{7}{6}{Multi-Scale Stacks}{section.7}{}}
+\newlabel{sec:multi-scale@cref}{{[section][7][]7}{[1][6][]6}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Multiple Routing Stages}{6}{subsection.7.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Per-level router capacity is bounded and nearly depth-independent (depths $d\in \{1,\dots  ,6\}$, router capacities $10^5$--$10^8$, four replicates per cell; Assumption~\ref {assum:sep}).} (\textbf  {A})~Router accuracy versus capacity, one curve per depth. All six depths exhibit the same sigmoidal saturation profile, rising from $\approx 5\%$ at $10^5$ parameters to $\geq 99\%$ at $10^7$ parameters, with curves overlapping within noise. (\textbf  {B})~Saturation capacity $c^\star $ per depth (in millions of parameters): $1.67,\ 1.87,\ 1.73,\ 1.79,\ 1.73,\ 2.18$\,M for $d=1,\dots  ,6$. The $\max /\min $ ratio is $1.31\times $, well inside the $3\times $ success threshold and directly supporting Assumption~\ref {assum:sep}. (\textbf  {C})~Histogram of the six $c^\star $ values: the tight concentration near $1.8\times 10^6$ visualises that per-level routing difficulty is depth-invariant rather than growing with tree depth. (\textbf  {D})~Surface of router accuracy over $(\log _{10} c,\ d)$: the surface is essentially a function of capacity alone, with negligible curvature along the depth axis, confirming that adding levels to the cascade does not raise per-level router cost.}}{7}{figure.3}\protected@file@percent }
+\newlabel{fig:panel2_router_capacity}{{3}{7}{\textbf {Per-level router capacity is bounded and nearly depth-independent (depths $d\in \{1,\dots ,6\}$, router capacities $10^5$--$10^8$, four replicates per cell; Assumption~\ref {assum:sep}).} (\textbf {A})~Router accuracy versus capacity, one curve per depth. All six depths exhibit the same sigmoidal saturation profile, rising from $\approx 5\%$ at $10^5$ parameters to $\geq 99\%$ at $10^7$ parameters, with curves overlapping within noise. (\textbf {B})~Saturation capacity $c^\star $ per depth (in millions of parameters): $1.67,\ 1.87,\ 1.73,\ 1.79,\ 1.73,\ 2.18$\,M for $d=1,\dots ,6$. The $\max /\min $ ratio is $1.31\times $, well inside the $3\times $ success threshold and directly supporting Assumption~\ref {assum:sep}. (\textbf {C})~Histogram of the six $c^\star $ values: the tight concentration near $1.8\times 10^6$ visualises that per-level routing difficulty is depth-invariant rather than growing with tree depth. (\textbf {D})~Surface of router accuracy over $(\log _{10} c,\ d)$: the surface is essentially a function of capacity alone, with negligible curvature along the depth axis, confirming that adding levels to the cascade does not raise per-level router cost}{figure.3}{}}
+\newlabel{fig:panel2_router_capacity@cref}{{[figure][3][]3}{[1][6][]7}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Additive Latency}{7}{subsection.7.2}\protected@file@percent }
+\newlabel{thm:additive}{{7.1}{7}{Additive Multi-Scale Latency}{theorem.7.1}{}}
+\newlabel{thm:additive@cref}{{[theorem][1][7]7.1}{[1][7][]7}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Scale Composition}{7}{subsection.7.3}\protected@file@percent }
+\newlabel{prop:compose}{{7.2}{7}{Scale Composition}{theorem.7.2}{}}
+\newlabel{prop:compose@cref}{{[theorem][2][7]7.2}{[1][7][]7}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Failure Localization}{7}{section.8}\protected@file@percent }
+\newlabel{sec:failure}{{8}{7}{Failure Localization}{section.8}{}}
+\newlabel{sec:failure@cref}{{[section][8][]8}{[1][7][]7}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Failure Modes}{7}{subsection.8.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \textbf  {Multi-stage latency is additive, not multiplicative (three stages of sizes $N_1=27$, $N_2=9$, $N_3=9$; $k=3$; $500$ replicates per configuration; Theorem~\ref {thm:additive}).} (\textbf  {A})~Per-stage mean latency: $32.0$\,ms, $24.0$\,ms, $24.0$\,ms for stages of depth $3,2,2$ respectively, matching the $d\cdot t_r + t_s$ prediction with $t_r=t_s=8$\,ms. (\textbf  {B})~Scatter of measured total latency against the sum of per-stage samples across $500$ runs. Points lie tightly on the $y=x$ identity (dashed grey), with measured mean $81.51$\,ms and summed mean $80.04$\,ms --- a relative error of $1.8\%$, well inside the $5\%$ success threshold. (\textbf  {C})~Histogram of residuals $(\text  {total}-\DOTSB \sum@ \slimits@ \text  {stages})$ across replicates: centred near zero with a narrow spread, showing that inter-stage overhead is additive noise, not a multiplicative penalty. (\textbf  {D})~Three-dimensional scatter of $(L_1,L_2,L_3)$ coloured by total latency: the cloud spans the expected per-stage ranges and the total rises as a linear combination of coordinates, visualising that three routing stages of $1000$ specialists each would cost $\sim 3\log _3 1000 \approx 21$ invocations rather than $343$.}}{8}{figure.4}\protected@file@percent }
+\newlabel{fig:panel3_additive_latency}{{4}{8}{\textbf {Multi-stage latency is additive, not multiplicative (three stages of sizes $N_1=27$, $N_2=9$, $N_3=9$; $k=3$; $500$ replicates per configuration; Theorem~\ref {thm:additive}).} (\textbf {A})~Per-stage mean latency: $32.0$\,ms, $24.0$\,ms, $24.0$\,ms for stages of depth $3,2,2$ respectively, matching the $d\cdot t_r + t_s$ prediction with $t_r=t_s=8$\,ms. (\textbf {B})~Scatter of measured total latency against the sum of per-stage samples across $500$ runs. Points lie tightly on the $y=x$ identity (dashed grey), with measured mean $81.51$\,ms and summed mean $80.04$\,ms --- a relative error of $1.8\%$, well inside the $5\%$ success threshold. (\textbf {C})~Histogram of residuals $(\text {total}-\sum \text {stages})$ across replicates: centred near zero with a narrow spread, showing that inter-stage overhead is additive noise, not a multiplicative penalty. (\textbf {D})~Three-dimensional scatter of $(L_1,L_2,L_3)$ coloured by total latency: the cloud spans the expected per-stage ranges and the total rises as a linear combination of coordinates, visualising that three routing stages of $1000$ specialists each would cost $\sim 3\log _3 1000 \approx 21$ invocations rather than $343$}{figure.4}{}}
+\newlabel{fig:panel3_additive_latency@cref}{{[figure][4][]4}{[1][7][]8}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Localization Results}{8}{subsection.8.2}\protected@file@percent }
+\newlabel{thm:fail-localize}{{8.1}{8}{Failure Localization}{theorem.8.1}{}}
+\newlabel{thm:fail-localize@cref}{{[theorem][1][8]8.1}{[1][8][]8}{}{}{}}
+\newlabel{cor:update}{{8.2}{8}{Update Locality}{theorem.8.2}{}}
+\newlabel{cor:update@cref}{{[theorem][2][8]8.2}{[1][8][]8}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}Router Failure Localization}{8}{subsection.8.3}\protected@file@percent }
+\newlabel{thm:router-fail}{{8.3}{8}{Router Failure Scope}{theorem.8.3}{}}
+\newlabel{thm:router-fail@cref}{{[theorem][3][8]8.3}{[1][8][]8}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4}Failure-Free Paths}{8}{subsection.8.4}\protected@file@percent }
+\citation{kirkpatrick2017overcoming}
+\citation{hinton2015distilling}
+\citation{sanh2019distilbert,jiao2020tinybert}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Economics of Capability}{9}{section.9}\protected@file@percent }
+\newlabel{sec:economics}{{9}{9}{Economics of Capability}{section.9}{}}
+\newlabel{sec:economics@cref}{{[section][9][]9}{[1][8][]9}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Scaling Capability in a Monolith}{9}{subsection.9.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Scaling Capability in a Cascade}{9}{subsection.9.2}\protected@file@percent }
+\newlabel{prop:marginal}{{9.1}{9}{Marginal Capability Cost}{theorem.9.1}{}}
+\newlabel{prop:marginal@cref}{{[theorem][1][9]9.1}{[1][9][]9}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Comparison}{9}{subsection.9.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {10}Distillation and Training}{9}{section.10}\protected@file@percent }
+\newlabel{sec:distillation}{{10}{9}{Distillation and Training}{section.10}{}}
+\newlabel{sec:distillation@cref}{{[section][10][]10}{[1][9][]9}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}Training Specialists via Distillation}{9}{subsection.10.1}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Specialist Distillation}}{9}{algorithm.2}\protected@file@percent }
+\newlabel{alg:distill}{{2}{9}{Training Specialists via Distillation}{algorithm.2}{}}
+\newlabel{alg:distill@cref}{{[algorithm][2][]2}{[1][9][]9}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.2}Training Routers}{9}{subsection.10.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  {Specialist failures are localised to their own leaf (tree with $27$ leaves, leaf $\ell =7$ corrupted, $2000$ queries per leaf; Theorem~\ref {thm:fail-localize}).} (\textbf  {A})~Baseline accuracy per leaf before corruption: all $27$ specialists sit tightly around $0.920$ with per-leaf standard deviation below $0.001$. (\textbf  {B})~Post-corruption accuracy: the corrupted leaf $\ell =7$ (red) drops to $0.450$, while the remaining $26$ leaves (green) remain at $\approx 0.920$. (\textbf  {C})~Per-leaf delta $\Delta = \text  {post}-\text  {baseline}$: leaf $7$ shows $\Delta = -0.470$, while the maximum $|\Delta |$ across the $26$ uncorrupted branches is $7.8\times 10^{-4}$ and the mean is $3.2\times 10^{-4}$ --- two orders of magnitude below the $0.005$ stability threshold. (\textbf  {D})~Three-dimensional scatter of $(\text  {leaf index},\ \text  {baseline},\ \text  {post})$: all points sit on the $y=z$ diagonal except leaf $7$, which falls sharply off it. The empirical result directly confirms Corollary~\ref {cor:update}: a specialist can be rebuilt or swapped without retesting the rest of the cascade.}}{10}{figure.5}\protected@file@percent }
+\newlabel{fig:panel4_failure_localization}{{5}{10}{\textbf {Specialist failures are localised to their own leaf (tree with $27$ leaves, leaf $\ell =7$ corrupted, $2000$ queries per leaf; Theorem~\ref {thm:fail-localize}).} (\textbf {A})~Baseline accuracy per leaf before corruption: all $27$ specialists sit tightly around $0.920$ with per-leaf standard deviation below $0.001$. (\textbf {B})~Post-corruption accuracy: the corrupted leaf $\ell =7$ (red) drops to $0.450$, while the remaining $26$ leaves (green) remain at $\approx 0.920$. (\textbf {C})~Per-leaf delta $\Delta = \text {post}-\text {baseline}$: leaf $7$ shows $\Delta = -0.470$, while the maximum $|\Delta |$ across the $26$ uncorrupted branches is $7.8\times 10^{-4}$ and the mean is $3.2\times 10^{-4}$ --- two orders of magnitude below the $0.005$ stability threshold. (\textbf {D})~Three-dimensional scatter of $(\text {leaf index},\ \text {baseline},\ \text {post})$: all points sit on the $y=z$ diagonal except leaf $7$, which falls sharply off it. The empirical result directly confirms Corollary~\ref {cor:update}: a specialist can be rebuilt or swapped without retesting the rest of the cascade}{figure.5}{}}
+\newlabel{fig:panel4_failure_localization@cref}{{[figure][5][]5}{[1][9][]10}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces \textbf  {Marginal cost of adding a specialist scales as $O(\log _k N)$ (branching $k=3$; specialist training cost $C_s=100$; router retraining cost $C_r=12$; $N\in \{10,\dots  ,30{,}000\}$; $20$ replicates per cell; Proposition~\ref {prop:marginal}).} (\textbf  {A})~Mean marginal cost versus $N$ on a log-$N$ axis: cost rises from $135.9$ at $N=10$ (depth $3$) to $219.8$ at $N=30{,}000$ (depth $10$). The dashed red line is the fit $\hat  {C}=111.97+11.46\log _3 N$, which attains $R^2=0.9999$. (\textbf  {B})~Cost versus tree depth: the relationship is linear with slope $\approx C_r$, consistent with adding one specialist plus $D$ router updates. (\textbf  {C})~Stackplot decomposing total cost into the specialist training component ($100$, constant, blue) and the router retraining component ($D\cdot C_r$, orange). The specialist share stays fixed while the router share grows logarithmically, so the ratio of router to specialist cost reaches only $\sim 1.2$ even at $N=30{,}000$. (\textbf  {D})~Surface of predicted cost $C_s + D\cdot C_r$ over $(\log _3 N,\ D)$, with measured means overlaid as red markers. Measurements land on the surface within measurement noise, visualising that capability scaling in a cascade is three orders of magnitude cheaper than retraining a monolith of equivalent aggregate capacity.}}{10}{figure.6}\protected@file@percent }
+\newlabel{fig:panel5_marginal_cost}{{6}{10}{\textbf {Marginal cost of adding a specialist scales as $O(\log _k N)$ (branching $k=3$; specialist training cost $C_s=100$; router retraining cost $C_r=12$; $N\in \{10,\dots ,30{,}000\}$; $20$ replicates per cell; Proposition~\ref {prop:marginal}).} (\textbf {A})~Mean marginal cost versus $N$ on a log-$N$ axis: cost rises from $135.9$ at $N=10$ (depth $3$) to $219.8$ at $N=30{,}000$ (depth $10$). The dashed red line is the fit $\hat {C}=111.97+11.46\log _3 N$, which attains $R^2=0.9999$. (\textbf {B})~Cost versus tree depth: the relationship is linear with slope $\approx C_r$, consistent with adding one specialist plus $D$ router updates. (\textbf {C})~Stackplot decomposing total cost into the specialist training component ($100$, constant, blue) and the router retraining component ($D\cdot C_r$, orange). The specialist share stays fixed while the router share grows logarithmically, so the ratio of router to specialist cost reaches only $\sim 1.2$ even at $N=30{,}000$. (\textbf {D})~Surface of predicted cost $C_s + D\cdot C_r$ over $(\log _3 N,\ D)$, with measured means overlaid as red markers. Measurements land on the surface within measurement noise, visualising that capability scaling in a cascade is three orders of magnitude cheaper than retraining a monolith of equivalent aggregate capacity}{figure.6}{}}
+\newlabel{fig:panel5_marginal_cost@cref}{{[figure][6][]6}{[1][9][]10}{}{}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces Router Training}}{11}{algorithm.3}\protected@file@percent }
+\newlabel{alg:train-router}{{3}{11}{Training Routers}{algorithm.3}{}}
+\newlabel{alg:train-router@cref}{{[algorithm][3][]3}{[1][11][]11}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.3}Cascade Cold-Start}{11}{subsection.10.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {11}Experimental Validation}{11}{section.11}\protected@file@percent }
+\newlabel{sec:validation}{{11}{11}{Experimental Validation}{section.11}{}}
+\newlabel{sec:validation@cref}{{[section][11][]11}{[1][11][]11}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.1}Experiment 1: Sub-Linear Latency Scaling}{11}{subsection.11.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Objective}{11}{section*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Protocol}{11}{section*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Predictions}{11}{section*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Success Criteria}{11}{section*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.2}Experiment 2: Router Capacity Sufficiency}{11}{subsection.11.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Objective}{11}{section*.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Protocol}{11}{section*.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Predictions}{11}{section*.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Success Criteria}{11}{section*.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.3}Experiment 3: Additive Latency in Multi-Stage Cascades}{11}{subsection.11.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Objective}{11}{section*.10}\protected@file@percent }
+\citation{jacobs1991adaptive,shazeer2017outrageously,fedus2022switch}
+\citation{panda2016conditional,bolukbasi2017adaptive}
+\citation{silla2011survey}
+\@writefile{toc}{\contentsline {paragraph}{Protocol}{12}{section*.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Predictions}{12}{section*.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Success Criteria}{12}{section*.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.4}Experiment 4: Failure Localization}{12}{subsection.11.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Objective}{12}{section*.14}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Protocol}{12}{section*.15}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Predictions}{12}{section*.16}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Success Criteria}{12}{section*.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.5}Experiment 5: Marginal Capability Addition}{12}{subsection.11.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Objective}{12}{section*.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Protocol}{12}{section*.19}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Predictions}{12}{section*.20}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Success Criteria}{12}{section*.21}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {12}Related Work}{12}{section.12}\protected@file@percent }
+\newlabel{sec:related}{{12}{12}{Related Work}{section.12}{}}
+\newlabel{sec:related@cref}{{[section][12][]12}{[1][12][]12}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.1}Mixture of Experts}{12}{subsection.12.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.2}Model Cascades and Early Exit}{12}{subsection.12.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.3}Hierarchical Classification}{12}{subsection.12.3}\protected@file@percent }
+\citation{bengio2013estimating,bengio2015conditional}
+\citation{ravaut2022hierarchical,chen2023frugalgpt,shnitzer2023large}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.4}Neural Architecture Search and Conditional Computation}{13}{subsection.12.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.5}Routing with Language Models}{13}{subsection.12.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {13}Discussion}{13}{section.13}\protected@file@percent }
+\newlabel{sec:discussion}{{13}{13}{Discussion}{section.13}{}}
+\newlabel{sec:discussion@cref}{{[section][13][]13}{[1][13][]13}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.1}Where Does the Intelligence Live?}{13}{subsection.13.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.2}Limitations}{13}{subsection.13.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.3}Future Directions}{13}{subsection.13.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {14}Conclusion}{13}{section.14}\protected@file@percent }
+\newlabel{sec:conclusion}{{14}{13}{Conclusion}{section.14}{}}
+\newlabel{sec:conclusion@cref}{{[section][14][]14}{[1][13][]13}{}{}{}}
+\bibstyle{plainnat}
+\bibdata{references}
+\bibcite{bengio2015conditional}{{1}{2015}{{Bengio et~al.}}{{Bengio, Bacon, Pineau, and Precup}}}
+\bibcite{bengio2013estimating}{{2}{2013}{{Bengio et~al.}}{{Bengio, L{\'e}onard, and Courville}}}
+\bibcite{bolukbasi2017adaptive}{{3}{2017}{{Bolukbasi et~al.}}{{Bolukbasi, Wang, Dekel, and Saligrama}}}
+\bibcite{chen2023frugalgpt}{{4}{2023}{{Chen et~al.}}{{Chen, Zaharia, and Zou}}}
+\bibcite{fedus2022switch}{{5}{2022}{{Fedus et~al.}}{{Fedus, Zoph, and Shazeer}}}
+\bibcite{hinton2015distilling}{{6}{2015}{{Hinton et~al.}}{{Hinton, Vinyals, and Dean}}}
+\bibcite{hoffmann2022training}{{7}{2022}{{Hoffmann et~al.}}{{Hoffmann, Borgeaud, Mensch, Buchatskaya, Cai, Rutherford, et~al.}}}
+\bibcite{jacobs1991adaptive}{{8}{1991}{{Jacobs et~al.}}{{Jacobs, Jordan, Nowlan, and Hinton}}}
+\bibcite{jiao2020tinybert}{{9}{2020}{{Jiao et~al.}}{{Jiao, Yin, Shang, Jiang, Chen, Li, Wang, and Liu}}}
+\bibcite{kaplan2020scaling}{{10}{2020}{{Kaplan et~al.}}{{Kaplan, McCandlish, Henighan, Brown, Chess, Child, Gray, Radford, Wu, and Amodei}}}
+\bibcite{kirkpatrick2017overcoming}{{11}{2017}{{Kirkpatrick et~al.}}{{Kirkpatrick, Pascanu, Rabinowitz, Veness, Desjardins, Rusu, Milan, Quan, Ramalho, Grabska-Barwinska, et~al.}}}
+\bibcite{panda2016conditional}{{12}{2016}{{Panda et~al.}}{{Panda, Sengupta, and Roy}}}
+\bibcite{ravaut2022hierarchical}{{13}{2022}{{Ravaut et~al.}}{{Ravaut, Joty, and Chen}}}
+\bibcite{sanh2019distilbert}{{14}{2019}{{Sanh et~al.}}{{Sanh, Debut, Chaumond, and Wolf}}}
+\bibcite{shazeer2017outrageously}{{15}{2017}{{Shazeer et~al.}}{{Shazeer, Mirhoseini, Maziarz, Davis, Le, Hinton, and Dean}}}
+\bibcite{shnitzer2023large}{{16}{2023}{{Shnitzer et~al.}}{{Shnitzer, Ou, Silva, Soule, Sun, Solomon, Thompson, and Yurochkin}}}
+\bibcite{silla2011survey}{{17}{2011}{{Silla and Freitas}}{{}}}
+\gdef \@abspage@last{15}

@@ -9,7 +9,12 @@
       "Bash(python zoom-climb/docs/publications/validation/paper1-msi/run_experiments.py)",
       "Bash(python zoom-climb/docs/publications/validation/paper2-hnc/run_experiments.py)",
       "Bash(python zoom-climb/docs/publications/validation/paper3-bsp/run_experiments.py)",
-      "Bash(python zoom-climb/docs/publications/validation/generate_panels.py)"
+      "Bash(python zoom-climb/docs/publications/validation/generate_panels.py)",
+      "Bash(python -c \"import json; d=json.load\\(open\\('c:/Users/kunda/Documents/architecture/zangalewa/zoom-climb/docs/publications/validation/paper1-msi/exp1_sufficiency_saturation.json'\\)\\); print\\('analysis keys:', list\\(d['saturation_analysis'].keys\\(\\)\\)\\); print\\('sample:', json.dumps\\(d['saturation_analysis'], indent=2\\)[:800]\\); print\\('success:', d.get\\('success_criteria'\\)\\); print\\('fit:', d.get\\('linear_fit'\\)\\)\")",
+      "Bash(python -c \"import json; d=json.load\\(open\\('c:/Users/kunda/Documents/architecture/zangalewa/zoom-climb/docs/publications/validation/paper1-msi/exp2_scale_invariance.json'\\)\\); print\\(list\\(d.keys\\(\\)\\)\\); print\\('config:', d.get\\('config'\\)\\); print\\('success:', d.get\\('success_criteria'\\)\\)\")",
+      "Bash(python -c \"import json; d=json.load\\(open\\('c:/Users/kunda/Documents/architecture/zangalewa/zoom-climb/docs/publications/validation/paper1-msi/exp3_session_trajectory_benefit.json'\\)\\); print\\(list\\(d.keys\\(\\)\\)\\); print\\('config:', d.get\\('config'\\)\\); print\\('success:', d.get\\('success_criteria'\\)\\); td=d['trajectory_data']; print\\('trajkeys:', list\\(td.keys\\(\\)\\)\\); print\\('first pt with:', td['with_prior'][0]\\); print\\('last pt with:', td['with_prior'][-1]\\); print\\('first pt without:', td['without_prior'][0]\\); print\\('last pt without:', td['without_prior'][-1]\\); print\\('n pts:', len\\(td['with_prior']\\)\\)\")",
+      "Bash(python -c \"import json; d=json.load\\(open\\('c:/Users/kunda/Documents/architecture/zangalewa/zoom-climb/docs/publications/validation/paper1-msi/exp4_focus_arbitration.json'\\)\\); print\\(list\\(d.keys\\(\\)\\)\\); print\\('config:', d.get\\('config'\\)\\); print\\('success:', d.get\\('success_criteria'\\)\\); print\\('policy means:', {p: {k:d['policy_results'][p].get\\(k\\) for k in ['mean_agreement','std_agreement','mean_satisfaction']} for p in d['config']['policies']}\\)\")",
+      "Bash(python -c ' *)"
     ]
   }
 }

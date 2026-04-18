@@ -1,0 +1,122 @@
+\begin{thebibliography}{17}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Bengio et~al.(2015)Bengio, Bacon, Pineau, and
+  Precup]{bengio2015conditional}
+Emmanuel Bengio, Pierre-Luc Bacon, Joelle Pineau, and Doina Precup.
+\newblock Conditional computation in neural networks for faster models.
+\newblock \emph{arXiv preprint arXiv:1511.06297}, 2015.
+
+\bibitem[Bengio et~al.(2013)Bengio, L{\'e}onard, and
+  Courville]{bengio2013estimating}
+Yoshua Bengio, Nicholas L{\'e}onard, and Aaron Courville.
+\newblock Estimating or propagating gradients through stochastic neurons for
+  conditional computation.
+\newblock \emph{arXiv preprint arXiv:1308.3432}, 2013.
+
+\bibitem[Bolukbasi et~al.(2017)Bolukbasi, Wang, Dekel, and
+  Saligrama]{bolukbasi2017adaptive}
+Tolga Bolukbasi, Joseph Wang, Ofer Dekel, and Venkatesh Saligrama.
+\newblock Adaptive neural networks for efficient inference.
+\newblock In \emph{International Conference on Machine Learning}, 2017.
+
+\bibitem[Chen et~al.(2023)Chen, Zaharia, and Zou]{chen2023frugalgpt}
+Lingjiao Chen, Matei Zaharia, and James Zou.
+\newblock {FrugalGPT}: How to use large language models while reducing cost and
+  improving performance.
+\newblock \emph{arXiv preprint arXiv:2305.05176}, 2023.
+
+\bibitem[Fedus et~al.(2022)Fedus, Zoph, and Shazeer]{fedus2022switch}
+William Fedus, Barret Zoph, and Noam Shazeer.
+\newblock Switch transformers: Scaling to trillion parameter models with simple
+  and efficient sparsity.
+\newblock \emph{Journal of Machine Learning Research}, 23\penalty0
+  (120):\penalty0 1--39, 2022.
+
+\bibitem[Hinton et~al.(2015)Hinton, Vinyals, and Dean]{hinton2015distilling}
+Geoffrey Hinton, Oriol Vinyals, and Jeff Dean.
+\newblock Distilling the knowledge in a neural network.
+\newblock \emph{arXiv preprint arXiv:1503.02531}, 2015.
+
+\bibitem[Hoffmann et~al.(2022)Hoffmann, Borgeaud, Mensch, Buchatskaya, Cai,
+  Rutherford, et~al.]{hoffmann2022training}
+Jordan Hoffmann, Sebastian Borgeaud, Arthur Mensch, Elena Buchatskaya, Trevor
+  Cai, Eliza Rutherford, et~al.
+\newblock Training compute-optimal large language models.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2022.
+
+\bibitem[Jacobs et~al.(1991)Jacobs, Jordan, Nowlan, and
+  Hinton]{jacobs1991adaptive}
+Robert~A. Jacobs, Michael~I. Jordan, Steven~J. Nowlan, and Geoffrey~E. Hinton.
+\newblock Adaptive mixtures of local experts.
+\newblock \emph{Neural Computation}, 3\penalty0 (1):\penalty0 79--87, 1991.
+
+\bibitem[Jiao et~al.(2020)Jiao, Yin, Shang, Jiang, Chen, Li, Wang, and
+  Liu]{jiao2020tinybert}
+Xiaoqi Jiao, Yichun Yin, Lifeng Shang, Xin Jiang, Xiao Chen, Linlin Li, Fang
+  Wang, and Qun Liu.
+\newblock {TinyBERT}: Distilling {BERT} for natural language understanding.
+\newblock In \emph{Findings of the Association for Computational Linguistics:
+  EMNLP 2020}, 2020.
+
+\bibitem[Kaplan et~al.(2020)Kaplan, McCandlish, Henighan, Brown, Chess, Child,
+  Gray, Radford, Wu, and Amodei]{kaplan2020scaling}
+Jared Kaplan, Sam McCandlish, Tom Henighan, Tom~B. Brown, Benjamin Chess, Rewon
+  Child, Scott Gray, Alec Radford, Jeffrey Wu, and Dario Amodei.
+\newblock Scaling laws for neural language models.
+\newblock \emph{arXiv preprint arXiv:2001.08361}, 2020.
+
+\bibitem[Kirkpatrick et~al.(2017)Kirkpatrick, Pascanu, Rabinowitz, Veness,
+  Desjardins, Rusu, Milan, Quan, Ramalho, Grabska-Barwinska,
+  et~al.]{kirkpatrick2017overcoming}
+James Kirkpatrick, Razvan Pascanu, Neil Rabinowitz, Joel Veness, Guillaume
+  Desjardins, Andrei~A. Rusu, Kieran Milan, John Quan, Tiago Ramalho, Agnieszka
+  Grabska-Barwinska, et~al.
+\newblock Overcoming catastrophic forgetting in neural networks.
+\newblock \emph{Proceedings of the National Academy of Sciences}, 114\penalty0
+  (13):\penalty0 3521--3526, 2017.
+
+\bibitem[Panda et~al.(2016)Panda, Sengupta, and Roy]{panda2016conditional}
+Priyadarshini Panda, Abhronil Sengupta, and Kaushik Roy.
+\newblock Conditional deep learning for energy-efficient and enhanced pattern
+  recognition.
+\newblock In \emph{Design, Automation \& Test in Europe Conference}, 2016.
+
+\bibitem[Ravaut et~al.(2022)Ravaut, Joty, and Chen]{ravaut2022hierarchical}
+Mathieu Ravaut, Shafiq Joty, and Nancy Chen.
+\newblock Hierarchical routing of queries to model experts.
+\newblock \emph{arXiv preprint}, 2022.
+
+\bibitem[Sanh et~al.(2019)Sanh, Debut, Chaumond, and Wolf]{sanh2019distilbert}
+Victor Sanh, Lysandre Debut, Julien Chaumond, and Thomas Wolf.
+\newblock {DistilBERT}, a distilled version of {BERT}: Smaller, faster, cheaper
+  and lighter.
+\newblock \emph{arXiv preprint arXiv:1910.01108}, 2019.
+
+\bibitem[Shazeer et~al.(2017)Shazeer, Mirhoseini, Maziarz, Davis, Le, Hinton,
+  and Dean]{shazeer2017outrageously}
+Noam Shazeer, Azalia Mirhoseini, Krzysztof Maziarz, Andy Davis, Quoc Le,
+  Geoffrey Hinton, and Jeff Dean.
+\newblock Outrageously large neural networks: The sparsely-gated
+  mixture-of-experts layer.
+\newblock In \emph{International Conference on Learning Representations}, 2017.
+
+\bibitem[Shnitzer et~al.(2023)Shnitzer, Ou, Silva, Soule, Sun, Solomon,
+  Thompson, and Yurochkin]{shnitzer2023large}
+Tal Shnitzer, Anthony Ou, Mirian Silva, Kate Soule, Yuekai Sun, Justin Solomon,
+  Neil Thompson, and Mikhail Yurochkin.
+\newblock Large language model routing with benchmark datasets.
+\newblock \emph{arXiv preprint arXiv:2309.15789}, 2023.
+
+\bibitem[Silla and Freitas(2011)]{silla2011survey}
+Carlos~N. Silla and Alex~A. Freitas.
+\newblock A survey of hierarchical classification across different application
+  domains.
+\newblock \emph{Data Mining and Knowledge Discovery}, 22\penalty0
+  (1--2):\penalty0 31--72, 2011.
+
+\end{thebibliography}

@@ -1,0 +1,184 @@
+\begin{thebibliography}{26}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Achiam et~al.(2023)Achiam, Adler, Agarwal, Ahmad,
+  et~al.]{achiam2023gpt4}
+Josh Achiam, Steven Adler, Sandhini Agarwal, Lama Ahmad, et~al.
+\newblock {GPT-4} technical report.
+\newblock \emph{arXiv preprint arXiv:2303.08774}, 2023.
+
+\bibitem[Bartlett et~al.(2017)Bartlett, Harvey, Liaw, and
+  Mehrabian]{bartlett2017vcbound}
+Peter~L. Bartlett, Nick Harvey, Christopher Liaw, and Abbas Mehrabian.
+\newblock Nearly-tight {VC}-dimension bounds for piecewise linear neural
+  networks.
+\newblock In \emph{Proceedings of the 2017 Conference on Learning Theory},
+  2017.
+
+\bibitem[Brown et~al.(2020)Brown, Mann, Ryder, Subbiah, Kaplan, Dhariwal,
+  Neelakantan, et~al.]{brown2020gpt3}
+Tom~B. Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared Kaplan,
+  Prafulla Dhariwal, Arvind Neelakantan, et~al.
+\newblock Language models are few-shot learners.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~33, 2020.
+
+\bibitem[Edelman et~al.(2022)Edelman, Goel, Kakade, and
+  Zhang]{edelman2022transformers}
+Benjamin~L. Edelman, Surbhi Goel, Sham Kakade, and Cyril Zhang.
+\newblock Inductive biases and variable creation in self-attention mechanisms.
+\newblock In \emph{International Conference on Machine Learning}, 2022.
+
+\bibitem[Engelbart(1962)]{engelbart1962augmenting}
+Douglas~C. Engelbart.
+\newblock Augmenting human intellect: A conceptual framework.
+\newblock Technical report, Stanford Research Institute, 1962.
+
+\bibitem[Fedus et~al.(2022)Fedus, Zoph, and Shazeer]{fedus2022switch}
+William Fedus, Barret Zoph, and Noam Shazeer.
+\newblock Switch transformers: Scaling to trillion parameter models with simple
+  and efficient sparsity.
+\newblock \emph{Journal of Machine Learning Research}, 23\penalty0
+  (120):\penalty0 1--39, 2022.
+
+\bibitem[Fitts(1954)]{fitts1954information}
+Paul~M. Fitts.
+\newblock The information capacity of the human motor system in controlling the
+  amplitude of movement.
+\newblock \emph{Journal of Experimental Psychology}, 47\penalty0 (6):\penalty0
+  381--391, 1954.
+
+\bibitem[Henderson et~al.(2014)Henderson, Thomson, and
+  Williams]{henderson2014dst}
+Matthew Henderson, Blaise Thomson, and Jason~D. Williams.
+\newblock The second dialog state tracking challenge.
+\newblock In \emph{Proceedings of the 15th Annual Meeting of the Special
+  Interest Group on Discourse and Dialogue}, 2014.
+
+\bibitem[Hick(1952)]{hick1952rate}
+W.~E. Hick.
+\newblock On the rate of gain of information.
+\newblock \emph{Quarterly Journal of Experimental Psychology}, 4\penalty0
+  (1):\penalty0 11--26, 1952.
+
+\bibitem[Hinton et~al.(2015)Hinton, Vinyals, and Dean]{hinton2015distilling}
+Geoffrey Hinton, Oriol Vinyals, and Jeff Dean.
+\newblock Distilling the knowledge in a neural network.
+\newblock \emph{arXiv preprint arXiv:1503.02531}, 2015.
+
+\bibitem[Houlsby et~al.(2019)Houlsby, Giurgiu, Jastrzebski, Morrone,
+  de~Laroussilhe, Gesmundo, Attariyan, and Gelly]{houlsby2019parameter}
+Neil Houlsby, Andrei Giurgiu, Stanislaw Jastrzebski, Bruna Morrone, Quentin
+  de~Laroussilhe, Andrea Gesmundo, Mona Attariyan, and Sylvain Gelly.
+\newblock Parameter-efficient transfer learning for {NLP}.
+\newblock In \emph{International Conference on Machine Learning}, 2019.
+
+\bibitem[Jiao et~al.(2020)Jiao, Yin, Shang, Jiang, Chen, Li, Wang, and
+  Liu]{jiao2020tinybert}
+Xiaoqi Jiao, Yichun Yin, Lifeng Shang, Xin Jiang, Xiao Chen, Linlin Li, Fang
+  Wang, and Qun Liu.
+\newblock {TinyBERT}: Distilling {BERT} for natural language understanding.
+\newblock In \emph{Findings of the Association for Computational Linguistics:
+  EMNLP 2020}, 2020.
+
+\bibitem[Lewis et~al.(2020)Lewis, Perez, Piktus, Petroni, Karpukhin, Goyal,
+  K{\"u}ttler, Lewis, Yih, Rockt{\"a}schel, Riedel, and Kiela]{lewis2020rag}
+Patrick Lewis, Ethan Perez, Aleksandra Piktus, Fabio Petroni, Vladimir
+  Karpukhin, Naman Goyal, Heinrich K{\"u}ttler, Mike Lewis, Wen-tau Yih, Tim
+  Rockt{\"a}schel, Sebastian Riedel, and Douwe Kiela.
+\newblock Retrieval-augmented generation for knowledge-intensive {NLP} tasks.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~33, 2020.
+
+\bibitem[Liang(2016)]{liang2016semantic}
+Percy Liang.
+\newblock Learning executable semantic parsers for natural language
+  understanding.
+\newblock \emph{Communications of the ACM}, 59\penalty0 (9):\penalty0 68--76,
+  2016.
+
+\bibitem[Mills(1991)]{mills1991ntp}
+David~L. Mills.
+\newblock Internet time synchronization: The network time protocol.
+\newblock \emph{IEEE Transactions on Communications}, 39\penalty0
+  (10):\penalty0 1482--1493, 1991.
+
+\bibitem[Reimers and Gurevych(2019)]{reimers2019sentencebert}
+Nils Reimers and Iryna Gurevych.
+\newblock Sentence-{BERT}: Sentence embeddings using siamese {BERT}-networks.
+\newblock In \emph{Proceedings of the 2019 Conference on Empirical Methods in
+  Natural Language Processing}, 2019.
+
+\bibitem[Ritchie and Thompson(1978)]{ritchie1978unix}
+Dennis~M. Ritchie and Ken Thompson.
+\newblock The {UNIX} time-sharing system.
+\newblock \emph{Bell System Technical Journal}, 57\penalty0 (6):\penalty0
+  1905--1929, 1978.
+
+\bibitem[Sanh et~al.(2019)Sanh, Debut, Chaumond, and Wolf]{sanh2019distilbert}
+Victor Sanh, Lysandre Debut, Julien Chaumond, and Thomas Wolf.
+\newblock {DistilBERT}, a distilled version of {BERT}: Smaller, faster, cheaper
+  and lighter.
+\newblock \emph{arXiv preprint arXiv:1910.01108}, 2019.
+
+\bibitem[Schick et~al.(2024)Schick, Dwivedi-Yu, Dess{\`i}, Raileanu, Lomeli,
+  Hambro, Zettlemoyer, Cancedda, and Scialom]{schick2024toolformer}
+Timo Schick, Jane Dwivedi-Yu, Roberto Dess{\`i}, Roberta Raileanu, Maria
+  Lomeli, Eric Hambro, Luke Zettlemoyer, Nicola Cancedda, and Thomas Scialom.
+\newblock Toolformer: Language models can teach themselves to use tools.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~36, 2024.
+
+\bibitem[Shazeer et~al.(2017)Shazeer, Mirhoseini, Maziarz, Davis, Le, Hinton,
+  and Dean]{shazeer2017outrageously}
+Noam Shazeer, Azalia Mirhoseini, Krzysztof Maziarz, Andy Davis, Quoc Le,
+  Geoffrey Hinton, and Jeff Dean.
+\newblock Outrageously large neural networks: The sparsely-gated
+  mixture-of-experts layer.
+\newblock In \emph{International Conference on Learning Representations}, 2017.
+
+\bibitem[Sutherland(1963)]{sutherland1963sketchpad}
+Ivan~E. Sutherland.
+\newblock Sketchpad: A man-machine graphical communication system.
+\newblock In \emph{AFIPS Spring Joint Computer Conference}, pages 329--346,
+  1963.
+
+\bibitem[Touvron et~al.(2023)Touvron, Lavril, Izacard, Martinet, Lachaux,
+  et~al.]{touvron2023llama}
+Hugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier Martinet, Marie-Anne
+  Lachaux, et~al.
+\newblock {LLaMA}: Open and efficient foundation language models.
+\newblock \emph{arXiv preprint arXiv:2302.13971}, 2023.
+
+\bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez,
+  Kaiser, and Polosukhin]{vaswani2017attention}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N. Gomez, {\L}ukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2017.
+
+\bibitem[Winograd(1971)]{winograd1971shrdlu}
+Terry Winograd.
+\newblock Procedures as a representation for data in a computer program for
+  understanding natural language.
+\newblock \emph{MIT AI Technical Report}, \penalty0 (235), 1971.
+
+\bibitem[Yao et~al.(2023)Yao, Zhao, Yu, Du, Shafran, Narasimhan, and
+  Cao]{yao2022react}
+Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan,
+  and Yuan Cao.
+\newblock {ReAct}: Synergizing reasoning and acting in language models.
+\newblock In \emph{International Conference on Learning Representations}, 2023.
+
+\bibitem[Young et~al.(2013)Young, Ga{\v{s}}i{\'c}, Thomson, and
+  Williams]{young2013pomdp}
+Steve Young, Milica Ga{\v{s}}i{\'c}, Blaise Thomson, and Jason~D. Williams.
+\newblock {POMDP}-based statistical spoken dialog systems: A review.
+\newblock \emph{Proceedings of the IEEE}, 101\penalty0 (5):\penalty0
+  1160--1179, 2013.
+
+\end{thebibliography}
