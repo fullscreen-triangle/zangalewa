@@ -17,7 +17,10 @@
       "Bash(python -c ' *)",
       "Bash(rm -f src/components/AnimatedText.js src/components/Education.js src/components/Experience.js src/components/Footer.js src/components/HireMe.js src/components/Icons.js src/components/Layout.js src/components/LiIcon.js src/components/Logo.js src/components/Navbar.js src/components/Skills.js src/components/TransitionEffect.js src/components/Hooks/useThemeSwitch.js src/pages/about.js src/pages/articles.js src/pages/projects.js src/pages/404.js src/pages/api/hello.js src/pages/index.js src/pages/_app.js src/pages/_document.js src/styles/Home.module.css jsconfig.json public/dummy.pdf public/next.svg public/thirteen.svg public/vercel.svg)",
       "Bash(rmdir src/components/Hooks)",
-      "Bash(rm -rf public/images)"
+      "Bash(rm -rf public/images)",
+      "Bash(npm install *)",
+      "Bash(npx tsc *)",
+      "Bash(npx next *)"
     ]
   }
 }
