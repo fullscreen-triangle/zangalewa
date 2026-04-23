@@ -8,8 +8,8 @@ export default function ShakespearPage() {
         <title>shakespear · zoom-climb</title>
       </Head>
       <BlankSurface
-        placeholder="e.g. 70 eV electron-impact mass spectrum of ethanol"
-        domainHint="shakespear · instruments as observation"
+        placeholder="e.g. what spectral signature identifies ethanol at 70 eV"
+        domainHint="shakespear · observation-first instruments"
       />
     </>
   );

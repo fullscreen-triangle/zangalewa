@@ -1,18 +1,27 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import type {
-  LeafPayload,
-  RenderResult,
-} from "@/components/render-leaves/types";
+import OpenAI from "openai";
+import type { RenderResult } from "@/components/render-leaves/types";
+import { MODEL, SYSTEM_PROMPT, RESPONSE_SCHEMA } from "@/lib/prompt";
 
 /**
- * Stub coord-extractor.
+ * /api/extract
  *
- * For v0 this is a deterministic keyword matcher, NOT the real MSI.
- * It exists so the end-to-end surface pipeline can be exercised without
- * an OpenAI dependency. When the OpenAI wiring lands, the swap is
- * server-side only — the /api/extract contract stays the same.
+ * Takes a natural-language utterance, returns a structured RenderResult
+ * ready for the blank surface to dispatch. Backed by OpenAI with a
+ * strict JSON schema — the response is guaranteed to match the render-leaf
+ * contract at the schema level.
+ *
+ * Note: this is the v0 stand-in for the real MSI (Minimum Sufficient
+ * Interceptor) that would eventually be produced by purpose-factory as
+ * a LoRA-adapted Resolver. The interface is identical; only the backend
+ * changes when the real resolver lands.
  */
-export default function handler(
+
+export const config = {
+  maxDuration: 30,
+};
+
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<RenderResult | { error: string }>
 ) {
@@ -26,47 +35,37 @@ export default function handler(
     return res.status(400).json({ error: "empty utterance" });
   }
 
-  const u = utterance.toLowerCase();
-  const leaves: LeafPayload[] = [];
-
-  if (/(image|microscop|fluoresc|cell|neuron|bacter|cortic|coli|sample)/.test(u)) {
-    leaves.push({
-      leaf: "imaging",
-      coord: { S_k: 0.62, S_t: 0.41, S_e: 0.18 },
-      params: { utterance },
-    });
-  }
-  if (/(molecul|chem|caffeine|ethanol|bind|ligand|compound|drug|smiles|adenosine|lipid)/.test(u)) {
-    leaves.push({
-      leaf: "chem",
-      coord: { S_k: 0.54, S_t: 0.29, S_e: 0.47 },
-      params: { utterance },
-    });
-  }
-  if (/(spectr|mass |nmr|instrument|\bev\b|peak|ionis|ionize|m\/z)/.test(u)) {
-    leaves.push({
-      leaf: "spec",
-      coord: { S_k: 0.71, S_t: 0.22, S_e: 0.33 },
-      params: { utterance },
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    return res.status(500).json({
+      error:
+        "OPENAI_API_KEY not set. Add it to .env.local (see .env.local.example).",
     });
   }
 
-  // Fall-through: route to chem as a safe default so the surface always
-  // renders something in response. Not a real policy — only a stub.
-  if (leaves.length === 0) {
-    leaves.push({
-      leaf: "chem",
-      coord: { S_k: 0.5, S_t: 0.5, S_e: 0.5 },
-      params: { utterance },
+  try {
+    const client = new OpenAI({ apiKey });
+    const completion = await client.chat.completions.create({
+      model: MODEL,
+      messages: [
+        { role: "system", content: SYSTEM_PROMPT },
+        { role: "user", content: utterance },
+      ],
+      response_format: {
+        type: "json_schema",
+        json_schema: RESPONSE_SCHEMA,
+      },
     });
+
+    const raw = completion.choices[0]?.message?.content;
+    if (!raw) {
+      return res.status(502).json({ error: "empty response from model" });
+    }
+
+    const parsed = JSON.parse(raw) as RenderResult;
+    return res.status(200).json(parsed);
+  } catch (e) {
+    const message = e instanceof Error ? e.message : String(e);
+    return res.status(502).json({ error: `synthesis failed: ${message}` });
   }
-
-  const result: RenderResult = {
-    leaves,
-    caption: `Stub extractor routed your utterance to ${leaves.length} leaf${
-      leaves.length === 1 ? "" : "s"
-    }.`,
-  };
-
-  return res.status(200).json(result);
 }

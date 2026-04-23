@@ -8,8 +8,8 @@ export default function HonjoPage() {
         <title>honjo · zoom-climb</title>
       </Head>
       <BlankSurface
-        placeholder="e.g. caffeine binding affinity to adenosine A2a"
-        domainHint="honjo · cheminformatics as observation"
+        placeholder="e.g. how does caffeine bind adenosine A2a receptors"
+        domainHint="honjo · observation-first cheminformatics"
       />
     </>
   );
