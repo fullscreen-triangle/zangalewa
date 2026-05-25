@@ -29,5 +29,9 @@ yarn-error.log*
 .env*.local
 .env.local.example
 
+# desk index cache (built at runtime, local only — Vercel deploy needs
+# a different strategy)
+/data
+
 # vercel
 .vercel
