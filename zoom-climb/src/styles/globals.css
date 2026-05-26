@@ -1,3 +1,111 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* dc.js base styles — provides the standard look for axes, ticks, bars,
+   slices, legends, and brush handles. Tailwind utilities sit on top for
+   layout. */
+@import "dc/dist/style/dc.css";
+
+/* The whole site runs on a near-black background; dc.js's defaults
+   assume light backgrounds, so we override the louder elements here. */
+:root {
+  color-scheme: dark;
+}
+html,
+body {
+  background-color: #000;
+  color: #f5f5f5;
+}
+
+.dc-chart svg {
+  font-family: var(--font-mont, system-ui, sans-serif);
+}
+.dc-chart .axis text {
+  font-size: 10px;
+  fill: rgba(245, 245, 245, 0.65);
+}
+.dc-chart .axis path,
+.dc-chart .axis line {
+  stroke: rgba(245, 245, 245, 0.2);
+}
+.dc-chart .grid-line line {
+  stroke: rgba(245, 245, 245, 0.08);
+}
+.dc-chart .bar {
+  fill: #58e6d9; /* primaryDark from tailwind config */
+}
+.dc-chart .pie-slice {
+  fill: #58e6d9;
+  stroke: #000;
+  stroke-width: 1px;
+}
+.dc-chart .pie-slice text {
+  font-size: 11px;
+  fill: #000;
+}
+.dc-chart .row rect {
+  fill: #58e6d9;
+}
+.dc-chart .row text {
+  fill: #f5f5f5;
+  font-size: 10px;
+}
+.dc-chart .selected {
+  fill-opacity: 1;
+}
+.dc-chart .deselected {
+  fill: #555;
+  fill-opacity: 0.35;
+}
+.dc-chart .reset {
+  font-size: 10px;
+  color: #58e6d9;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.dc-chart .filter {
+  font-size: 10px;
+  color: #f5f5f5;
+}
+.dc-chart .brush .selection,
+.dc-chart .brush rect.selection {
+  fill: rgba(88, 230, 217, 0.18);
+  stroke: rgba(88, 230, 217, 0.6);
+}
+.dc-chart .brush .handle--custom,
+.dc-chart .brush rect.handle {
+  fill: rgba(88, 230, 217, 0.8);
+}
+
+/* Number-display widget — large filtered-count etc. */
+.dc-number-display {
+  font-size: 2.2rem;
+  font-weight: 500;
+  color: #f5f5f5;
+  line-height: 1;
+}
+
+/* dc.dataTable lives inside its anchor div with table descendants we
+   need to lighten. */
+.dc-data-table {
+  font-size: 12px;
+  color: rgba(245, 245, 245, 0.9);
+}
+.dc-data-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.dc-data-table th,
+.dc-data-table td {
+  padding: 4px 8px;
+  border-bottom: 1px solid rgba(245, 245, 245, 0.08);
+  text-align: left;
+}
+.dc-data-table tr.dc-table-group td {
+  background: rgba(245, 245, 245, 0.05);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(245, 245, 245, 0.55);
+}

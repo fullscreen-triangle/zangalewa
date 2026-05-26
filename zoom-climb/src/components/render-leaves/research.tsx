@@ -40,7 +40,7 @@ export default function ResearchLeaf({ payload }: RenderLeafProps) {
       </div>
 
       {references && references.length > 0 && (
-        <footer className="flex flex-col gap-1 pt-2 border-t border-dark/10">
+        <footer className="flex flex-col gap-1 pt-2 border-t border-light/10">
           <div className="text-[10px] uppercase tracking-widest opacity-50">
             references
           </div>

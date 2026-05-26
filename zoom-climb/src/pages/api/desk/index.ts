@@ -70,21 +70,22 @@ export default async function handler(
   }
 }
 
+/**
+ * Summary view = full index with the embedding vectors stripped. The
+ * embeddings are by far the biggest payload (1024 floats × 63 repos ≈
+ * 65K numbers ≈ 1.6 MB of the 2.1 MB index). Everything else — readme
+ * excerpt, created_at, size, stars, fork/archive flags — stays.
+ *
+ * The dashboard consumes this view; the cluster/nearest-neighbour step
+ * (future) will hit the full /api/desk to get embeddings back.
+ */
 function summary(index: DeskIndex) {
   return {
     username: index.username,
     generated_at: index.generated_at,
     repo_count: index.repo_count,
     embedding_model: index.embedding_model,
-    repos: index.repos.map((r) => ({
-      full_name: r.full_name,
-      name: r.name,
-      language: r.language,
-      pushed_at: r.pushed_at,
-      coord: r.coord,
-      topics: r.topics,
-      description: r.description,
-    })),
+    repos: index.repos.map(({ embedding: _embedding, ...rest }) => rest),
   };
 }
 

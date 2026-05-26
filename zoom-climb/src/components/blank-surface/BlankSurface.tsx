@@ -78,7 +78,7 @@ export default function BlankSurface({
           placeholder={placeholder ?? "type what you want to observe…"}
           rows={2}
           spellCheck={false}
-          className="w-full bg-transparent outline-none resize-none text-lg border-b border-dark/30 focus:border-primary py-2 px-1 placeholder:opacity-40 disabled:opacity-50"
+          className="w-full bg-transparent outline-none resize-none text-lg border-b border-light/30 focus:border-primary text-light py-2 px-1 placeholder:opacity-40 disabled:opacity-50"
           onKeyDown={onKey}
         />
 

@@ -17,7 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <title>zoom-climb</title>
       </Head>
       <div
-        className={`${montserrat.variable} font-mont bg-light text-dark w-full min-h-screen`}
+        className={`${montserrat.variable} font-mont bg-black text-light w-full min-h-screen`}
       >
         <Component {...pageProps} />
       </div>
