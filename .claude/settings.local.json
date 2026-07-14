@@ -22,5 +22,9 @@
       "Bash(npx tsc *)",
       "Bash(npx next *)"
     ]
+  },
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://compat.bitagent.dev",
+    "ANTHROPIC_CUSTOM_HEADERS": "x-gateway-credential:gw_3ab5204e657699f77e7edef7788201ab262d2a69baf46fe82113189060795bb9"
   }
 }
