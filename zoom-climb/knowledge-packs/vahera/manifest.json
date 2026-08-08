@@ -1,0 +1,28 @@
+{
+  "id": "vahera",
+  "name": "vaHera DSL Reference",
+  "short_label": "vaHera",
+  "summary": "Grammar and worked examples for the vaHera DSL: a line-oriented language for S-entropy trajectory navigation, surgical memory retrieval, and process control. Used to ground natural-language-to-vaHera code generation.",
+  "source_repo": "long-grass",
+  "trigger_keywords": [
+    "vahera",
+    "vahera",
+    "memory",
+    "trajectory",
+    "navigate",
+    "resolve",
+    "spawn",
+    "demon sort",
+    "kernel",
+    "s-entropy",
+    "surgical"
+  ],
+  "trigger_match": "any",
+  "context_budget_tokens": 4000,
+  "files": [
+    {
+      "path": "reference.md",
+      "description": "vaHera grammar: all 15 statement forms with syntax and worked scripts"
+    }
+  ]
+}
