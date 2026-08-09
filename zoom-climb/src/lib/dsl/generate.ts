@@ -39,12 +39,17 @@ import type {
  * Sits under the API route's own limit so the generator stops itself and
  * reports what it has, rather than being killed with nothing to show.
  *
- * Measured, so the number is not aspirational: llama3.2:3b on this machine
- * takes 145-300s for a four-statement vaHera chunk. A serverless route
- * cannot wait that long, which is the real constraint — a slow local model
- * is usable from a script or the Rust build, but for the web tool it needs
- * either a faster model or a cloud provider. Callers not bound by a route
- * budget should pass their own timeoutMs.
+ * Measured, so the number is not aspirational. With llama3.2:3b and the
+ * 1101-token vaHera pack, cost is dominated by whether the grounding prefix
+ * is cached, not by model speed:
+ *
+ *   cold prefix : ~126s   (prompt eval alone is ~124s)
+ *   warm prefix : ~1.5-2.5s
+ *
+ * 50s therefore covers several warm drafts with repairs, while still
+ * bounding the one cold call after an eviction. See the keep_alive note in
+ * providers.ts. Callers not bound by a route budget may pass their own
+ * timeoutMs.
  */
 const DEFAULT_TIMEOUT_MS = 50_000;
 
@@ -250,7 +255,16 @@ async function draft(args: {
   };
 }
 
-function buildSystemPrompt(label: string, extent: Extent, grounding: string): string {
+/**
+ * Exported because the warm endpoint must send a BYTE-IDENTICAL system
+ * prompt — a prefix cache is exact-match, so a copy that drifts by one
+ * character turns warming into pure wasted work.
+ */
+export function buildSystemPrompt(
+  label: string,
+  extent: Extent,
+  grounding: string
+): string {
   const parts = [
     `You write ${label} DSL code. Given natural-language instructions, produce`,
     extent === "chunk"

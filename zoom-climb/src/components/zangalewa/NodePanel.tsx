@@ -22,7 +22,7 @@
  * onBagReady. Everything else is the host's business.
  */
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Chunk, Extent, GenerateResult } from "@/lib/dsl/types";
 
 /** One operation the calling module wants code for. */
@@ -72,6 +72,61 @@ export default function NodePanel({
     (id: string): OpState => states[id] ?? { status: "idle" },
     [states]
   );
+
+  // Prime the local model's prompt cache for exactly the (dsl, extent) pairs
+  // these operations will ask for.
+  //
+  // Worth doing here even though the host may never click Fill: a cold
+  // grounding prefix costs ~124s to evaluate and a warm one ~1s, and a
+  // node's operations run concurrently, so without this the first fill has
+  // every operation paying that price at once. Warming the wrong extent is
+  // the same as not warming — script and chunk share no cached prefix — so
+  // the extent is sent explicitly rather than defaulted.
+  //
+  // Fire-and-forget: a failed warm only costs a slow first fill.
+  const warmKey = useMemo(
+    () =>
+      Array.from(
+        new Set(operations.map((op) => `${op.dslId}:${op.extent ?? "chunk"}`))
+      )
+        .sort()
+        .join(","),
+    [operations]
+  );
+
+  useEffect(() => {
+    if (!warmKey) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch("/api/zangalewa/dsls");
+        if (!res.ok) return;
+        const body = await res.json();
+        if (cancelled) return;
+        if (!body?.providers?.some((p: { id: string; available: boolean }) =>
+          p.id === "ollama" && p.available
+        )) {
+          return;
+        }
+        // Sequential, matching the endpoint: concurrent cold loads of one
+        // model contend for the same weights.
+        for (const pair of warmKey.split(",")) {
+          if (cancelled) return;
+          const [dslId, extent] = pair.split(":");
+          await fetch("/api/zangalewa/warm", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ dslId, extent }),
+          }).catch(() => {});
+        }
+      } catch {
+        /* a failed warm is not an error */
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [warmKey]);
 
   const fillBag = useCallback(async () => {
     if (busy || operations.length === 0) return;

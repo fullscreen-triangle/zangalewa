@@ -62,6 +62,24 @@ export default function CodeTool({
         if (!lockedDslId && !dslId && body.dsls.length > 0) {
           setDslId(body.dsls[0].id);
         }
+
+        // Warm the local model's prompt cache while the user is still
+        // typing. The grounding pack costs ~124s to evaluate cold and
+        // ~1s warm, so paying it now is the difference between a first
+        // generation that feels broken and one that feels instant.
+        //
+        // No extent is sent, so both are warmed: the user can switch the
+        // extent picker before hitting Generate, and script and chunk share
+        // no cached prefix.
+        //
+        // Fire-and-forget — a failed warm only costs a slow first request.
+        if (body.providers.some((p) => p.id === "ollama" && p.available)) {
+          fetch("/api/zangalewa/warm", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ dslId: lockedDslId ?? body.dsls[0]?.id }),
+          }).catch(() => {});
+        }
       } catch (e) {
         if (!cancelled) {
           setCatalogError(e instanceof Error ? e.message : String(e));

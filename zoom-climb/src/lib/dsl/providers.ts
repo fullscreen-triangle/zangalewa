@@ -73,6 +73,21 @@ const ollama: Provider = {
         model,
         stream: true,
         options: { temperature },
+        // Hold the model and its prompt cache in memory between requests.
+        //
+        // This is the single biggest cost in the whole module, and it is
+        // entirely a caching effect rather than model speed. Measured with
+        // llama3.2:3b and the 1101-token vaHera pack:
+        //
+        //   cold prefix : prompt eval 124,026 ms  (~9 tok/s)
+        //   warm prefix : prompt eval      167 ms
+        //
+        // Same model, same prompt, ~740x. The grounding pack is a fixed
+        // prefix on every call, so once it is cached each generation costs
+        // only its own short completion (~1.5-2.5s end to end). Without
+        // keep_alive the default eviction throws that cache away and every
+        // request pays the cold price again.
+        keep_alive: process.env.OLLAMA_KEEP_ALIVE || "30m",
         messages: [
           { role: "system", content: system },
           { role: "user", content: user },
