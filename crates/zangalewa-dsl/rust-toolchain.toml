@@ -1,0 +1,16 @@
+# The repository root pins 1.75.0 (Dec 2023). That is too old to resolve this
+# crate's dependency graph at all: current `indexmap`, reached transitively via
+# reqwest, requires the edition2024 Cargo feature, and 1.75's Cargo refuses to
+# parse its manifest.
+#
+# Pinned here rather than raising the root pin, because the root governs the
+# legacy crates too and moving their compiler is a separate decision from
+# making this one build.
+#
+# 1.85 was tried first and also rejected: the `icu_*` crates reached through
+# reqwest's URL handling declare an MSRV of 1.86. Rather than chase a pin that
+# the dependency graph will outgrow again, this tracks stable.
+[toolchain]
+channel = "stable"
+components = ["rustfmt", "clippy"]
+profile = "minimal"

@@ -13,13 +13,27 @@ keywords = ["ai", "task-runner", "consciousness", "scheduling", "automation"]
 categories = ["command-line-utilities", "development-tools", "science"]
 
 [workspace]
-members = [
+# Empty. The six crates previously listed here predate this conception of the
+# project and were never built: five of them (atomic-scheduler,
+# task-coordinator, ai-integration, domain-bridge, config-manager) contain
+# zero .rs files, and their manifests declare no targets, so listing them made
+# `cargo` refuse to load the workspace at all.
+#
+# The settled scope lives in crates/zangalewa-dsl, which is its own workspace
+# root — see the comment in its manifest. It cannot be a member here while
+# this package still has path dependencies on the empty crates, because Cargo
+# resolves those for every package in the workspace.
+#
+# Nothing is deleted: removing the legacy crates is not this module's call.
+members = []
+exclude = [
     "crates/consciousness-core",
-    "crates/atomic-scheduler", 
+    "crates/atomic-scheduler",
     "crates/task-coordinator",
     "crates/ai-integration",
     "crates/domain-bridge",
     "crates/config-manager",
+    "crates/zangalewa-dsl",
 ]
 
 [dependencies]
@@ -153,17 +167,11 @@ opt-level = 0
 debug = true
 opt-level = 1
 
-[[bench]]
-name = "consciousness_benchmarks"
-harness = false
-
-[[bench]]
-name = "scheduling_benchmarks" 
-harness = false
-
-[[bench]]
-name = "integration_benchmarks"
-harness = false
+# Three [[bench]] entries were declared here for files that do not exist
+# (there is no benches/ directory). Cargo refuses to PARSE this manifest with
+# them present, which blocks every package in the workspace, not just this
+# one. Removed so the workspace is loadable; restore them alongside the
+# benchmark files themselves.
 
 [package.metadata.docs.rs]
 all-features = true
